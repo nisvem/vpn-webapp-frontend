@@ -58,26 +58,24 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
     //       },
     //     })
     //   : null;
-  }, [isReady, isReady]);
+  }, [isReady, tgApp]);
 
   return process !== 'error' ? (
     <>
-      {
-        // isReady &&
-        // tgApp?.initDataUnsafe &&
-        // tgApp?.initDataUnsafe?.user &&
-        !loading ? (
-          <>
-            {Children.map(children, (child) => {
-              return child;
-            })}
-          </>
-        ) : (
-          <div className='min-h-screen flex items-center justify-center'>
-            <Spiner />
-          </div>
-        )
-      }
+      {isReady &&
+      tgApp?.initDataUnsafe &&
+      tgApp?.initDataUnsafe?.user &&
+      !loading ? (
+        <>
+          {Children.map(children, (child) => {
+            return child;
+          })}
+        </>
+      ) : (
+        <div className='min-h-screen flex items-center justify-center'>
+          <Spiner />
+        </div>
+      )}
     </>
   ) : (
     <Error text={errorText} />
