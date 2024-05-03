@@ -111,7 +111,6 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
             {key.user?.lastname ? (
               <p>{`Lastname: ${key.user?.lastname}`}</p>
             ) : null}
-            {key.user?.phone ? <p>{`Phone: ${key.user?.phone}`}</p> : null}
             {key.user?.telegramId ? (
               <p>{`TelegramId: ${key.user?.telegramId}`}</p>
             ) : null}
