@@ -1,7 +1,7 @@
 import { useEffect, Children } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../reducers/user';
+import { setUser, setUserTelegramId } from '../../reducers/user';
 import WebApp from '@twa-dev/sdk';
 
 // import {
@@ -31,12 +31,15 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
       if (response) {
         dispatch(setUser(response));
       } else {
+        dispatch(setUserTelegramId(WebApp.initDataUnsafe.user?.id + ''));
+
         const createResponse = await request('/api/createUser', 'POST', {
           username: WebApp.initDataUnsafe.user?.username,
           telegramId: WebApp.initDataUnsafe.user?.id,
           name: WebApp.initDataUnsafe.user?.first_name,
           surname: WebApp.initDataUnsafe.user?.last_name,
         });
+
         dispatch(setUser(createResponse));
       }
     } catch (e) {

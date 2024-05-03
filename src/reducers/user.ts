@@ -22,8 +22,14 @@ const userSlice = createSlice({
         ...(action.payload as User),
       };
     },
+    setUserTelegramId(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        telegramId: action.payload as string,
+      };
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setUserTelegramId } = userSlice.actions;
 export const { actions, reducer: userReducer } = userSlice;
