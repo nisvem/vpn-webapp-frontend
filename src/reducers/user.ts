@@ -1,6 +1,5 @@
-import { Action, User } from '../types/';
-import { UserActions } from '../actions/types';
-import { TelegramWebAppModel } from 'react-telegram-webapp';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../types/';
 
 const initialState: User = {
   telegramId: '',
@@ -13,47 +12,60 @@ const initialState: User = {
   keys: [],
 };
 
-const user = (
-  state = initialState,
-  action: Action<UserActions, unknown>
-): User => {
-  switch (action.type) {
-    case UserActions.SET_USER:
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUser(state, action: PayloadAction<User>) {
       return {
         ...state,
         ...(action.payload as User),
       };
-    case UserActions.SET_USER_TELEGRAM_ID:
-      return {
-        ...state,
-        telegramId: action.payload as string,
-      };
-    case UserActions.SET_USER_TELEGRAM_USERNAME:
-      return {
-        ...state,
-        username: action.payload as string,
-      };
+    },
+  },
+});
 
-    case UserActions.SET_USER_NAME:
-      return {
-        ...state,
-        name: action.payload as string,
-      };
+// export const setUser = (user: User) => {
+//   return {
+//     type: UserActions.SET_USER,
+//     payload: user,
+//   };
+// };
 
-    case UserActions.SET_USER_LASTNAME:
-      return {
-        ...state,
-        lastname: action.payload as string,
-      };
+// export const setUserTelegramId = (telegramId: string) => {
+//   return {
+//     type: UserActions.SET_USER_TELEGRAM_ID,
+//     payload: telegramId,
+//   };
+// };
 
-    case UserActions.SET_USER_TGAPP:
-      return {
-        ...state,
-        tgApp: action.payload as TelegramWebAppModel['app'],
-      };
-    default:
-      return state;
-  }
-};
+// export const setUserTelegramUsername = (username: string) => {
+//   return {
+//     type: UserActions.SET_USER_TELEGRAM_USERNAME,
+//     payload: username,
+//   };
+// };
 
-export default user;
+// export const setUserName = (name: string) => {
+//   return {
+//     type: UserActions.SET_USER_NAME,
+//     payload: name,
+//   };
+// };
+
+// export const setUserLastname = (userLastname: string) => {
+//   return {
+//     type: UserActions.SET_USER_LASTNAME,
+//     payload: userLastname,
+//   };
+// };
+
+// export const setUserTgApp = (tgApp: TelegramWebAppModel['app']) => {
+//   return {
+//     type: UserActions.SET_USER_LASTNAME,
+//     payload: tgApp,
+//   };
+// };
+
+export const { setUser } = userSlice.actions;
+export const { actions, reducer: userReducer } = userSlice;

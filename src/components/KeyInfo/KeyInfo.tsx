@@ -7,7 +7,7 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import date from 'date-and-time';
 import convertSize from 'convert-size';
 
-import { setUser } from '../../actions/user';
+import { setUser } from '../../reducers/user';
 
 import { KeyInfoTable, KeyInfoRow } from '../KeyInfoTable/KeyInfoTable';
 import Spiner from '../Spiner/Spiner';

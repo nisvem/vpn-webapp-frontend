@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 
-import { setUser } from '../../actions/user';
+import { setUser } from '../../reducers/user';
 
 import { useHttp } from '../../hooks/http.hook';
 

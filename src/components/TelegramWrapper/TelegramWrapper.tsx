@@ -1,7 +1,7 @@
 import { useEffect, Children } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../actions/user';
+import { setUser } from '../../reducers/user';
 
 import {
   TelegramWebAppModel,
