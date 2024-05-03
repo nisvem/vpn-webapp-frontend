@@ -1,0 +1,19 @@
+.key-item {
+  @apply py-3 pl-4 border-accent-light border rounded-xl relative shadow-accent-light shadow-sm;
+
+  &.bg-lock {
+    padding-right      : 70px;
+    background-position: calc(100% - 10px) center;
+    background-size    : 50px;
+    background-repeat  : no-repeat;
+    background-image   : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;opacity:0;%7D.cls-2%7Bfill:%23231f20;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Ewifi-off%3C/title%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='wifi-off'%3E%3Cg id='wifi-off-2' data-name='wifi-off'%3E%3Crect class='cls-1' width='24' height='24'/%3E%3Ccircle class='cls-2' cx='12' cy='19' r='1'/%3E%3Cpath class='cls-2' d='M12.44,11l-1.9-1.89L8.08,6.67,6.53,5.12,4.71,3.29A1,1,0,0,0,3.29,4.71L4.67,6.08,6.13,7.54,8.36,9.78l1.55,1.54,2.74,2.74,2.79,2.8,3.85,3.85a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z'/%3E%3Cpath class='cls-2' d='M21.72,7.93A13.93,13.93,0,0,0,12,4a14.1,14.1,0,0,0-4.44.73L9.18,6.35a11.89,11.89,0,0,1,11.16,3,1,1,0,0,0,.69.28,1,1,0,0,0,.72-.31A1,1,0,0,0,21.72,7.93Z'/%3E%3Cpath class='cls-2' d='M3.82,6.65A14.32,14.32,0,0,0,2.28,7.93,1,1,0,0,0,3.66,9.37a13.09,13.09,0,0,1,1.6-1.29Z'/%3E%3Cpath class='cls-2' d='M17,13.14a1,1,0,0,0,.71.3,1,1,0,0,0,.72-1.69A9,9,0,0,0,12,9h-.16l2.35,2.35A7,7,0,0,1,17,13.14Z'/%3E%3Cpath class='cls-2' d='M7.43,10.26a8.8,8.8,0,0,0-1.9,1.49A1,1,0,0,0,7,13.14a7.3,7.3,0,0,1,2-1.41Z'/%3E%3Cpath class='cls-2' d='M8.53,15.4a1,1,0,1,0,1.39,1.44,3.06,3.06,0,0,1,3.84-.25l-2.52-2.52A5,5,0,0,0,8.53,15.4Z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  &.bg-unlock {
+    padding-right      : 70px;
+    background-position: calc(100% - 10px) center;
+    background-size    : 50px;
+    background-repeat  : no-repeat;
+    background-image   : url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.55a11 11 0 0 1 14.08 0'/%3E%3Cpath d='M1.42 9a16 16 0 0 1 21.16 0'/%3E%3Cpath d='M8.53 16.11a6 6 0 0 1 6.95 0'/%3E%3Cline x1='12' y1='20' x2='12.01' y2='20'/%3E%3C/svg%3E");
+  }
+}

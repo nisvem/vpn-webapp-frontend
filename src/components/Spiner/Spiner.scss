@@ -1,0 +1,5 @@
+.spiner {
+  & svg * {
+    @apply stroke-accent;
+  }
+}

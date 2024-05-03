@@ -1,0 +1,27 @@
+.faq__subtitle {
+  @apply my-2 text-xl underline;
+}
+
+.faq__block-text {
+  @apply mb-5;
+
+  ol {
+    @apply list-decimal;
+
+    &>li {
+      @apply py-2 ml-3;
+    }
+  }
+
+  li>span {
+    @apply font-bold;
+  }
+
+  a {
+    @apply underline decoration-1 decoration-gray;
+
+    &:hover {
+      @apply no-underline;
+    }
+  }
+}

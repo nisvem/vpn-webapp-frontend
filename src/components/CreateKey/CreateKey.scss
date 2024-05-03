@@ -1,0 +1,19 @@
+.alert {
+  @apply text-xs text-red;
+}
+
+.input {
+  @apply w-full mb-1 border border-gray rounded-md p-2 text-xl outline-none border-opacity-40;
+
+  &::placeholder {
+    @apply text-xl;
+  }
+
+  &.error {
+    @apply border-red border-opacity-60 text-black
+  }
+
+  &.valid {
+    @apply border-green border-opacity-60 text-black
+  }
+}

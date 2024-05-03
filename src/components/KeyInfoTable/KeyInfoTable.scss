@@ -1,0 +1,27 @@
+.key-table {
+  @apply w-full border border-accent-light rounded-sm mb-5 shadow-accent-light shadow-sm;
+
+  &__row {
+    @apply grid grid-cols-2 border-b border-accent-light;
+
+    &:last-child {
+      border: none
+    }
+  }
+
+  &__name {
+    @apply border-r border-accent-light p-2 flex items-center justify-start text-sm;
+  }
+
+  &__description {
+    @apply p-2 flex items-start justify-center flex-col text-sm font-light;
+  }
+
+  a {
+    @apply underline text-accent-text;
+
+    &:hover {
+      @apply no-underline;
+    }
+  }
+}
