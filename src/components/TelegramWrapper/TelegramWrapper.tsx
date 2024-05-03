@@ -1,7 +1,7 @@
 import { useEffect, Children } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setUser, setUserTelegramId } from '../../reducers/user';
+import { setUser } from '../../reducers/user';
 import WebApp from '@twa-dev/sdk';
 
 // import {
