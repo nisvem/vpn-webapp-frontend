@@ -25,6 +25,7 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
 
   const initFunction = async (tgApp: TelegramWebAppModel['app']) => {
     try {
+      console.log(tgApp);
       const response = await request(`/api/getUser/${tgApp?.user.telegramId}`);
 
       if (response) {
@@ -57,7 +58,7 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
     //       },
     //     })
     //   : null;
-  }, [isReady]);
+  }, [isReady, isReady]);
 
   return process !== 'error' ? (
     <>
