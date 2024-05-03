@@ -31,8 +31,6 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
       if (response) {
         dispatch(setUser(response));
       } else {
-        dispatch(setUserTelegramId(WebApp.initDataUnsafe.user?.id + ''));
-
         const createResponse = await request('/api/createUser', 'POST', {
           username: WebApp.initDataUnsafe.user?.username,
           telegramId: WebApp.initDataUnsafe.user?.id,
