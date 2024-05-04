@@ -8,6 +8,7 @@ export default {
       current: 'currentColor',
       white: '#ffffff',
       black: '#2e2e2e',
+      'color-text': '#2e2e2e',
       gray: {
         DEFAULT: '#52525b',
         light: '#d4d4d8',
@@ -21,14 +22,14 @@ export default {
         light: '#16a34a20',
       },
       accent: {
-        DEFAULT: '#ffd43b',
-        light: '#ffd43b50',
+        DEFAULT: '#2d3a3f',
+        light: '#2d3a3f',
       },
       'accent-text': {
-        DEFAULT: '#182253',
+        DEFAULT: '#ffffff',
       },
       background: {
-        DEFAULT: 'var(--secondary_bg_color)',
+        DEFAULT: '#ffffff',
       },
     },
   },

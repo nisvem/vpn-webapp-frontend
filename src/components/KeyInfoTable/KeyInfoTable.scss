@@ -1,8 +1,8 @@
 .key-table {
-  @apply w-full border border-accent-light rounded-sm mb-5 shadow-accent-light shadow-sm;
+  @apply w-full border border-accent rounded-md mb-5;
 
   &__row {
-    @apply grid grid-cols-2 border-b border-accent-light;
+    @apply grid grid-cols-2 border-b border-accent;
 
     &:last-child {
       border: none
@@ -10,7 +10,7 @@
   }
 
   &__name {
-    @apply border-r border-accent-light p-2 flex items-center justify-start text-sm;
+    @apply border-r border-accent p-2 flex items-center justify-start text-sm;
   }
 
   &__description {
@@ -18,7 +18,7 @@
   }
 
   a {
-    @apply underline text-accent-text;
+    @apply underline text-color-text;
 
     &:hover {
       @apply no-underline;

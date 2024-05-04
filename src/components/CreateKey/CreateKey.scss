@@ -10,10 +10,10 @@
   }
 
   &.error {
-    @apply border-red border-opacity-60 text-black
+    @apply border-red border-opacity-60 text-color-text
   }
 
   &.valid {
-    @apply border-green border-opacity-60 text-black
+    @apply border-green border-opacity-60 text-color-text
   }
 }

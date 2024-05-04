@@ -17,8 +17,6 @@ import { useHttp } from '../../hooks/http.hook';
 
 function TelegramWrapper({ children }: { children: JSX.Element }) {
   const dispatch = useDispatch();
-
-  // const isReady = true;
   const { request, process, errorText, loading } = useHttp();
 
   const initFunction = async () => {
@@ -47,18 +45,42 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
-    // isReady
-    //   ? initFunction({
-    //       user: {
-    //         telegramId: 683299990,
-    //         username: 'nisvem',
-    //         name: 'Artem',
-    //         surname: '',
-    //         phone: '',
-    //       },
-    //     })
-    //   : null;
   }, [WebApp?.initDataUnsafe?.user]);
+
+  // const initFunction = async (user: {
+  //   telegramId: number;
+  //   username: string;
+  //   name: string;
+  //   surname: string;
+  // }) => {
+  //   try {
+  //     const response = await request(`/api/getUser/${user.telegramId}`);
+
+  //     if (response) {
+  //       dispatch(setUser(response));
+  //     } else {
+  //       const createResponse = await request('/api/createUser', 'POST', {
+  //         username: user.username,
+  //         telegramId: user.telegramId,
+  //         name: user.name,
+  //         surname: user.surname,
+  //       });
+
+  //       dispatch(setUser(createResponse));
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   initFunction({
+  //     telegramId: 683299990,
+  //     username: 'nisvem',
+  //     name: 'Artem',
+  //     surname: '',
+  //   });
+  // }, []);
 
   return process !== 'error' ? (
     <>

@@ -1,5 +1,5 @@
 .key-item {
-  @apply py-3 pl-4 border-accent-light border rounded-xl relative shadow-accent-light shadow-sm;
+  @apply py-3 pl-4 border-accent-light border rounded-xl relative;
 
   &.bg-lock {
     padding-right      : 70px;
