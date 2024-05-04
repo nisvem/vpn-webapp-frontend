@@ -42,7 +42,11 @@ const KeysListPage = () => {
       ) : (
         <KeysList keys={keysData} />
       )}
-      <p className='text-red mt-auto mb-4 text-sm text-center w-full'>{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
+      <p
+        className={`${
+          keys.length >= maxKeyAvalible ? 'text-red' : 'text-gray font-thin'
+        } mt-auto mb-4 text-sm text-center w-full`}
+      >{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
       <button
         onClick={() => {
           navigate('/create-key/');
