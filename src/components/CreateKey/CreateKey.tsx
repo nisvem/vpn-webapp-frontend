@@ -21,8 +21,8 @@ const CreateSchema = Yup.object()
   .shape({
     name: Yup.string()
       .required('Required')
-      .min(3, 'The maximum is 3 characters')
-      .max(25, 'The minimum is 25 characters'),
+      .min(3, 'The minimum is 3 characters')
+      .max(25, 'The maximum is 25 characters'),
     server: Yup.string().required('Required'),
   })
   .required();
