@@ -1,5 +1,5 @@
 .key-table {
-  @apply w-full border border-accent rounded-md mb-5;
+  @apply w-full border border-accent rounded-sm mb-5;
 
   &__row {
     @apply grid grid-cols-2 border-b border-accent;

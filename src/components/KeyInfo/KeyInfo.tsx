@@ -171,7 +171,7 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
       {isAdmin ? (
         <button
           onClick={() => switchStatus(key.id)}
-          className='btn w-full mb-5'
+          className='btn w-full mb-3'
           disabled={loading ? true : false}
         >
           {key.isOpen ? 'Deactivate' : 'Activate'}
@@ -180,7 +180,7 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
 
       <button
         onClick={() => console.log(key.id)}
-        className='btn w-full mb-5'
+        className='btn w-full mb-3'
         disabled={loading ? true : false}
       >
         Pay for Key

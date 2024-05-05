@@ -9,13 +9,12 @@ import { setUser } from '../../reducers/user';
 
 import { useHttp } from '../../hooks/http.hook';
 
+import FieldSelect from '../FieldSelect/FieldSelect';
 import Spiner from '../Spiner/Spiner';
 import Error from '../Error/Error';
 import { KeyInfoTable, KeyInfoRow } from '../KeyInfoTable/KeyInfoTable';
 
-import { CreateKeyForm, Server, Store, User } from '../../types';
-
-import './CreateKey.scss';
+import { CreateKeyForm, Server, Store, User, ServerOption } from '../../types';
 
 const CreateSchema = Yup.object()
   .shape({
@@ -23,30 +22,44 @@ const CreateSchema = Yup.object()
       .required('Required')
       .min(3, 'The minimum is 3 characters')
       .max(25, 'The maximum is 25 characters'),
-    server: Yup.string().required('Required'),
+    server: Yup.object().required('Required'),
   })
-  .required();
+  .required('Required');
 
 const CreateKey = () => {
-  const [servers, setServers] = useState<Server[]>([]);
-
-  const { request, process, loading, errorText } = useHttp();
-  const navigate = useNavigate();
-
   const { telegramId } = useSelector<Store, User>((state) => state.user);
   const dispatch = useDispatch();
 
+  const { request, process, loading, errorText } = useHttp();
+
+  const [serversOption, setServersOptions] = useState<ServerOption[]>([]);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     request('/api/getServers').then((response) => {
-      setServers(response);
+      const options = response?.map((server: Server) => {
+        return {
+          value: server.name,
+          label: `${getUnicodeFlagIcon(server.abbreviatedCountry)} ${
+            server.name
+          } (${server.country})`,
+          price: server.price,
+          country: server.country,
+          abbreviatedCountry: server.abbreviatedCountry,
+        };
+      });
+
+      setServersOptions(options);
     });
   }, []);
 
   const onSubmit = async (values: CreateKeyForm) => {
     try {
+      // console.log(values);
       const { user, key } = await request('/api/createKey', 'POST', {
         name: values.name,
-        server: values.server,
+        server: values.server!.value,
       });
       user.telegramId === telegramId ? dispatch(setUser(user)) : null;
       navigate(`/key/${key.id}/`);
@@ -60,7 +73,9 @@ const CreateKey = () => {
     <Spiner />
   ) : (
     <Formik
-      initialValues={{ name: '', server: '' }}
+      initialValues={{
+        name: '',
+      }}
       onSubmit={onSubmit}
       validationSchema={CreateSchema}
     >
@@ -86,48 +101,31 @@ const CreateKey = () => {
           </label>
 
           <label>
-            <Field
-              as='select'
+            <FieldSelect
               name='server'
-              className={`input ${
-                errors.server && touched.server
-                  ? 'error'
-                  : touched.server
-                  ? 'valid'
-                  : ''
-              }`}
-            >
-              <>
-                <option value=''>Choose server</option>
-                {servers.map((server, i) => (
-                  <option key={i} value={server.name}>
-                    {`${server.name} (${server.country}) ${getUnicodeFlagIcon(
-                      server.abbreviatedCountry
-                    )}`}
-                  </option>
-                ))}
-              </>
-            </Field>
-            {errors.server && touched.server ? (
-              <p className='alert' role='alert'>
-                {errors.server}
-              </p>
-            ) : null}
+              placeholder='Choose server'
+              options={serversOption}
+            />
           </label>
-          {values.server ? (
+          {values.server?.value ? (
             <KeyInfoTable>
               <KeyInfoRow name='Price' onlyAdmin={false}>
                 <>{`${
-                  servers.find((item) => values.server === item.name)?.price
+                  serversOption.find(
+                    (item) => values.server?.value === item.value
+                  )?.price
                 } rub/mes`}</>
               </KeyInfoRow>
               <KeyInfoRow name='Country' onlyAdmin={false}>
                 <>
                   {`${
-                    servers.find((item) => values.server === item.name)?.country
+                    serversOption.find(
+                      (item) => values.server?.value === item.value
+                    )?.country
                   } ${getUnicodeFlagIcon(
-                    servers.find((item) => values.server === item.name)
-                      ?.abbreviatedCountry || ''
+                    serversOption.find(
+                      (item) => values.server?.value === item.value
+                    )?.abbreviatedCountry || ''
                   )}`}
                 </>
               </KeyInfoRow>

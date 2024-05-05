@@ -5,13 +5,14 @@ import { Store, User } from '../types';
 
 type Process = 'load' | 'loading' | 'error' | 'success';
 
-const { VITE_API_UR } = import.meta.env;
+const { VITE_API_URL, VITE_API_ACCESS_KEY } = import.meta.env;
 
 const api = axios.create();
 
-api.defaults.baseURL = VITE_API_UR;
+api.defaults.baseURL = VITE_API_URL;
 
 api.defaults.headers.common['Accept'] = 'application/json';
+api.defaults.headers.common['X-Access-Code'] = VITE_API_ACCESS_KEY;
 api.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const useHttp = () => {
@@ -45,7 +46,7 @@ export const useHttp = () => {
 
       if (method === 'GET') {
         return api
-          .get(VITE_API_UR + url)
+          .get(VITE_API_URL + url)
           .then(function (response) {
             setProcess('success');
             return response.data;
@@ -58,7 +59,7 @@ export const useHttp = () => {
           });
       } else {
         return api
-          .post(VITE_API_UR + url, body)
+          .post(VITE_API_URL + url, body)
           .then(function (response) {
             setProcess('success');
             return response.data;

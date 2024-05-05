@@ -42,7 +42,7 @@ export interface Key {
 
 export interface CreateKeyForm {
   name: string;
-  server: string;
+  server?: ServerOption;
 }
 
 export interface Server {
@@ -50,4 +50,12 @@ export interface Server {
   country: string;
   abbreviatedCountry: string;
   price: number;
+}
+
+export interface ServerOption {
+  value?: string;
+  label?: string;
+  price?: string;
+  country?: string;
+  abbreviatedCountry?: string;
 }

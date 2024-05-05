@@ -16,7 +16,7 @@ body {
 .btn {
   @apply px-6 py-2;
   @apply font-normal text-xl text-accent-text;
-  @apply border-2 border-accent rounded-3xl;
+  @apply border-2 border-accent rounded-2xl;
   // @apply shadow-xl shadow-accent-light;
 
   @apply transition-all;
@@ -36,5 +36,44 @@ body {
 }
 
 .title {
-  @apply text-black text-2xl text-center mb-5 px-4 w-full;
+  @apply text-black text-2xl text-center mb-3 px-4 w-full;
+}
+
+.alert {
+  @apply text-xs text-red;
+}
+
+.input,
+.select {
+  @apply w-full mb-1 border border-gray rounded-sm p-2 text-xl outline-none border-opacity-40;
+
+  &::placeholder {
+    @apply text-xl;
+  }
+
+  &.error,
+  &.error .select__control {
+    @apply border-red border-opacity-60 text-color-text
+  }
+
+  &.valid,
+  &.valid .select__control {
+    @apply border-green border-opacity-60 text-color-text
+  }
+}
+
+.select {
+  @apply p-0 border-0 outline-none shadow-none;
+
+  .select__control {
+    @apply border-gray border border-opacity-40 rounded-sm outline-none shadow-none;
+
+    &:hover {
+      @apply border-gray border border-opacity-40;
+    }
+  }
+
+  .select__value-container {
+    @apply p-2;
+  }
 }

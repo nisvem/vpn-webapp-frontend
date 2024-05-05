@@ -26,13 +26,25 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
       );
 
       if (response) {
-        dispatch(setUser(response));
+        const updateResponse = await request('/api/updateUser', 'POST', {
+          username: WebApp.initDataUnsafe.user?.username,
+          telegramId: WebApp.initDataUnsafe.user?.id,
+          name: WebApp.initDataUnsafe.user?.first_name,
+          surname: WebApp.initDataUnsafe.user?.last_name,
+          photoUrl: WebApp.initDataUnsafe.user?.photo_url,
+          lastViewedApp: new Date(),
+        });
+
+        dispatch(setUser(updateResponse));
       } else {
         const createResponse = await request('/api/createUser', 'POST', {
           username: WebApp.initDataUnsafe.user?.username,
           telegramId: WebApp.initDataUnsafe.user?.id,
           name: WebApp.initDataUnsafe.user?.first_name,
           surname: WebApp.initDataUnsafe.user?.last_name,
+          photoUrl: WebApp.initDataUnsafe.user?.photo_url,
+          lastViewedApp: new Date(),
+          dateOfCreateUser: new Date(),
         });
 
         dispatch(setUser(createResponse));
@@ -52,18 +64,31 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
   //   username: string;
   //   name: string;
   //   surname: string;
+  //   photo_url: string;
   // }) => {
   //   try {
   //     const response = await request(`/api/getUser/${user.telegramId}`);
 
   //     if (response) {
-  //       dispatch(setUser(response));
+  //       const updateResponse = await request('/api/updateUser', 'POST', {
+  //         username: user.username,
+  //         telegramId: user.telegramId,
+  //         name: user.name,
+  //         surname: user.surname,
+  //         photoUrl: user.photo_url,
+  //         lastViewedApp: new Date(),
+  //       });
+
+  //       dispatch(setUser(updateResponse));
   //     } else {
   //       const createResponse = await request('/api/createUser', 'POST', {
   //         username: user.username,
   //         telegramId: user.telegramId,
   //         name: user.name,
   //         surname: user.surname,
+  //         photoUrl: user.photo_url,
+  //         lastViewedApp: new Date(),
+  //         dateOfCreateUser: new Date(),
   //       });
 
   //       dispatch(setUser(createResponse));
@@ -79,6 +104,7 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
   //     username: 'nisvem',
   //     name: 'Artem',
   //     surname: '',
+  //     photo_url: '',
   //   });
   // }, []);
 

@@ -18,8 +18,8 @@ export default {
         light: '#dc262620',
       },
       green: {
-        DEFAULT: '#16a34a',
-        light: '#16a34a20',
+        DEFAULT: '#16a391',
+        light: '#16a39120',
       },
       accent: {
         DEFAULT: '#2d3a3f',
