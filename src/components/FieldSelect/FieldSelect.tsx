@@ -1,4 +1,4 @@
-import ReactSelect, { ActionMeta, SingleValue } from 'react-select';
+import ReactSelect, { SingleValue } from 'react-select';
 import { useField } from 'formik';
 import { ServerOption } from '../../types';
 
