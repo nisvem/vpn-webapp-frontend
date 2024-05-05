@@ -21,6 +21,7 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
 
   const initFunction = async () => {
     try {
+      console.log(WebApp);
       const response = await request(
         `/api/getUser/${WebApp.initDataUnsafe.user?.id}`
       );
