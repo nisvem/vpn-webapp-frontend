@@ -118,13 +118,15 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
           })}
         </>
       ) : (
-        <div className='min-h-screen flex items-center justify-center'>
+        <div className='min-h-screen w-screen flex items-center justify-center'>
           <Spiner />
         </div>
       )}
     </>
   ) : (
-    <Error text={errorText} />
+    <div className='min-h-screen w-screen flex items-center justify-center'>
+      <Error text={errorText} />
+    </div>
   );
 }
 
