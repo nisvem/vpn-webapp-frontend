@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const Layout = () => {
   return (

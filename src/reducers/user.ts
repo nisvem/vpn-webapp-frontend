@@ -6,7 +6,7 @@ const initialState: User = {
   telegramId: '',
   username: '',
   name: '',
-  lastname: '',
+  surname: '',
   isAdmin: false,
   isLimitedToCreate: false,
   maxKeyAvalible: 0,

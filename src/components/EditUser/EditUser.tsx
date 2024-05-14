@@ -27,18 +27,18 @@ const EditUser = ({ user }: { user: User }) => {
 
   const onSubmit = async (values: EditUserForm) => {
     console.log(values);
-    // try {
-    //   const response = await request('/api/editKey', 'POST', {
-    //     telegramId: user.telegramId,
-    //     isAdmin: values.isAdmin,
-    //     isLimitedToCreate: values.isLimitedToCreate,
-    //     maxKeyAvalible: values.maxKeyAvalible,
-    //   });
+    try {
+      const response = await request('/api/editUser', 'POST', {
+        telegramId: user.telegramId,
+        isAdmin: values.isAdmin,
+        isLimitedToCreate: values.isLimitedToCreate,
+        maxKeyAvalible: values.maxKeyAvalible,
+      });
 
-    //   navigate(`/users/${response.telegramId}`);
-    // } catch (e) {
-    //   console.error(e);
-    // }
+      navigate(`/users/${response.telegramId}`);
+    } catch (e) {
+      console.error(e);
+    }
   };
   return process === 'error' ? (
     <>

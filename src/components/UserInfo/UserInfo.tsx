@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useHttp } from '../../hooks/http.hook';
 
 import date from 'date-and-time';
-
-import WebApp from '@twa-dev/sdk';
 
 import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
@@ -27,7 +25,7 @@ const UserInfo = ({ user }: { user: User }) => {
     console.log(user);
   }, []);
 
-  const deleteUser = async (id: string) => {
+  const deleteUser = async () => {
     if (isAdmin && window.confirm('Do you really want to delete user?')) {
       // navigate(`/editUser/${user.telegramId}`);
     }
@@ -105,7 +103,7 @@ const UserInfo = ({ user }: { user: User }) => {
         Edit user
       </button>
       <button
-        onClick={() => deleteUser(user.telegramId)}
+        onClick={() => deleteUser()}
         disabled={loading}
         className='btn w-full'
       >
