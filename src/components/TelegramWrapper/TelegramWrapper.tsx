@@ -1,27 +1,23 @@
 import { useEffect, Children } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../reducers/user';
 import WebApp from '@twa-dev/sdk';
-
-// import {
-//   TelegramWebAppModel,
-//   useIsTelegramWebAppReady,
-//   useTelegramWebApp,
-// } from 'react-telegram-webapp';
 
 import Spiner from '../Spiner/Spiner';
 import Error from '../Error/Error';
 
 import { useHttp } from '../../hooks/http.hook';
+import { Store, User } from '../../types';
 
 function TelegramWrapper({ children }: { children: JSX.Element }) {
+  const { telegramId } = useSelector<Store, User>((state) => state.user);
+
   const dispatch = useDispatch();
   const { request, process, errorText, loading } = useHttp();
 
   const initFunction = async () => {
     try {
-      console.log(WebApp);
       const response = await request(
         `/api/getUser/${WebApp.initDataUnsafe.user?.id}`
       );
@@ -51,14 +47,15 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
         dispatch(setUser(createResponse));
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
-  }, [WebApp?.initDataUnsafe?.user]);
+    console.log('WebApp', WebApp);
+  }, []);
 
   // const initFunction = async (user: {
   //   telegramId: number;
@@ -111,7 +108,10 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
 
   return process !== 'error' ? (
     <>
-      {WebApp?.initDataUnsafe && WebApp?.initDataUnsafe?.user && !loading ? (
+      {WebApp?.initDataUnsafe &&
+      WebApp?.initDataUnsafe?.user &&
+      !loading &&
+      telegramId ? (
         <>
           {Children.map(children, (child) => {
             return child;

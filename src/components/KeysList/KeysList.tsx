@@ -8,7 +8,7 @@ const KeysList = ({ keys }: { keys: Key[] }) => {
       {keys.length > 0 ? (
         keys.map((item, i) => <KeyItem key={i} data={item} />)
       ) : (
-        <p className='text-center'>No keys</p>
+        <p className='text-center'>There aren't keys</p>
       )}
     </div>
   );

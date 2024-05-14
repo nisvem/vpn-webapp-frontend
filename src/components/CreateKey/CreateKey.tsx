@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
@@ -12,12 +11,14 @@ import { useHttp } from '../../hooks/http.hook';
 import FieldSelect from '../FieldSelect/FieldSelect';
 import Spiner from '../Spiner/Spiner';
 import Error from '../Error/Error';
-import { KeyInfoTable, KeyInfoRow } from '../KeyInfoTable/KeyInfoTable';
+import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
-import { CreateKeyForm, Server, Store, User, ServerOption } from '../../types';
+import { CreateKeyForm, Server, Store, User, Option } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
 const CreateSchema = Yup.object()
   .shape({
+    user: Yup.object().required('Required'),
     name: Yup.string()
       .required('Required')
       .min(3, 'The minimum is 3 characters')
@@ -27,14 +28,22 @@ const CreateSchema = Yup.object()
   .required('Required');
 
 const CreateKey = () => {
-  const { telegramId } = useSelector<Store, User>((state) => state.user);
+  const { telegramId, isAdmin } = useSelector<Store, User>(
+    (state) => state.user
+  );
+  const user = useSelector<Store, User>((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { request, process, loading, errorText } = useHttp();
 
-  const [serversOption, setServersOptions] = useState<ServerOption[]>([]);
-
-  const navigate = useNavigate();
+  const [serversOption, setServersOptions] = useState<Option[]>([]);
+  const [userOption, setUserOptions] = useState<Option[]>([
+    {
+      value: user.telegramId,
+      label: `${user.name} ${user.surname} / @${user.username}`,
+    },
+  ]);
 
   useEffect(() => {
     request('/api/getServers').then((response) => {
@@ -52,18 +61,37 @@ const CreateKey = () => {
 
       setServersOptions(options);
     });
+
+    if (isAdmin) {
+      try {
+        request('/api/getUsers').then((response) => {
+          const options = response?.map((user: User) => {
+            return {
+              value: user.telegramId,
+              label: `${user.name} ${user.surname} / @${user.username}`,
+            };
+          });
+
+          setUserOptions(options);
+        });
+      } catch {}
+    }
   }, []);
 
   const onSubmit = async (values: CreateKeyForm) => {
     try {
-      // console.log(values);
-      const { user, key } = await request('/api/createKey', 'POST', {
+      const response = await request('/api/createKey', 'POST', {
         name: values.name,
         server: values.server!.value,
+        user: values.user!.value,
       });
-      user.telegramId === telegramId ? dispatch(setUser(user)) : null;
-      navigate(`/key/${key.id}/`);
-    } catch (e) {}
+      response.user.telegramId === telegramId
+        ? dispatch(setUser(response.user))
+        : null;
+      navigate(`/keys/${response.key._id}`);
+    } catch (e) {
+      console.error(e);
+    }
   };
   return process === 'error' ? (
     <>
@@ -75,6 +103,7 @@ const CreateKey = () => {
     <Formik
       initialValues={{
         name: '',
+        user: userOption[0],
       }}
       onSubmit={onSubmit}
       validationSchema={CreateSchema}
@@ -100,6 +129,24 @@ const CreateKey = () => {
             ) : null}
           </label>
 
+          {isAdmin ? (
+            <label>
+              <FieldSelect
+                name='user'
+                placeholder='Choose user'
+                options={userOption}
+              />
+            </label>
+          ) : (
+            <label className='hidden'>
+              <FieldSelect
+                name='user'
+                placeholder='Choose user'
+                options={userOption}
+              />
+            </label>
+          )}
+
           <label>
             <FieldSelect
               name='server'
@@ -108,15 +155,15 @@ const CreateKey = () => {
             />
           </label>
           {values.server?.value ? (
-            <KeyInfoTable>
-              <KeyInfoRow name='Price' onlyAdmin={false}>
+            <InfoTable>
+              <InfoRow name='Price' onlyAdmin={false}>
                 <>{`${
                   serversOption.find(
                     (item) => values.server?.value === item.value
                   )?.price
                 } rub/mes`}</>
-              </KeyInfoRow>
-              <KeyInfoRow name='Country' onlyAdmin={false}>
+              </InfoRow>
+              <InfoRow name='Country' onlyAdmin={false}>
                 <>
                   {`${
                     serversOption.find(
@@ -128,8 +175,8 @@ const CreateKey = () => {
                     )?.abbreviatedCountry || ''
                   )}`}
                 </>
-              </KeyInfoRow>
-            </KeyInfoTable>
+              </InfoRow>
+            </InfoTable>
           ) : null}
 
           <button

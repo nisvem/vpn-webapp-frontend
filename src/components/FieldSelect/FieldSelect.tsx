@@ -1,20 +1,20 @@
 import ReactSelect, { SingleValue } from 'react-select';
 import { useField } from 'formik';
-import { ServerOption } from '../../types';
+import { Option } from '../../types';
 
 const FieldSelect: React.FC<{
   name: string;
-  options: ServerOption[];
+  options: Option[];
   placeholder?: string;
   className?: string;
+  defaultValue?: Option;
 }> = ({ name, className, ...props }) => {
-  const [field, meta, helpers] = useField<ServerOption>(name);
+  const [field, meta, helpers] = useField<Option>(name);
 
   const { value } = meta;
   const { setValue, setTouched } = helpers;
 
-  const handleChange = (newValue: SingleValue<ServerOption>) => {
-    console.log(meta);
+  const handleChange = (newValue: SingleValue<Option>) => {
     newValue ? setValue(newValue) : null;
   };
 

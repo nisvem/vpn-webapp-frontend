@@ -1,0 +1,23 @@
+.key-place {
+  @apply flex flex-row items-center justify-between gap-5 mb-5;
+  @apply p-4 bg-gray-light bg-opacity-20 rounded-sm;
+
+  .key-place__text {
+    @apply break-all text-xs font-light;
+  }
+
+  .key-place__btn-copy {
+    @apply break-all text-xs font-light;
+
+    width: 40px;
+
+    svg {
+      scale    : 1.8;
+      translate: 0 8%;
+    }
+
+    path {
+      @apply stroke-gray;
+    }
+  }
+}

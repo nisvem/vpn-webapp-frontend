@@ -1,8 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import Faq from '../components/Faq/Faq';
+import Faq from '../../components/Faq/Faq';
+import WebApp from '@twa-dev/sdk';
 
 const FaqPage = () => {
   const navigate = useNavigate();
+
+  WebApp.BackButton.show();
+  WebApp.BackButton.onClick(() => {
+    navigate('/');
+  });
+
   return (
     <>
       <Faq />

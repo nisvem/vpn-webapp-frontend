@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Store, User } from '../types';
+
+import WebApp from '@twa-dev/sdk';
 
 type Process = 'load' | 'loading' | 'error' | 'success';
 
@@ -12,11 +12,11 @@ const api = axios.create();
 api.defaults.baseURL = VITE_API_URL;
 
 api.defaults.headers.common['Accept'] = 'application/json';
-api.defaults.headers.common['X-Access-Code'] = VITE_API_ACCESS_KEY;
 api.defaults.headers.common['Content-Type'] = 'application/json';
+api.defaults.headers.common['X-Access-Code'] = VITE_API_ACCESS_KEY;
+api.defaults.headers.common['X-Telegram-Id'] = WebApp.initDataUnsafe.user?.id;
 
 export const useHttp = () => {
-  const { telegramId } = useSelector<Store, User>((state) => state.user);
   const [process, setProcess] = useState<Process>('load');
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState('Something wrong!');
@@ -42,37 +42,31 @@ export const useHttp = () => {
       setProcess('loading');
       setErrorText(`Something wrong!`);
 
-      api.defaults.headers.common['X-Telegram-Id'] = telegramId;
-
       if (method === 'GET') {
-        return api
-          .get(VITE_API_URL + url)
-          .then(function (response) {
-            setProcess('success');
-            return response.data;
-          })
-          .catch(function (error) {
-            setProcess('error');
-            error.response.data.error
-              ? setErrorText(`Error: ${error.response.data.error}`)
-              : setErrorText(`Error: ${error.message}`);
-          });
+        try {
+          const response = await api.get(VITE_API_URL + url);
+          setProcess('success');
+          return response.data;
+        } catch (error: any) {
+          setProcess('error');
+          error.response.data.error
+            ? setErrorText(`Error: ${error.response.data.error}`)
+            : setErrorText(`Error: ${error.message}`);
+        }
       } else {
-        return api
-          .post(VITE_API_URL + url, body)
-          .then(function (response) {
-            setProcess('success');
-            return response.data;
-          })
-          .catch(function (error) {
-            setProcess('error');
-            error.response.data.error
-              ? setErrorText(`Error: ${error.response.data.error}`)
-              : setErrorText(`Error: ${error.message}`);
-          });
+        try {
+          const response = await api.post(VITE_API_URL + url, body);
+          setProcess('success');
+          return response.data;
+        } catch (error: any) {
+          setProcess('error');
+          error.response.data.error
+            ? setErrorText(`Error: ${error.response.data.error}`)
+            : setErrorText(`Error: ${error.message}`);
+        }
       }
     },
-    [telegramId]
+    []
   );
 
   return {

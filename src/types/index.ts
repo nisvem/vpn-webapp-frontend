@@ -14,6 +14,7 @@ export interface StateUser {
 }
 
 export interface User {
+  _id: string;
   telegramId: string;
   username: string;
   isAdmin: boolean;
@@ -23,10 +24,14 @@ export interface User {
   tgApp?: TelegramWebAppModel['app'];
 
   name?: string;
-  lastname?: string;
+
+  lastViewedApp?: Date;
+  dateOfCreateUser?: Date;
+  surname?: string;
 }
 
 export interface Key {
+  _id: string;
   accessUrl: string;
   id: string;
   name: string;
@@ -35,14 +40,28 @@ export interface Key {
   server?: Server;
 
   user?: User;
-  price?: number;
+  currentPrice?: number;
   lastPayment?: Date;
   nextPayment?: Date;
 }
 
 export interface CreateKeyForm {
   name: string;
-  server?: ServerOption;
+  user?: Option;
+  server?: Option;
+}
+
+export interface EditKeyForm {
+  name: string;
+  currentPrice: number;
+  lastPayment?: Date;
+  nextPayment?: Date;
+}
+
+export interface EditUserForm {
+  isAdmin: boolean;
+  isLimitedToCreate: boolean;
+  maxKeyAvalible: number;
 }
 
 export interface Server {
@@ -52,7 +71,7 @@ export interface Server {
   price: number;
 }
 
-export interface ServerOption {
+export interface Option {
   value?: string;
   label?: string;
   price?: string;

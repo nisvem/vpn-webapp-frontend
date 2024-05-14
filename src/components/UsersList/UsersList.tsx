@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
-
-import { useHttp } from '../../hooks/http.hook';
-
+import { useEffect } from 'react';
 import { User } from '../../types';
-import Spiner from '../Spiner/Spiner';
-import Error from '../Error/Error';
+import UserItem from '../UserItem/UserItem';
 
-const UsersList = () => {
-  const [list, setList] = useState<User[]>([]);
-  const { request, process, errorText } = useHttp();
-
+const UsersList = ({ users }: { users: User[] }) => {
   useEffect(() => {
-    request('/api/getUsers').then((response) => setList(response));
+    users.sort((user) => Number(user.lastViewedApp));
   }, []);
 
-  switch (process) {
-    case 'error':
-      return <Error text={errorText}></Error>;
-    case 'success':
-      return list.length > 0 ? (
-        list.map((item, i) => <p key={i}>{item.username}</p>)
+  return (
+    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+      {users.length > 0 ? (
+        <>
+          <p className='text-right text-xs'>Users: {`${users.length}`}</p>
+          {users.map((item, i) => (
+            <UserItem key={i} data={item} />
+          ))}
+        </>
       ) : (
-        <p>Нет никого</p>
-      );
-
-    default:
-      return <Spiner />;
-  }
+        <p className='text-center'>There aren't users</p>
+      )}
+    </div>
+  );
 };
 
 export default UsersList;

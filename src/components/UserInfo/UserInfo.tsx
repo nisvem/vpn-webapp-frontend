@@ -1,0 +1,118 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { useHttp } from '../../hooks/http.hook';
+
+import date from 'date-and-time';
+
+import WebApp from '@twa-dev/sdk';
+
+import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
+
+import Error from '../Error/Error';
+import { Store, User } from '../../types';
+
+import './UserInfo.scss';
+import KeyItem from '../KeyItem/KeyItem';
+
+const UserInfo = ({ user }: { user: User }) => {
+  const { isAdmin } = useSelector<Store, User>((state) => state.user);
+  const navigate = useNavigate();
+
+  const { process, loading, errorText } = useHttp();
+
+  useEffect(() => {
+    !isAdmin && navigate('/');
+    console.log(user);
+  }, []);
+
+  const deleteUser = async (id: string) => {
+    if (isAdmin && window.confirm('Do you really want to delete user?')) {
+      // navigate(`/editUser/${user.telegramId}`);
+    }
+  };
+
+  return process === 'error' ? (
+    <>
+      <Error text={errorText}></Error>
+    </>
+  ) : (
+    <div className='flex flex-col w-full'>
+      <h1 className='title'> - @{user.username} - </h1>
+
+      <InfoTable>
+        <InfoRow name='Name' onlyAdmin={true}>
+          <p>
+            {user.name} {user.surname || ''}
+          </p>
+        </InfoRow>
+        <InfoRow name='Nickname' onlyAdmin={true}>
+          <a
+            href={`https://t.me/${user?.username}`}
+            target='_blank'
+          >{`@${user?.username}`}</a>
+        </InfoRow>
+        <InfoRow name='TelegramId' onlyAdmin={true}>
+          <p>{user.telegramId}</p>
+        </InfoRow>
+        <InfoRow name='Admin' onlyAdmin={true}>
+          <p>{user.isAdmin ? 'Yes' : 'No'}</p>
+        </InfoRow>
+        <InfoRow name='Limited to create' onlyAdmin={true}>
+          <p>{user.isLimitedToCreate ? 'Yes' : 'No'}</p>
+        </InfoRow>
+        <InfoRow name='Keys' onlyAdmin={true}>
+          <p>
+            {user.keys.length} / {user.maxKeyAvalible}
+          </p>
+        </InfoRow>
+
+        {user.lastViewedApp && (
+          <InfoRow name='Last logged in the app' onlyAdmin={true}>
+            <>
+              {date.format(new Date(user.lastViewedApp), 'D/MMMM/YYYY HH:mm') ||
+                ''}
+            </>
+          </InfoRow>
+        )}
+
+        {user.dateOfCreateUser && (
+          <InfoRow name='Created the user' onlyAdmin={true}>
+            <>
+              {date.format(
+                new Date(user.dateOfCreateUser),
+                'D/MMMM/YYYY hh:mm'
+              ) || ''}
+            </>
+          </InfoRow>
+        )}
+      </InfoTable>
+
+      <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+        <h2>Keys:</h2>
+        {user.keys.length > 0 ? (
+          user.keys.map((item, i) => <KeyItem key={i} data={item} />)
+        ) : (
+          <p className='text-center'>There aren't keys</p>
+        )}
+      </div>
+      <button
+        onClick={() => navigate(`/edit-user/${user.telegramId}`)}
+        disabled={loading}
+        className='btn w-full mb-3'
+      >
+        Edit user
+      </button>
+      <button
+        onClick={() => deleteUser(user.telegramId)}
+        disabled={loading}
+        className='btn w-full'
+      >
+        Delete user
+      </button>
+    </div>
+  );
+};
+
+export default UserInfo;

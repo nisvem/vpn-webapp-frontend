@@ -14,17 +14,16 @@ const KeyItem = ({ data }: { data: Key }) => {
 
   return (
     <Link
-      to={`/key/${data.id}/`}
+      to={`/keys/${data._id}`}
       className={`key-item ${data.isOpen ? 'bg-unlock' : 'bg-lock'}`}
     >
-      <p className='text-xl mb-2'>{data.name}</p>
-      {isAdmin ? (
-        <p className='text-xs mb-2'>
-          {`${data.user?.name ? data.user?.name : ''} ${
-            data.user?.lastname ? data.user?.username : ''
-          } / @${data.user?.username} (${data.user?.telegramId})`}
-        </p>
-      ) : null}
+      <p className='text-xl mb-2'>
+        {isAdmin ? (
+          <span className='text-sm'>{`@${data.user?.username} / ${data.name}`}</span>
+        ) : (
+          data.name
+        )}
+      </p>
       {data.server ? (
         <p className='text-xs mb-2 text-color-text'>
           {`${data.server.name} (${data.server.country}) ${getUnicodeFlagIcon(

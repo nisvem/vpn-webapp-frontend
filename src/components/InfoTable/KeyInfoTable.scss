@@ -1,8 +1,8 @@
-.key-table {
+.table {
   @apply w-full border border-accent rounded-sm mb-5;
 
   &__row {
-    @apply grid grid-cols-2 border-b border-accent;
+    @apply grid grid-cols-3 border-b border-accent;
 
     &:last-child {
       border: none
@@ -14,7 +14,7 @@
   }
 
   &__description {
-    @apply p-2 flex items-start justify-center flex-col text-sm font-light;
+    @apply p-2 flex items-start justify-center flex-col text-sm font-light col-span-2;
   }
 
   a {

@@ -4,7 +4,7 @@ import { Store, User } from '../../types';
 
 import './KeyInfoTable.scss';
 
-export const KeyInfoRow = ({
+export const InfoRow = ({
   name,
   children,
   onlyAdmin = false,
@@ -16,9 +16,9 @@ export const KeyInfoRow = ({
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
 
   return onlyAdmin === isAdmin || isAdmin ? (
-    <div className='key-table__row'>
-      <div className='key-table__name'>{name}</div>
-      <div className='key-table__description'>
+    <div className='table__row'>
+      <div className='table__name'>{name}</div>
+      <div className='table__description'>
         {Children.map(children, (child) => {
           return child;
         })}
@@ -27,9 +27,9 @@ export const KeyInfoRow = ({
   ) : null;
 };
 
-export const KeyInfoTable = ({ children }: { children: React.ReactNode }) => {
+export const InfoTable = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='key-table'>
+    <div className='table'>
       {Children.map(children, (child) => {
         return <>{child}</>;
       })}

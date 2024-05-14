@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useHttp } from '../../hooks/http.hook';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import date from 'date-and-time';
 import convertSize from 'convert-size';
+import WebApp from '@twa-dev/sdk';
 
 import { setUser } from '../../reducers/user';
 
-import { KeyInfoTable, KeyInfoRow } from '../KeyInfoTable/KeyInfoTable';
-import Spiner from '../Spiner/Spiner';
+import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
+
 import Error from '../Error/Error';
 import SpanActive from '../SpanActive/SpanActive';
 import { Key, Store, User } from '../../types';
@@ -19,14 +21,8 @@ import copyAnimation from '../../data/copyAnimation.json';
 
 import './KeyInfo.scss';
 
-const KeyInfo = ({ paramId }: { paramId?: string }) => {
-  const [key, setKey] = useState<Key>({
-    accessUrl: '',
-    id: '',
-    name: '',
-    isOpen: false,
-  });
-
+const KeyInfo = ({ data }: { data: Key }) => {
+  const [key, setKey] = useState<Key>(data);
   const [usageData, setUsageData] = useState(' ... ');
 
   const { isAdmin, telegramId } = useSelector<Store, User>(
@@ -34,29 +30,28 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const useHttpForDate = useHttp();
   const { request, process, loading, errorText } = useHttp();
 
   const copyBtn = useRef<Player | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    async function getKey() {
-      const response = await request(`/api/getKey/${paramId}`);
-
-      if (response) {
-        setKey(response);
-      }
-    }
-
     async function getDataUsage() {
-      const response = await request(`/api/getDataUsage/${paramId}`);
+      try {
+        const response = await useHttpForDate.request(
+          `/api/getDataUsage/${key._id}`
+        );
 
-      if (response) {
-        setUsageData(convertSize(response.bytes, { accuracy: 1 }));
+        if (response) {
+          setUsageData(convertSize(response.bytes, { accuracy: 1 }));
+        }
+      } catch (e) {
+        console.error(e);
       }
     }
-    getKey();
+
     getDataUsage();
   }, []);
 
@@ -65,18 +60,15 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
     navigator.clipboard.writeText(key.accessUrl);
   };
 
-  const deleteKey = (id: string) => {
+  const deleteKey = async (id: string) => {
     if (window.confirm('Do you really want to delete Key?')) {
-      request('/api/deleteKey', 'POST', { id })
-        .then((response) => {
-          response.telegramId === telegramId
-            ? dispatch(setUser(response))
-            : null;
-          navigate('/keys-list/');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const response = await request('/api/deleteKey', 'POST', { id });
+        response.telegramId === telegramId ? dispatch(setUser(response)) : null;
+        navigate('/keys');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -90,26 +82,36 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
     }
   };
 
+  const requestToPay = async (id: string) => {
+    try {
+      await request(`/api/getUrlToChat`, 'POST', {
+        idKey: id,
+        telegramId: telegramId,
+      });
+      WebApp.close();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return process === 'error' ? (
     <>
       <Error text={errorText}></Error>
     </>
-  ) : loading ? (
-    <Spiner />
   ) : (
     <div className='flex flex-col w-full'>
       <h1 className='title'>{key.name}</h1>
 
-      <KeyInfoTable>
-        <KeyInfoRow name='Status' onlyAdmin={false}>
+      <InfoTable>
+        <InfoRow name='Status' onlyAdmin={false}>
           <SpanActive isOpen={key.isOpen} />
-        </KeyInfoRow>
+        </InfoRow>
 
-        <KeyInfoRow name='Owner' onlyAdmin={true}>
+        <InfoRow name='Owner' onlyAdmin={true}>
           <>
             {key.user?.name ? <p>{`Name: ${key.user?.name}`}</p> : null}
-            {key.user?.lastname ? (
-              <p>{`Lastname: ${key.user?.lastname}`}</p>
+            {key.user?.surname ? (
+              <p>{`Lastname: ${key.user?.surname}`}</p>
             ) : null}
             {key.user?.telegramId ? (
               <p>{`TelegramId: ${key.user?.telegramId}`}</p>
@@ -123,40 +125,40 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
               </p>
             ) : null}
           </>
-        </KeyInfoRow>
+        </InfoRow>
 
         {key.server ? (
-          <KeyInfoRow name='Server' onlyAdmin={false}>
+          <InfoRow name='Server' onlyAdmin={false}>
             <span>
               {`${key.server.name} (${key.server.country}) ${getUnicodeFlagIcon(
                 key.server.abbreviatedCountry
               )}`}
             </span>
-          </KeyInfoRow>
+          </InfoRow>
         ) : null}
 
-        <KeyInfoRow name='Usage trafic (last 30 days)' onlyAdmin={false}>
+        <InfoRow name='Usage trafic (last 30 days)' onlyAdmin={false}>
           <>{usageData}</>
-        </KeyInfoRow>
+        </InfoRow>
 
-        {key.server ? (
-          <KeyInfoRow name='Price' onlyAdmin={false}>
-            <>{key.server.price} rub/mes</>
-          </KeyInfoRow>
+        {key.currentPrice ? (
+          <InfoRow name='Price' onlyAdmin={false}>
+            <>{key.currentPrice} rub/mes</>
+          </InfoRow>
         ) : null}
 
         {key.lastPayment ? (
-          <KeyInfoRow name='Last Payment' onlyAdmin={false}>
+          <InfoRow name='Last Payment' onlyAdmin={false}>
             <>{date.format(new Date(key.lastPayment), 'D MMMM YYYY') || ''}</>
-          </KeyInfoRow>
+          </InfoRow>
         ) : null}
 
         {key.nextPayment ? (
-          <KeyInfoRow name='Next Payment' onlyAdmin={false}>
+          <InfoRow name='Next Payment' onlyAdmin={false}>
             <>{date.format(new Date(key.nextPayment), 'D MMMM YYYY') || ''}</>
-          </KeyInfoRow>
+          </InfoRow>
         ) : null}
-      </KeyInfoTable>
+      </InfoTable>
 
       <div className='key-place'>
         <p className='key-place__text'>
@@ -169,27 +171,45 @@ const KeyInfo = ({ paramId }: { paramId?: string }) => {
       </div>
 
       {isAdmin ? (
-        <button
-          onClick={() => switchStatus(key.id)}
-          className='btn w-full mb-3'
-          disabled={loading ? true : false}
-        >
-          {key.isOpen ? 'Deactivate' : 'Activate'}
-        </button>
+        <>
+          <button
+            onClick={() => switchStatus(key._id)}
+            disabled={loading}
+            className='btn w-full mb-3'
+          >
+            {key.isOpen ? 'Deactivate' : 'Activate'}
+          </button>
+          {key.user?.telegramId && (
+            <button
+              onClick={() => navigate(`/users/${key.user?.telegramId}`)}
+              disabled={loading}
+              className='btn w-full mb-3'
+            >
+              Go to the user
+            </button>
+          )}
+          <button
+            onClick={() => navigate(`/edit-key/${key._id}`)}
+            disabled={loading}
+            className='btn w-full mb-3'
+          >
+            Edit key
+          </button>
+        </>
       ) : null}
 
       <button
-        onClick={() => console.log(key.id)}
+        onClick={() => requestToPay(key._id)}
+        disabled={loading}
         className='btn w-full mb-3'
-        disabled={loading ? true : false}
       >
         Pay for Key
       </button>
 
       <button
-        onClick={() => deleteKey(key.id)}
+        onClick={() => deleteKey(key._id)}
+        disabled={loading}
         className='btn w-full'
-        disabled={loading ? true : false}
       >
         Delete Key
       </button>
