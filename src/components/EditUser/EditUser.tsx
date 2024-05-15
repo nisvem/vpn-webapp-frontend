@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -8,8 +7,10 @@ import Spiner from '../Spiner/Spiner';
 import Error from '../Error/Error';
 import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
-import { EditUserForm, User } from '../../types';
+import { EditUserForm, Store, User } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../reducers/user';
 
 const EditUserSchema = Yup.object()
   .shape({
@@ -20,13 +21,12 @@ const EditUserSchema = Yup.object()
   .required('Required');
 
 const EditUser = ({ user }: { user: User }) => {
+  const { telegramId } = useSelector<Store, User>((state) => state.user);
   const { request, process, loading, errorText } = useHttp();
   const navigate = useNavigate();
-
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
 
   const onSubmit = async (values: EditUserForm) => {
-    console.log(values);
     try {
       const response = await request('/api/editUser', 'POST', {
         telegramId: user.telegramId,
@@ -35,11 +35,18 @@ const EditUser = ({ user }: { user: User }) => {
         maxKeyAvalible: values.maxKeyAvalible,
       });
 
-      navigate(`/users/${response.telegramId}`);
+      //? Такая реализация не работает, потому что срабатывает dispatch, но navigate не отправляет на новую страницу, почему-то ...
+      // response.telegramId === telegramId ? dispatch(setUser(response)) : null;
+      // navigate(`/users/${response.telegramId}`);
+
+      //? А такая реализация работает, почему-то ...
+      response.telegramId === telegramId ? dispatch(setUser(response)) : null;
+      navigate(-1);
     } catch (e) {
       console.error(e);
     }
   };
+
   return process === 'error' ? (
     <>
       <Error text={errorText}></Error>

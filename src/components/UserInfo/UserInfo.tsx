@@ -22,7 +22,6 @@ const UserInfo = ({ user }: { user: User }) => {
 
   useEffect(() => {
     !isAdmin && navigate('/');
-    console.log(user);
   }, []);
 
   const deleteUser = async () => {

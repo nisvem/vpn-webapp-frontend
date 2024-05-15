@@ -61,7 +61,7 @@ body {
 
 .input,
 .select {
-  @apply w-full mb-1 border border-gray rounded-sm p-2 text-xl outline-none border-opacity-40;
+  @apply w-full mb-1 border border-solid border-gray rounded-sm p-2 text-xl outline-none border-opacity-40;
 
   &::placeholder {
     @apply text-xl;
@@ -100,4 +100,8 @@ body {
   input {
     @apply w-full text-xl text-center outline-none;
   }
+}
+
+.padding-keyboard {
+  padding-bottom: 285px;
 }

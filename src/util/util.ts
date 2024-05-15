@@ -1,5 +1,6 @@
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk';
+import { FocusEventHandler } from 'react';
 
 const { VITE_API_URL, VITE_API_ACCESS_KEY } = import.meta.env;
 
@@ -31,3 +32,23 @@ export async function requestFunction(
     }
   }
 }
+
+export const onFocusInput: FocusEventHandler<
+  HTMLInputElement | HTMLTextAreaElement
+> = (event) => {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/.test(
+      navigator.userAgent
+    )
+  ) {
+    document.body.classList.add('padding-keyboard');
+
+    event.target?.addEventListener(
+      'blur',
+      () => {
+        document.body.classList.remove('padding-keyboard');
+      },
+      { once: true }
+    );
+  }
+};

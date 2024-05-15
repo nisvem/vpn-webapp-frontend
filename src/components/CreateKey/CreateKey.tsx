@@ -15,6 +15,7 @@ import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
 import { CreateKeyForm, Server, Store, User, Option } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { onFocusInput } from '../../util/util';
 
 const CreateSchema = Yup.object()
   .shape({
@@ -28,10 +29,8 @@ const CreateSchema = Yup.object()
   .required('Required');
 
 const CreateKey = () => {
-  const { telegramId, isAdmin } = useSelector<Store, User>(
-    (state) => state.user
-  );
   const user = useSelector<Store, User>((state) => state.user);
+  const [keyID, setKeyId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -62,7 +61,7 @@ const CreateKey = () => {
       setServersOptions(options);
     });
 
-    if (isAdmin) {
+    if (user.isAdmin) {
       try {
         request('/api/getUsers').then((response) => {
           const options = response?.map((user: User) => {
@@ -78,6 +77,12 @@ const CreateKey = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (keyID) {
+      navigate(`/keys/${keyID}`);
+    }
+  }, [keyID]);
+
   const onSubmit = async (values: CreateKeyForm) => {
     try {
       const response = await request('/api/createKey', 'POST', {
@@ -85,14 +90,21 @@ const CreateKey = () => {
         server: values.server!.value,
         user: values.user!.value,
       });
-      response.user.telegramId === telegramId
+
+      //? Такая реализация не работает, потому что срабатывает dispatch, но navigate не отправляет на новую страницу, почему-то ...
+      // response.user.telegramId === telegramId ? dispatch(setUser(response.user) : null;
+      // navigate(`/keys/${response._id}`);
+
+      //? А такая реализация работает
+      response.user.telegramId === user.telegramId
         ? dispatch(setUser(response.user))
         : null;
-      navigate(`/keys/${response.key._id}`);
+      setKeyId(response.key._id);
     } catch (e) {
       console.error(e);
     }
   };
+
   return process === 'error' ? (
     <>
       <Error text={errorText}></Error>
@@ -114,6 +126,7 @@ const CreateKey = () => {
             <Field
               name='name'
               placeholder='Name'
+              onFocus={onFocusInput}
               className={`input ${
                 errors.name && touched.name
                   ? 'error'
@@ -129,7 +142,7 @@ const CreateKey = () => {
             ) : null}
           </label>
 
-          {isAdmin ? (
+          {user.isAdmin ? (
             <label>
               <FieldSelect
                 name='user'

@@ -63,8 +63,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   const deleteKey = async (id: string) => {
     if (window.confirm('Do you really want to delete Key?')) {
       try {
-        const response = await request('/api/deleteKey', 'POST', { id });
-        response.telegramId === telegramId ? dispatch(setUser(response)) : null;
+        await request('/api/deleteKey', 'POST', { id });
         navigate('/keys');
       } catch (error) {
         console.log(error);
