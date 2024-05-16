@@ -5,13 +5,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 body {
-  @apply text-black text-tg-theme-text bg-white bg-tg-theme-bg;
+  @apply text-black text-tg-theme-text bg-white bg-tg-theme-secondary-bg;
 
   font-family        : "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
   min-height         : var(--tg-viewport-height);
+}
+
+#root {
+  min-height: var(--tg-viewport-stable-height)
 }
 
 .btn {
@@ -60,7 +64,7 @@ body {
 
 .input,
 .select {
-  @apply w-full mb-1 border border-solid border-gray border-tg-theme-hint rounded-sm p-2 text-xl outline-none border-opacity-40 text-tg-theme-text bg-transparent;
+  @apply w-full mb-1 border border-solid border-gray border-tg-theme-hint rounded-sm p-2 text-xl outline-none border-opacity-40 text-black bg-white;
 
   &::placeholder {
     @apply text-xl;
@@ -68,12 +72,12 @@ body {
 
   &.error,
   &.error .select__control {
-    @apply border-red border-tg-theme-destructive-text border-opacity-60 text-black text-tg-theme-text;
+    @apply border-red border-tg-theme-destructive-text border-opacity-60 text-black;
   }
 
   &.valid,
   &.valid .select__control {
-    @apply border-green border-opacity-60 text-black text-tg-theme-text
+    @apply border-green border-opacity-60 text-black;
   }
 }
 
@@ -97,10 +101,10 @@ body {
   @apply w-full;
 
   input {
-    @apply w-full text-xl text-center outline-none bg-transparent;
+    @apply w-full text-xl text-center outline-none bg-tg-theme-secondary-bg;
   }
 }
 
-.padding-keyboard {
-  padding-bottom: 285px;
-}
+// .padding-keyboard {
+//   padding-bottom: 285px;
+// }
