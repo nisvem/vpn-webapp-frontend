@@ -1,9 +1,9 @@
 .key-place {
   @apply flex flex-row items-center justify-between gap-5 mb-5;
-  @apply p-4 bg-gray-light bg-opacity-20 rounded-sm;
+  @apply p-4 bg-gray-light bg-opacity-20 rounded-md;
 
   .key-place__text {
-    @apply break-all text-xs font-light;
+    @apply break-all text-xs font-light text-black;
   }
 
   .key-place__btn-copy {
@@ -17,7 +17,7 @@
     }
 
     path {
-      @apply stroke-gray;
+      @apply stroke-gray stroke-black;
     }
   }
 }

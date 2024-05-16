@@ -5,23 +5,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 body {
-  @apply text-black;
+  @apply text-black text-tg-theme-text bg-white bg-tg-theme-bg;
 
   font-family        : "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
+  min-height         : var(--tg-viewport-height);
 }
 
 .btn {
   @apply px-6 py-2;
-  @apply font-normal text-xl text-accent-text;
-  @apply border-2 border-accent rounded-2xl;
+  @apply font-normal text-xl text-accent-text text-tg-theme-button-text;
+  @apply border-2 border-accent border-tg-theme-button rounded-2xl;
   // @apply shadow-xl shadow-accent-light;
 
   @apply transition-all;
 
-  @apply bg-accent;
+  @apply bg-accent bg-tg-theme-button;
 
   &:disabled {
     @apply opacity-80;
@@ -29,18 +30,16 @@ body {
   }
 
   &:not(:disabled):hover {
-    // @apply shadow-md shadow-accent-light;
-    @apply text-accent;
-    @apply bg-accent-text;
+    filter: brightness(1.1)
   }
 }
 
 .title {
-  @apply text-black text-2xl text-center mb-3 px-4 w-full;
+  @apply text-white text-tg-theme-text text-2xl text-center mb-3 px-4 w-full;
 }
 
 .alert {
-  @apply text-xs text-red;
+  @apply text-xs text-red text-tg-theme-destructive-text;
 }
 
 .checkbox-label {
@@ -61,7 +60,7 @@ body {
 
 .input,
 .select {
-  @apply w-full mb-1 border border-solid border-gray rounded-sm p-2 text-xl outline-none border-opacity-40;
+  @apply w-full mb-1 border border-solid border-gray border-tg-theme-hint rounded-sm p-2 text-xl outline-none border-opacity-40 text-tg-theme-text bg-transparent;
 
   &::placeholder {
     @apply text-xl;
@@ -69,12 +68,12 @@ body {
 
   &.error,
   &.error .select__control {
-    @apply border-red border-opacity-60 text-color-text
+    @apply border-red border-tg-theme-destructive-text border-opacity-60 text-black text-tg-theme-text;
   }
 
   &.valid,
   &.valid .select__control {
-    @apply border-green border-opacity-60 text-color-text
+    @apply border-green border-opacity-60 text-black text-tg-theme-text
   }
 }
 
@@ -82,10 +81,10 @@ body {
   @apply p-0 border-0 outline-none shadow-none;
 
   .select__control {
-    @apply border-gray border border-opacity-40 rounded-sm outline-none shadow-none;
+    @apply border-gray border-tg-theme-hint border border-opacity-40 rounded-sm outline-none shadow-none;
 
     &:hover {
-      @apply border-gray border border-opacity-40;
+      @apply border-gray border-tg-theme-hint border border-opacity-40;
     }
   }
 
@@ -98,7 +97,7 @@ body {
   @apply w-full;
 
   input {
-    @apply w-full text-xl text-center outline-none;
+    @apply w-full text-xl text-center outline-none bg-transparent;
   }
 }
 

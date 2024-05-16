@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -8,8 +8,6 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import date from 'date-and-time';
 import convertSize from 'convert-size';
 import WebApp from '@twa-dev/sdk';
-
-import { setUser } from '../../reducers/user';
 
 import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
@@ -29,7 +27,6 @@ const KeyInfo = ({ data }: { data: Key }) => {
     (state) => state.user
   );
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const useHttpForDate = useHttp();

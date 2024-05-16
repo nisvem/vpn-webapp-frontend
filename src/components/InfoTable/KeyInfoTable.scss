@@ -1,8 +1,8 @@
 .table {
-  @apply w-full border border-accent rounded-sm mb-5;
+  @apply w-full border border-accent border-tg-theme-hint rounded-sm mb-5;
 
   &__row {
-    @apply grid grid-cols-3 border-b border-accent;
+    @apply grid grid-cols-3 border-b border-accent border-tg-theme-hint;
 
     &:last-child {
       border: none
@@ -10,7 +10,7 @@
   }
 
   &__name {
-    @apply border-r border-accent p-2 flex items-center justify-start text-sm;
+    @apply border-r border-accent border-tg-theme-hint p-2 flex items-center justify-start text-sm;
   }
 
   &__description {
@@ -18,7 +18,7 @@
   }
 
   a {
-    @apply underline text-color-text;
+    @apply underline text-color-text text-tg-theme-link;
 
     &:hover {
       @apply no-underline;

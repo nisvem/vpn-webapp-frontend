@@ -1,5 +1,5 @@
 .spiner {
   & svg * {
-    @apply stroke-accent;
+    @apply stroke-accent stroke-tg-theme-button;
   }
 }

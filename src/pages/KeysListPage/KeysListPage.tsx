@@ -56,8 +56,8 @@ const KeysListPage = () => {
                 <p
                   className={`${
                     keys.length >= maxKeyAvalible
-                      ? 'text-red'
-                      : 'text-gray font-thin'
+                      ? 'text-red text-tg-theme-destructive-text'
+                      : 'text-gray text-tg-theme-hint font-thin'
                   } mt-auto mb-4 text-sm text-center w-full`}
                 >{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
               ) : null}

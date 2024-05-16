@@ -31,6 +31,51 @@ export default {
       background: {
         DEFAULT: '#ffffff',
       },
+      'tg-theme-destructive-text': {
+        DEFAULT: 'var(--tg-theme-destructive-text-color)',
+      },
+      'tg-theme-section-bg': {
+        DEFAULT: 'var(--tg-theme-section-bg-color)',
+      },
+      'tg-theme-header-bg': {
+        DEFAULT: 'var(--tg-theme-header-bg-color)',
+      },
+      'tg-theme-button': {
+        DEFAULT: 'var(--tg-theme-button-color)',
+      },
+      'tg-theme-button-text': {
+        DEFAULT: 'var(--tg-theme-button-text-color)',
+      },
+      'tg-theme-text': {
+        DEFAULT: 'var(--tg-theme-text-color)',
+      },
+      'tg-theme-hint': {
+        DEFAULT: 'var(--tg-theme-hint-color)',
+      },
+      'tg-theme-link': {
+        DEFAULT: 'var(--tg-theme-link-color)',
+      },
+      'tg-theme-subtitle-text': {
+        DEFAULT: 'var(--tg-theme-subtitle-text-color)',
+      },
+      'tg-color-scheme': {
+        DEFAULT: 'var(--tg-color-scheme)',
+      },
+      'tg-theme-bg': {
+        DEFAULT: 'var(--tg-theme-bg-color)',
+      },
+      'tg-theme-accent-text': {
+        DEFAULT: 'var(--tg-theme-accent-text-color)',
+      },
+      'tg-theme-section-header': {
+        DEFAULT: 'var(--tg-theme-section-header-color)',
+      },
+      'tg-theme-section-header-text': {
+        DEFAULT: 'var(--tg-theme-section-header-text-color)',
+      },
+      'tg-theme-secondary-bg': {
+        DEFAULT: 'var(--tg-theme-secondary-bg-color)',
+      },
     },
   },
   plugins: [],

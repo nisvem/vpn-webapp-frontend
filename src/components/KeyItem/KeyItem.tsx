@@ -25,7 +25,7 @@ const KeyItem = ({ data }: { data: Key }) => {
         )}
       </p>
       {data.server ? (
-        <p className='text-xs mb-2 text-color-text'>
+        <p className='text-xs mb-2 text-color-text text-tg-theme-hint'>
           {`${data.server.name} (${data.server.country}) ${getUnicodeFlagIcon(
             data.server.abbreviatedCountry
           )}`}

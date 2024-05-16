@@ -11,7 +11,6 @@ import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 import Error from '../Error/Error';
 import { Store, User } from '../../types';
 
-import './UserInfo.scss';
 import KeyItem from '../KeyItem/KeyItem';
 
 const UserInfo = ({ user }: { user: User }) => {

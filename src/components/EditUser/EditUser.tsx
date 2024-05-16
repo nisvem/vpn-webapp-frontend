@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../reducers/user';
 
+import './EditUser.scss';
+
 const EditUserSchema = Yup.object()
   .shape({
     isAdmin: Yup.boolean().required('Required'),
