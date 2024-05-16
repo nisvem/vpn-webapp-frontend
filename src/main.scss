@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 body {
-  @apply text-black text-tg-theme-text bg-white bg-tg-theme-secondary-bg;
+  @apply text-black text-tg-theme-text bg-white bg-tg-theme-bg;
 
   font-family        : "Oswald", sans-serif;
   font-optical-sizing: auto;
@@ -101,7 +101,7 @@ body {
   @apply w-full;
 
   input {
-    @apply w-full text-xl text-center outline-none bg-tg-theme-secondary-bg;
+    @apply w-full text-xl text-center outline-none bg-tg-theme-bg;
   }
 }
 

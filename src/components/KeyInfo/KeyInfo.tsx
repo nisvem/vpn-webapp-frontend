@@ -191,16 +191,15 @@ const KeyInfo = ({ data }: { data: Key }) => {
           >
             Edit key
           </button>
+          <button
+            onClick={() => requestToPay(key._id)}
+            disabled={loading}
+            className='btn w-full mb-3'
+          >
+            Pay for Key
+          </button>
         </>
       ) : null}
-
-      <button
-        onClick={() => requestToPay(key._id)}
-        disabled={loading}
-        className='btn w-full mb-3'
-      >
-        Pay for Key
-      </button>
 
       <button
         onClick={() => deleteKey(key._id)}
