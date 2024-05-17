@@ -78,7 +78,7 @@ const UserInfo = ({ user }: { user: User }) => {
             <>
               {date.format(
                 new Date(user.dateOfCreateUser),
-                'D/MMMM/YYYY hh:mm'
+                'D/MMMM/YYYY HH:mm'
               ) || ''}
             </>
           </InfoRow>
