@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import date from 'date-and-time';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 
 import SpanActive from '../SpanActive/SpanActive';
 
-import { Key, Store, User } from '../../types';
+import { Key } from '../../types';
 
 import './KeyItem.scss';
 
 const KeyItem = ({ data }: { data: Key }) => {
-  const { isAdmin } = useSelector<Store, User>((state) => state.user);
-
   return (
     <Link
       to={`/keys/${data._id}`}
