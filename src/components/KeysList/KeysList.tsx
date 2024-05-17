@@ -1,12 +1,29 @@
+import { useSelector } from 'react-redux';
 import KeyItem from '../KeyItem/KeyItem';
 
-import { Key } from '../../types';
+import { Key, Store, User } from '../../types';
 
 const KeysList = ({ keys }: { keys: Key[] }) => {
+  const { isAdmin } = useSelector<Store, User>((state) => state.user);
+
+  const newKeys = keys.sort((a: Key, b: Key) => {
+    return (
+      new Date(a.nextPayment || 0).getTime() -
+      new Date(b.nextPayment || 0).getTime()
+    );
+  });
+
   return (
-    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mt-3 mb-7 '>
-      {keys.length > 0 ? (
-        keys.map((item, i) => <KeyItem key={i} data={item} />)
+    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+      {newKeys.length > 0 ? (
+        <>
+          {isAdmin && (
+            <p className='text-right text-xs'>Keys: {`${newKeys.length}`}</p>
+          )}
+          {newKeys.map((item, i) => (
+            <KeyItem key={i} data={item} />
+          ))}
+        </>
       ) : (
         <p className='text-center'>There aren't keys</p>
       )}
