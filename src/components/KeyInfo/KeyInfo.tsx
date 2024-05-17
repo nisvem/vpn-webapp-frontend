@@ -83,7 +83,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
     <div className='flex flex-col w-full'>
       <h1 className='title'>{key.name}</h1>
 
-      <InfoTable>
+      <InfoTable className='mb-5'>
         <InfoRow name='Status' onlyAdmin={false}>
           <SpanActive isOpen={key.isOpen} />
         </InfoRow>
@@ -142,7 +142,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
       </InfoTable>
 
       {key.isOpen && (
-        <div className='key-place mt-5'>
+        <div className='key-place'>
           <p className='key-place__text'>
             <span className='text-md font-bold'>Access key: </span>
             {key.accessUrl}

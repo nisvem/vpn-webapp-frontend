@@ -27,9 +27,15 @@ export const InfoRow = ({
   ) : null;
 };
 
-export const InfoTable = ({ children }: { children: React.ReactNode }) => {
+export const InfoTable = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
-    <div className='table'>
+    <div className={`table ${className}`}>
       {Children.map(children, (child) => {
         return <>{child}</>;
       })}
