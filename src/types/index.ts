@@ -58,6 +58,10 @@ export interface EditKeyForm {
   nextPayment?: Date;
 }
 
+export interface PaymentKeyForm {
+  tariff?: Option;
+}
+
 export interface EditUserForm {
   isAdmin: boolean;
   isLimitedToCreate: boolean;
@@ -71,10 +75,19 @@ export interface Server {
   price: number;
 }
 
+export interface Tariff {
+  _id: string;
+  name: string;
+  days: string;
+  discountPercentage: string;
+}
+
 export interface Option {
-  value?: string;
-  label?: string;
+  value: string;
+  label: string;
   price?: string;
   country?: string;
+  discountPercentage?: string;
   abbreviatedCountry?: string;
+  days?: string;
 }

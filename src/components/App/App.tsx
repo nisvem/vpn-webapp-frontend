@@ -22,6 +22,12 @@ import FaqPage from '../../pages/FaqPage/FaqPage';
 import EditUserPage, {
   EditUserPageLoader,
 } from '../../pages/EditUserPage/EditUserPage';
+import EditKeyPage, {
+  EditKeyPageLoader,
+} from '../../pages/EditKeyPage/EditKeyPage';
+import PaymentPage, {
+  PaymentPageLoader,
+} from '../../pages/PaymentPage/PaymentPage';
 
 import Error from '../Error/Error';
 import Spiner from '../Spiner/Spiner';
@@ -29,9 +35,6 @@ import Spiner from '../Spiner/Spiner';
 import { Store, User } from '../../types';
 
 import './App.scss';
-import EditKeyPage, {
-  EditKeyPageLoader,
-} from '../../pages/EditKeyPage/EditKeyPage';
 
 function App() {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
@@ -46,7 +49,7 @@ function App() {
         {
           index: true,
           element: isAdmin ? (
-            <Navigate to='/users' replace />
+            <Navigate to='/keys' replace />
           ) : (
             <Navigate to='/keys' replace />
           ),
@@ -106,6 +109,16 @@ function App() {
               path: ':id',
               loader: EditKeyPageLoader,
               element: <EditKeyPage />,
+            },
+          ],
+        },
+        {
+          path: 'payment',
+          children: [
+            {
+              path: ':id',
+              loader: PaymentPageLoader,
+              element: <PaymentPage />,
             },
           ],
         },

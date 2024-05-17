@@ -7,7 +7,6 @@ import { useHttp } from '../../hooks/http.hook';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import date from 'date-and-time';
 import convertSize from 'convert-size';
-import WebApp from '@twa-dev/sdk';
 
 import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
@@ -23,9 +22,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   const [key, setKey] = useState<Key>(data);
   const [usageData, setUsageData] = useState(' ... ');
 
-  const { isAdmin, telegramId } = useSelector<Store, User>(
-    (state) => state.user
-  );
+  const { isAdmin } = useSelector<Store, User>((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -78,18 +75,6 @@ const KeyInfo = ({ data }: { data: Key }) => {
     }
   };
 
-  const requestToPay = async (id: string) => {
-    try {
-      await request(`/api/getUrlToChat`, 'POST', {
-        keyId: id,
-        telegramId: telegramId,
-      });
-      WebApp.close();
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return process === 'error' ? (
     <>
       <Error text={errorText}></Error>
@@ -139,7 +124,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
 
         {key.currentPrice ? (
           <InfoRow name='Price' onlyAdmin={false}>
-            <>{key.currentPrice} rub/mes</>
+            <>{key.currentPrice} rub / 30 days</>
           </InfoRow>
         ) : null}
 
@@ -156,7 +141,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
         ) : null}
       </InfoTable>
 
-      <div className='key-place'>
+      <div className='key-place mt-5'>
         <p className='key-place__text'>
           <span className='text-md font-bold'>Access key: </span>
           {key.accessUrl}
@@ -191,15 +176,18 @@ const KeyInfo = ({ data }: { data: Key }) => {
           >
             Edit key
           </button>
-          <button
-            onClick={() => requestToPay(key._id)}
-            disabled={loading}
-            className='btn w-full mb-3'
-          >
-            Pay for Key
-          </button>
         </>
       ) : null}
+
+      {!key.isOpen && (
+        <button
+          onClick={() => navigate(`/payment/${key._id}`)}
+          disabled={loading}
+          className='btn w-full mb-3'
+        >
+          Pay for Key
+        </button>
+      )}
 
       <button
         onClick={() => deleteKey(key._id)}

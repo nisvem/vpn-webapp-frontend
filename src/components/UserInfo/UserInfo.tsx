@@ -85,7 +85,7 @@ const UserInfo = ({ user }: { user: User }) => {
         )}
       </InfoTable>
 
-      <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+      <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 mt-5'>
         <h2>Keys:</h2>
         {user.keys.length > 0 ? (
           user.keys.map((item, i) => <KeyItem key={i} data={item} />)

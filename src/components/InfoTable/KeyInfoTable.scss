@@ -1,5 +1,5 @@
 .table {
-  @apply w-full border border-accent border-tg-theme-hint rounded-sm mb-5;
+  @apply w-full border border-accent border-tg-theme-hint rounded-md;
 
   &__row {
     @apply grid grid-cols-3 border-b border-accent border-tg-theme-hint;
@@ -23,5 +23,9 @@
     &:hover {
       @apply no-underline;
     }
+  }
+
+  &:last-child {
+    @apply mb-5;
   }
 }
