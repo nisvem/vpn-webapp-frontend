@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import date from 'date-and-time';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 
 import SpanActive from '../SpanActive/SpanActive';
@@ -17,13 +17,13 @@ const KeyItem = ({ data }: { data: Key }) => {
       to={`/keys/${data._id}`}
       className={`key-item ${data.isOpen ? 'bg-unlock' : 'bg-lock'}`}
     >
-      <p className='text-xl mb-2'>
-        {isAdmin ? (
-          <span className='text-sm'>{`@${data.user?.username} / ${data.name}`}</span>
-        ) : (
-          data.name
-        )}
-      </p>
+      <p className='text-xl mb-2'>{data.name}</p>
+
+      {data.nextPayment && (
+        <p className='text-xs mb-1 text-color-text text-tg-theme-hint'>
+          Next payment: {date.format(new Date(data.nextPayment), 'D MMMM YYYY')}
+        </p>
+      )}
       {data.server ? (
         <p className='text-xs mb-2 text-color-text text-tg-theme-hint'>
           {`${data.server.name} (${data.server.country}) ${getUnicodeFlagIcon(

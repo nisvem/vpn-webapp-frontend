@@ -1,8 +1,8 @@
 const SpanActive = ({ isOpen }: { isOpen: boolean }) => {
   return isOpen ? (
-    <p className='text-green text-xs font-bold'>Active</p>
+    <p className='text-green text-md font-bold'>Active</p>
   ) : (
-    <p className='text-red text-tg-theme-destructive-text text-xs font-bold'>
+    <p className='text-red text-tg-theme-destructive-text text-md font-bold'>
       Inactive
     </p>
   );
