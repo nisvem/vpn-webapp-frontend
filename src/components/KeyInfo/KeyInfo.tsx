@@ -81,7 +81,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   const requestToPay = async (id: string) => {
     try {
       await request(`/api/getUrlToChat`, 'POST', {
-        idKey: id,
+        keyId: id,
         telegramId: telegramId,
       });
       WebApp.close();
