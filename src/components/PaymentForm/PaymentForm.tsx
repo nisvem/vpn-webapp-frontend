@@ -100,7 +100,7 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
             </InfoRow>
 
             {dataKey.server ? (
-              <InfoRow name='Server' onlyAdmin={true}>
+              <InfoRow name='Server' onlyAdmin={false}>
                 <span>
                   {`${dataKey.server.name} (${
                     dataKey.server.country
@@ -109,7 +109,7 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
               </InfoRow>
             ) : null}
 
-            <InfoRow name='Price' onlyAdmin={true}>
+            <InfoRow name='Price' onlyAdmin={false}>
               <p className='mr-auto'>{dataKey.currentPrice} rub / 30 days</p>
             </InfoRow>
           </InfoTable>
