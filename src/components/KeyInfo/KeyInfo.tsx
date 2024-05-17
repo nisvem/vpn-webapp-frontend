@@ -141,15 +141,17 @@ const KeyInfo = ({ data }: { data: Key }) => {
         ) : null}
       </InfoTable>
 
-      <div className='key-place mt-5'>
-        <p className='key-place__text'>
-          <span className='text-md font-bold'>Access key: </span>
-          {key.accessUrl}
-        </p>
-        <button className='key-place__btn-copy' onClick={onClickCopy}>
-          <Player ref={copyBtn} src={copyAnimation}></Player>
-        </button>
-      </div>
+      {key.isOpen && (
+        <div className='key-place mt-5'>
+          <p className='key-place__text'>
+            <span className='text-md font-bold'>Access key: </span>
+            {key.accessUrl}
+          </p>
+          <button className='key-place__btn-copy' onClick={onClickCopy}>
+            <Player ref={copyBtn} src={copyAnimation}></Player>
+          </button>
+        </div>
+      )}
 
       {isAdmin ? (
         <>
