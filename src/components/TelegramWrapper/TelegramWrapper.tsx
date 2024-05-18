@@ -24,22 +24,20 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
 
       if (response) {
         const updateResponse = await request('/api/updateUser', 'POST', {
-          username: WebApp.initDataUnsafe.user?.username,
-          telegramId: WebApp.initDataUnsafe.user?.id,
-          name: WebApp.initDataUnsafe.user?.first_name,
-          surname: WebApp.initDataUnsafe.user?.last_name,
-          photoUrl: WebApp.initDataUnsafe.user?.photo_url,
+          username: WebApp.initDataUnsafe.user?.username || '',
+          telegramId: WebApp.initDataUnsafe.user?.id || '',
+          name: WebApp.initDataUnsafe.user?.first_name || '',
+          surname: WebApp.initDataUnsafe.user?.last_name || '',
           lastViewedApp: new Date(),
         });
 
         dispatch(setUser(updateResponse));
       } else {
         const createResponse = await request('/api/createUser', 'POST', {
-          username: WebApp.initDataUnsafe.user?.username,
-          telegramId: WebApp.initDataUnsafe.user?.id,
-          name: WebApp.initDataUnsafe.user?.first_name,
-          surname: WebApp.initDataUnsafe.user?.last_name,
-          photoUrl: WebApp.initDataUnsafe.user?.photo_url,
+          username: WebApp.initDataUnsafe.user?.username || '',
+          telegramId: WebApp.initDataUnsafe.user?.id || '',
+          name: WebApp.initDataUnsafe.user?.first_name || '',
+          surname: WebApp.initDataUnsafe.user?.last_name || '',
           lastViewedApp: new Date(),
           dateOfCreateUser: new Date(),
         });

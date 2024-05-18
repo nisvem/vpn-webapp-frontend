@@ -35,7 +35,7 @@ export const InfoTable = ({
   className?: string;
 }) => {
   return (
-    <div className={`table ${className}`}>
+    <div className={`table ${className || ''}`}>
       {Children.map(children, (child) => {
         return <>{child}</>;
       })}
