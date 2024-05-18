@@ -41,7 +41,7 @@ const CreateKey = () => {
     {
       value: user.telegramId,
       label: `${user.name} ${user.surname} / ${
-        user.username ? '@' + user.username : user.telegramId
+        user?.username ? '@' + user.username : user.telegramId
       }`,
     },
   ]);
@@ -69,7 +69,9 @@ const CreateKey = () => {
           const options = response?.map((user: User) => {
             return {
               value: user.telegramId,
-              label: `${user.name} ${user.surname} / @${user.username}`,
+              label: `${user.name} ${user.surname} / ${
+                user?.username ? '@' + user.username : user.telegramId
+              }`,
             };
           });
 
