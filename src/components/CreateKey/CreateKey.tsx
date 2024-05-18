@@ -40,7 +40,9 @@ const CreateKey = () => {
   const [userOption, setUserOptions] = useState<Option[]>([
     {
       value: user.telegramId,
-      label: `${user.name} ${user.surname} / @${user.username}`,
+      label: `${user.name} ${user.surname} / ${
+        user.username ? '@' + user.username : user.telegramId
+      }`,
     },
   ]);
 
