@@ -58,7 +58,7 @@ const UserInfo = ({ user }: { user: User }) => {
         {user?.phoneNumber && (
           <InfoRow name='Phone' onlyAdmin={true}>
             <a
-              href={`https://t.me/${user?.phoneNumber}`}
+              href={`https://t.me/+${user?.phoneNumber}`}
               target='_blank'
             >{` +${user?.phoneNumber}`}</a>
           </InfoRow>

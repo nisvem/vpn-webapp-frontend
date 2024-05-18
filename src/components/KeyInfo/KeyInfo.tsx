@@ -113,7 +113,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
               <p>
                 {`Phone: `}
                 <a
-                  href={`https://t.me/${key.user?.phoneNumber}`}
+                  href={`https://t.me/+${key.user?.phoneNumber}`}
                   target='_blank'
                 >{`+${key.user?.phoneNumber}`}</a>
               </p>
