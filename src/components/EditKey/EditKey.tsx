@@ -152,7 +152,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                     <DatePicker
                       {...field}
                       dateFormat='dd/MM/yyyy'
-                      // selected={field.value}
+                      selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}
                     />
                   )}
@@ -172,7 +172,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                     <DatePicker
                       {...field}
                       dateFormat='dd/MM/yyyy'
-                      selected={new Date(field.value)}
+                      selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}
                     />
                   )}
