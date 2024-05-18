@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -17,14 +17,19 @@ import { Key, Store, User } from '../../types';
 import copyAnimation from '../../data/copyAnimation.json';
 
 import './KeyInfo.scss';
+import { setUser } from '../../reducers/user';
 
 const KeyInfo = ({ data }: { data: Key }) => {
   const [key, setKey] = useState<Key>(data);
   const [usageData, setUsageData] = useState(' ... ');
+  const [isDeleted, setIsDeleted] = useState(false);
 
-  const { isAdmin } = useSelector<Store, User>((state) => state.user);
+  const { isAdmin, telegramId } = useSelector<Store, User>(
+    (state) => state.user
+  );
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const useHttpForDate = useHttp();
   const { request, process, loading, errorText } = useHttp();
@@ -49,6 +54,12 @@ const KeyInfo = ({ data }: { data: Key }) => {
     getDataUsage();
   }, []);
 
+  useEffect(() => {
+    if (isDeleted) {
+      navigate(-1);
+    }
+  }, [isDeleted]);
+
   const onClickCopy: React.MouseEventHandler<HTMLButtonElement> = () => {
     copyBtn.current?.play();
     navigator.clipboard.writeText(key.accessUrl);
@@ -57,8 +68,11 @@ const KeyInfo = ({ data }: { data: Key }) => {
   const deleteKey = async (id: string) => {
     if (window.confirm('Do you really want to delete Key?')) {
       try {
-        await request('/api/deleteKey', 'POST', { id });
-        navigate('/keys');
+        const response = await request('/api/deleteKey', 'POST', { id });
+
+        response.telegramId === telegramId ? dispatch(setUser(response)) : null;
+
+        setIsDeleted(true);
       } catch (error) {
         console.log(error);
       }

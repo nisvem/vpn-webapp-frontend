@@ -55,55 +55,6 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
     console.log('WebApp', WebApp);
   }, []);
 
-  // const initFunction = async (user: {
-  //   telegramId: number;
-  //   username: string;
-  //   name: string;
-  //   surname: string;
-  //   photo_url: string;
-  // }) => {
-  //   try {
-  //     const response = await request(`/api/getUser/${user.telegramId}`);
-
-  //     if (response) {
-  //       const updateResponse = await request('/api/updateUser', 'POST', {
-  //         username: user.username,
-  //         telegramId: user.telegramId,
-  //         name: user.name,
-  //         surname: user.surname,
-  //         photoUrl: user.photo_url,
-  //         lastViewedApp: new Date(),
-  //       });
-
-  //       dispatch(setUser(updateResponse));
-  //     } else {
-  //       const createResponse = await request('/api/createUser', 'POST', {
-  //         username: user.username,
-  //         telegramId: user.telegramId,
-  //         name: user.name,
-  //         surname: user.surname,
-  //         photoUrl: user.photo_url,
-  //         lastViewedApp: new Date(),
-  //         dateOfCreateUser: new Date(),
-  //       });
-
-  //       dispatch(setUser(createResponse));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   initFunction({
-  //     telegramId: 683299990,
-  //     username: 'nisvem',
-  //     name: 'Artem',
-  //     surname: '',
-  //     photo_url: '',
-  //   });
-  // }, []);
-
   return process !== 'error' ? (
     <>
       {WebApp?.initDataUnsafe &&

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Await,
@@ -36,12 +36,9 @@ const KeysListPage = () => {
   const { data } = useLoaderData() as { data: Key[] };
   const navigate = useNavigate();
 
-  WebApp.BackButton.show();
-  WebApp.BackButton.onClick(() => {
-    navigate('/');
+  useEffect(() => {
+    WebApp.BackButton.hide();
   });
-
-  WebApp.BackButton.hide();
 
   return (
     <Suspense fallback={<Spiner />}>

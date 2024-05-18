@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import WebApp from '@twa-dev/sdk';
 import CreateKey from '../../components/CreateKey/CreateKey';
@@ -5,9 +6,11 @@ import CreateKey from '../../components/CreateKey/CreateKey';
 const CreateKeyPage = () => {
   const navigate = useNavigate();
 
-  WebApp.BackButton.show();
-  WebApp.BackButton.onClick(() => {
-    navigate('/');
+  useEffect(() => {
+    WebApp.BackButton.show();
+    WebApp.BackButton.onClick(() => {
+      navigate('/');
+    });
   });
 
   return (
