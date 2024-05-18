@@ -162,7 +162,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
         ) : null}
       </InfoTable>
 
-      {key.isOpen && (
+      {key.isOpen ? (
         <div className='key-place'>
           <p className='key-place__text'>
             <span className='text-md font-bold'>Access key: </span>
@@ -171,6 +171,13 @@ const KeyInfo = ({ data }: { data: Key }) => {
           <button className='key-place__btn-copy' onClick={onClickCopy}>
             <Player ref={copyBtn} src={copyAnimation}></Player>
           </button>
+        </div>
+      ) : (
+        <div className='key-place'>
+          <p className='key-place__text'>
+            <span className='text-md font-bold'>Access key: </span>
+            <p>To view the Access key, please pay for Кey.</p>
+          </p>
         </div>
       )}
 
