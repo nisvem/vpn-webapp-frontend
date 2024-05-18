@@ -104,21 +104,28 @@ const KeyInfo = ({ data }: { data: Key }) => {
 
         <InfoRow name='Owner' onlyAdmin={true}>
           <>
-            {key.user?.name ? <p>{`Name: ${key.user?.name}`}</p> : null}
-            {key.user?.surname ? (
-              <p>{`Lastname: ${key.user?.surname}`}</p>
-            ) : null}
-            {key.user?.telegramId ? (
+            {key.user?.name && <p>{`Name: ${key.user?.name}`}</p>}
+            {key.user?.surname && <p>{`Lastname: ${key.user?.surname}`}</p>}
+            {key.user?.telegramId && (
               <p>{`TelegramId: ${key.user?.telegramId}`}</p>
-            ) : null}
-            {key.user?.username ? (
+            )}
+            {key.user?.phoneNumber && (
+              <p>
+                {`Phone: `}
+                <a
+                  href={`https://t.me/${key.user?.phoneNumber}`}
+                  target='_blank'
+                >{`+${key.user?.phoneNumber}`}</a>
+              </p>
+            )}
+            {key.user?.username && (
               <p>
                 <a
                   href={`https://t.me/${key.user?.username}`}
                   target='_blank'
                 >{`@${key.user?.username}`}</a>
               </p>
-            ) : null}
+            )}
           </>
         </InfoRow>
 

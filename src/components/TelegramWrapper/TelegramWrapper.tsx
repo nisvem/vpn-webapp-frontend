@@ -1,6 +1,6 @@
-import { useEffect, Children } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../reducers/user';
 import WebApp from '@twa-dev/sdk';
 
@@ -8,10 +8,15 @@ import Spiner from '../Spiner/Spiner';
 import Error from '../Error/Error';
 
 import { useHttp } from '../../hooks/http.hook';
-import { Store, User } from '../../types';
+import App from '../App/App';
 
-function TelegramWrapper({ children }: { children: JSX.Element }) {
-  const { telegramId } = useSelector<Store, User>((state) => state.user);
+type CallbackParams = {
+  status: 'sent' | 'cancelled';
+  [key: string]: any;
+};
+
+function TelegramWrapper() {
+  const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
   const { request, process, errorText, loading } = useHttp();
@@ -21,8 +26,8 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
       const response = await request(
         `/api/getUser/${WebApp.initDataUnsafe.user?.id}`
       );
-
-      if (response) {
+      console.log('response:', response);
+      if (response?.username || response?.phoneNumber) {
         const updateResponse = await request('/api/updateUser', 'POST', {
           username: WebApp.initDataUnsafe.user?.username || '',
           telegramId: WebApp.initDataUnsafe.user?.id || '',
@@ -32,17 +37,72 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
         });
 
         dispatch(setUser(updateResponse));
+        setIsReady(true);
       } else {
-        const createResponse = await request('/api/createUser', 'POST', {
-          username: WebApp.initDataUnsafe.user?.username || '',
-          telegramId: WebApp.initDataUnsafe.user?.id || '',
-          name: WebApp.initDataUnsafe.user?.first_name || '',
-          surname: WebApp.initDataUnsafe.user?.last_name || '',
-          lastViewedApp: new Date(),
-          dateOfCreateUser: new Date(),
-        });
+        if (WebApp.initDataUnsafe.user?.username) {
+          const createResponse = await request('/api/createUser', 'POST', {
+            username: WebApp.initDataUnsafe.user?.username || '',
+            telegramId: WebApp.initDataUnsafe.user?.id || '',
+            name: WebApp.initDataUnsafe.user?.first_name || '',
+            surname: WebApp.initDataUnsafe.user?.last_name || '',
+            lastViewedApp: new Date(),
+            dateOfCreateUser: new Date(),
+          });
+          dispatch(setUser(createResponse));
+          setIsReady(true);
+        } else {
+          WebApp.showConfirm(
+            'For working with this bot, you need to have a username or share your contact. Do you want to share your contact information?',
+            (confirm) => {
+              if (confirm) {
+                WebApp.requestContact((access) => !access && WebApp.close());
 
-        dispatch(setUser(createResponse));
+                WebApp.onEvent(
+                  'contactRequested',
+                  async (params: CallbackParams) => {
+                    if (response) {
+                      const updateResponse = await request(
+                        '/api/updateUser',
+                        'POST',
+                        {
+                          username: WebApp.initDataUnsafe.user?.username || '',
+                          telegramId: WebApp.initDataUnsafe.user?.id || '',
+                          phoneNumber:
+                            params.responseUnsafe.contact.phone_number || '',
+                          name: WebApp.initDataUnsafe.user?.first_name || '',
+                          surname: WebApp.initDataUnsafe.user?.last_name || '',
+                          lastViewedApp: new Date(),
+                        }
+                      );
+
+                      dispatch(setUser(updateResponse));
+                      setIsReady(true);
+                    } else {
+                      const createResponse = await request(
+                        '/api/createUser',
+                        'POST',
+                        {
+                          username: WebApp.initDataUnsafe.user?.username || '',
+                          telegramId: WebApp.initDataUnsafe.user?.id || '',
+                          phoneNumber:
+                            params?.responseUnsafe.contact.phone_number || '',
+                          name: WebApp.initDataUnsafe.user?.first_name || '',
+                          surname: WebApp.initDataUnsafe.user?.last_name || '',
+                          lastViewedApp: new Date(),
+                          dateOfCreateUser: new Date(),
+                        }
+                      );
+                      dispatch(setUser(createResponse));
+                      setIsReady(true);
+                    }
+                  }
+                );
+              } else {
+                WebApp.close();
+              }
+            }
+          );
+        }
       }
     } catch (e) {
       console.error(e);
@@ -57,15 +117,8 @@ function TelegramWrapper({ children }: { children: JSX.Element }) {
 
   return process !== 'error' ? (
     <>
-      {WebApp?.initDataUnsafe &&
-      WebApp?.initDataUnsafe?.user &&
-      !loading &&
-      telegramId ? (
-        <>
-          {Children.map(children, (child) => {
-            return child;
-          })}
-        </>
+      {!loading && isReady ? (
+        <App />
       ) : (
         <div className='min-h-screen w-screen flex items-center justify-center'>
           <Spiner />

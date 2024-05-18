@@ -29,7 +29,7 @@ import PaymentPage, {
   PaymentPageLoader,
 } from '../../pages/PaymentPage/PaymentPage';
 
-import Error from '../Error/Error';
+import ErrorRouter from '../ErrorRouter/ErrorRouter';
 import Spiner from '../Spiner/Spiner';
 
 import { Store, User } from '../../types';
@@ -37,14 +37,16 @@ import { Store, User } from '../../types';
 import './App.scss';
 
 function App() {
-  const { isAdmin } = useSelector<Store, User>((state) => state.user);
+  const { isAdmin, telegramId } = useSelector<Store, User>(
+    (state) => state.user
+  );
 
   const router = createBrowserRouter([
     {
       id: 'root',
       path: '/',
       element: <Layout />,
-      errorElement: <Error />,
+      errorElement: <ErrorRouter />,
       children: [
         {
           index: true,
@@ -131,9 +133,11 @@ function App() {
   ]);
 
   return (
-    <Suspense fallback={<Spiner />}>
-      <RouterProvider router={router} />
-    </Suspense>
+    telegramId && (
+      <Suspense fallback={<Spiner />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    )
   );
 }
 

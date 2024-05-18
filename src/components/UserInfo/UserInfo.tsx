@@ -12,6 +12,7 @@ import Error from '../Error/Error';
 import { Store, User } from '../../types';
 
 import KeyItem from '../KeyItem/KeyItem';
+import WebApp from '@twa-dev/sdk';
 
 const UserInfo = ({ user }: { user: User }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
@@ -35,7 +36,10 @@ const UserInfo = ({ user }: { user: User }) => {
     </>
   ) : (
     <div className='flex flex-col w-full'>
-      <h1 className='title'> - @{user.username} - </h1>
+      <h1 className='title'>
+        {' '}
+        - {user.username ? '@' + user.username : user.telegramId} -{' '}
+      </h1>
 
       <InfoTable>
         <InfoRow name='Name' onlyAdmin={true}>
@@ -43,14 +47,30 @@ const UserInfo = ({ user }: { user: User }) => {
             {user.name} {user.surname || ''}
           </p>
         </InfoRow>
-        <InfoRow name='Nickname' onlyAdmin={true}>
-          <a
-            href={`https://t.me/${user?.username}`}
-            target='_blank'
-          >{`@${user?.username}`}</a>
-        </InfoRow>
+        {user?.username && (
+          <InfoRow name='Nickname' onlyAdmin={true}>
+            <a
+              href={`https://t.me/${user?.username}`}
+              target='_blank'
+            >{`@${user?.username}`}</a>
+          </InfoRow>
+        )}
+        {user?.phoneNumber && (
+          <InfoRow name='Phone' onlyAdmin={true}>
+            <a
+              href={`https://t.me/${user?.phoneNumber}`}
+              target='_blank'
+            >{` +${user?.phoneNumber}`}</a>
+          </InfoRow>
+        )}
         <InfoRow name='TelegramId' onlyAdmin={true}>
-          <p>{user.telegramId}</p>
+          <p
+            onClick={() => {
+              WebApp.requestContact();
+            }}
+          >
+            {user.telegramId}
+          </p>
         </InfoRow>
         <InfoRow name='Admin' onlyAdmin={true}>
           <p>{user.isAdmin ? 'Yes' : 'No'}</p>
