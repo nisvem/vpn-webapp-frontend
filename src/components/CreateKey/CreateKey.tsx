@@ -197,7 +197,7 @@ const CreateKey = () => {
           ) : null}
 
           <button
-            className='btn w-full mt-auto'
+            className='btn w-full sticky bottom-2'
             type='submit'
             disabled={
               Object.entries(errors).length || !Object.entries(touched).length

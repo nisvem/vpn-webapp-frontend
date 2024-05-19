@@ -17,7 +17,9 @@ body {
 }
 
 #root {
+  position  : relative;
   display   : flex;
+  overflow  : auto;
   height    : var(--tg-viewport-height);
   min-height: var(--tg-viewport-height);
   max-height: var(--tg-viewport-height);
