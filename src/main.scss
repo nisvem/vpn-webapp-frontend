@@ -11,11 +11,12 @@ body {
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
-  min-height         : 100vh;
+  min-height         : var(--tg-viewport-stable-height);
 }
 
 #root {
   display: flex;
+  height : 100%;
 }
 
 .btn {
