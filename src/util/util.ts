@@ -1,6 +1,5 @@
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk';
-import { FocusEventHandler } from 'react';
 
 const { VITE_API_URL, VITE_API_ACCESS_KEY } = import.meta.env;
 
