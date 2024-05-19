@@ -17,8 +17,10 @@ body {
 }
 
 #root {
-  display: flex;
-  height : 100%;
+  display   : flex;
+  height    : var(--tg-viewport-height);
+  min-height: var(--tg-viewport-height);
+  max-height: var(--tg-viewport-height);
 }
 
 .btn {
