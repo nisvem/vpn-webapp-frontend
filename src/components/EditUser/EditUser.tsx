@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../reducers/user';
 
 import './EditUser.scss';
+import { onFocusInput } from '../../util/util';
 
 const EditUserSchema = Yup.object()
   .shape({
@@ -113,6 +114,7 @@ const EditUser = ({ user }: { user: User }) => {
                 <Field
                   name='maxKeyAvalible'
                   type='number'
+                  onFocus={onFocusInput}
                   className={`input p-1 ${
                     errors.maxKeyAvalible ? 'error' : ''
                   }`}

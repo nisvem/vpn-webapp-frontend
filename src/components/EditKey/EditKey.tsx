@@ -16,6 +16,7 @@ import { EditKeyForm, Key } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 import './EditKey.scss';
+import { onFocusInput } from '../../util/util';
 
 const EditKeySchema = Yup.object()
   .shape({
@@ -82,6 +83,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   <Field
                     name='name'
                     type='text'
+                    onFocus={onFocusInput}
                     className={`input ${errors.name ? 'error' : ''}`}
                   />
                 </label>
@@ -131,6 +133,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                     name='currentPrice'
                     type='number'
                     step='50'
+                    onFocus={onFocusInput}
                     className={`input !p-0 text-right  ${
                       errors.currentPrice ? 'error' : ''
                     }`}
