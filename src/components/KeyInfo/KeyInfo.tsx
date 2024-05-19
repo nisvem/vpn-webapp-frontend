@@ -95,7 +95,15 @@ const KeyInfo = ({ data }: { data: Key }) => {
     </>
   ) : (
     <div className='flex flex-col w-full'>
-      <h1 className='title'>{key.name}</h1>
+      {isAdmin ? (
+        <h1 className='title'>
+          {`${key.name} (${
+            key.user?.username ? '@' + key.user?.username : key.user?.telegramId
+          })`}
+        </h1>
+      ) : (
+        <h1 className='title'>{key.name}</h1>
+      )}
 
       <InfoTable className='mb-5'>
         <InfoRow name='Status' onlyAdmin={false}>
