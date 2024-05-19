@@ -154,6 +154,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   {({ field, form }: FieldProps<string>) => (
                     <DatePicker
                       {...field}
+                      onFocus={onFocusInput}
                       dateFormat='dd/MM/yyyy'
                       selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}
@@ -174,6 +175,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   {({ field, form }: FieldProps<string>) => (
                     <DatePicker
                       {...field}
+                      onFocus={onFocusInput}
                       dateFormat='dd/MM/yyyy'
                       selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}
