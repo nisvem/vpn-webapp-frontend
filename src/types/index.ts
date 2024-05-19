@@ -39,6 +39,7 @@ export interface Key {
   isOpen: boolean;
 
   server?: Server;
+  portForKey: number;
 
   user?: User;
   currentPrice?: number;

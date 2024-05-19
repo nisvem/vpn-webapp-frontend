@@ -48,25 +48,30 @@ const KeysListPage = () => {
           return (
             <>
               <h1 className='title'>Keys List</h1>
-              <KeysList keys={resolvedValue} />
-              {!isAdmin ? (
-                <p
-                  className={`${
-                    keys.length >= maxKeyAvalible
-                      ? 'text-red text-tg-theme-destructive-text'
-                      : 'text-gray text-tg-theme-hint font-thin'
-                  } mt-auto mb-4 text-sm text-center w-full`}
-                >{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
-              ) : null}
-              <button
-                onClick={() => {
-                  navigate('/create-key');
-                }}
-                className='btn w-full'
-                disabled={isLimitedToCreate ? true : false}
-              >
-                Add
-              </button>
+              <div className='w-full pb-10'>
+                <KeysList keys={resolvedValue} />
+                {!isAdmin ? (
+                  <p
+                    className={`${
+                      keys.length >= maxKeyAvalible
+                        ? 'text-red text-tg-theme-destructive-text'
+                        : 'text-gray text-tg-theme-hint font-thin'
+                    } mt-auto mb-4 text-sm text-center w-full`}
+                  >{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
+                ) : null}
+              </div>
+
+              <div className='fixed bottom-0 w-full inset-x-0 p-4 '>
+                <button
+                  onClick={() => {
+                    navigate('/create-key');
+                  }}
+                  className='btn w-full'
+                  disabled={isLimitedToCreate ? true : false}
+                >
+                  Add
+                </button>
+              </div>
             </>
           );
         }}

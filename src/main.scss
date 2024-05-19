@@ -16,6 +16,7 @@ body {
 
 #root {
   display   : flex;
+  overflow  : auto;
   min-height: var(--tg-viewport-stable-height)
 }
 
@@ -106,6 +107,6 @@ body {
   }
 }
 
-// .padding-keyboard {
-//   padding-bottom: 285px;
-// }
+.padding-keyboard {
+  padding-bottom: 285px;
+}

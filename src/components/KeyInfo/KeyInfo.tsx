@@ -90,9 +90,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   };
 
   return process === 'error' ? (
-    <>
-      <Error text={errorText}></Error>
-    </>
+    <Error text={errorText}></Error>
   ) : (
     <div className='flex flex-col w-full'>
       {isAdmin ? (
@@ -147,8 +145,18 @@ const KeyInfo = ({ data }: { data: Key }) => {
           </InfoRow>
         ) : null}
 
+        <InfoRow name='ID in Outline:' onlyAdmin={true}>
+          <span>{key.id}</span>
+        </InfoRow>
+
+        {key.portForKey && (
+          <InfoRow name='Port:' onlyAdmin={true}>
+            <span>{key.portForKey}</span>
+          </InfoRow>
+        )}
+
         <InfoRow name='Usage trafic (last 30 days)' onlyAdmin={false}>
-          <>{usageData}</>
+          <span>{usageData}</span>
         </InfoRow>
 
         {key.currentPrice ? (
@@ -159,13 +167,17 @@ const KeyInfo = ({ data }: { data: Key }) => {
 
         {key.lastPayment ? (
           <InfoRow name='Last Payment' onlyAdmin={false}>
-            <>{date.format(new Date(key.lastPayment), 'D MMMM YYYY') || ''}</>
+            <span>
+              {date.format(new Date(key.lastPayment), 'D MMMM YYYY') || ''}
+            </span>
           </InfoRow>
         ) : null}
 
         {key.nextPayment ? (
           <InfoRow name='Next Payment' onlyAdmin={false}>
-            <>{date.format(new Date(key.nextPayment), 'D MMMM YYYY') || ''}</>
+            <span>
+              {date.format(new Date(key.nextPayment), 'D MMMM YYYY') || ''}
+            </span>
           </InfoRow>
         ) : null}
       </InfoTable>
@@ -184,7 +196,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
         <div className='key-place'>
           <p className='key-place__text'>
             <span className='text-md font-bold'>Access key: </span>
-            <p>To view the Access key, please pay for Кey.</p>
+            <span>To view the Access key, please pay for Кey.</span>
           </p>
         </div>
       )}
