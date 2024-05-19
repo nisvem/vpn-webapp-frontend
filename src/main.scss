@@ -7,22 +7,22 @@
 body {
   @apply text-black text-tg-theme-text bg-white bg-tg-theme-bg;
 
-  font-family        : "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-style         : normal;
-  font-weight        : 400;
-  height             : var(--tg-viewport-height);
-  min-height         : var(--tg-viewport-height);
-  max-height         : var(--tg-viewport-height);
+  font-family           : "Oswald", sans-serif;
+  font-optical-sizing   : auto;
+  font-style            : normal;
+  font-weight           : 400;
+  height                : var(--tg-viewport-height);
+  // min-height         : var(--tg-viewport-height);
+  // max-height         : var(--tg-viewport-height);
 }
 
 #root {
-  position  : relative;
-  display   : flex;
-  overflow  : auto;
-  height    : var(--tg-viewport-height);
-  min-height: var(--tg-viewport-height);
-  max-height: var(--tg-viewport-height);
+  position           : relative;
+  display            : flex;
+  // overflow  : auto;
+  height             : var(--tg-viewport-height);
+  // min-height      : var(--tg-viewport-height);
+  // max-height      : var(--tg-viewport-height);
 }
 
 .btn {
