@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../reducers/user';
 
 import './EditUser.scss';
-import { onFocusInput } from '../../util/util';
 
 const EditUserSchema = Yup.object()
   .shape({

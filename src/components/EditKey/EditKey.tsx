@@ -16,7 +16,6 @@ import { EditKeyForm, Key } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 import './EditKey.scss';
-import { onFocusInput } from '../../util/util';
 
 const EditKeySchema = Yup.object()
   .shape({

@@ -5,25 +5,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 body {
-  @apply text-black text-tg-theme-text bg-white bg-tg-theme-bg;
+  @apply text-black text-tg-theme-text bg-white bg-tg-theme-header-bg;
 
   font-family        : "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
-  overflow           : hidden;
+  overflow           : auto;
   height             : var(--tg-viewport-height);
   min-height         : var(--tg-viewport-height);
   max-height         : var(--tg-viewport-height);
 }
 
+body::-webkit-scrollbar,
+.select .select__menu-list::-webkit-scrollbar {
+  display: none;
+}
+
+body,
+.select .select__menu-list {
+  -ms-overflow-style: none;
+  scrollbar-width   : none;
+}
+
 #root {
   position  : relative;
   display   : flex;
-  overflow  : auto;
-  height    : var(--tg-viewport-height);
-  min-height: var(--tg-viewport-height);
-  max-height: var(--tg-viewport-height);
+  min-height: 100%;
+
+  // height    : var(--tg-viewport-height);
+  // min-height: var(--tg-viewport-height);
+  // max-height: var(--tg-viewport-height);
 }
 
 .btn {
@@ -51,7 +63,8 @@ body {
 }
 
 .alert {
-  @apply text-xs text-red text-tg-theme-destructive-text;
+  @apply text-red text-tg-theme-destructive-text absolute -bottom-3 w-full text-center;
+  font-size: 8px;
 }
 
 .checkbox-label {
@@ -72,7 +85,7 @@ body {
 
 .input,
 .select {
-  @apply w-full mb-1 border border-solid border-gray border-tg-theme-hint rounded-sm p-2 text-xl outline-none border-opacity-40 text-black bg-white;
+  @apply w-full mb-1 border border-solid border-gray border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl p-2 text-xl outline-none border-opacity-40 text-black bg-white;
 
   &::placeholder {
     @apply text-xl;
@@ -85,7 +98,7 @@ body {
 
   &.valid,
   &.valid .select__control {
-    @apply border-green border-opacity-60 text-black;
+    @apply border-green border-tg-theme-section-bg border-opacity-60 text-black;
   }
 }
 
@@ -93,12 +106,21 @@ body {
   @apply p-0 border-0 outline-none shadow-none;
 
   .select__control {
-    @apply border-gray border-tg-theme-hint border border-opacity-40 rounded-sm outline-none shadow-none;
-
-    &:hover {
-      @apply border-gray border-tg-theme-hint border border-opacity-40;
-    }
+    @apply border-gray border border-opacity-40 border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl outline-none shadow-none;
   }
+
+  .select__menu {
+    @apply rounded-xl overflow-hidden;
+  }
+
+  .select__option {
+    @apply text-tg-theme-text;
+  }
+
+  .select__option--is-selected {
+    @apply bg-tg-theme-button text-tg-theme-button-text;
+  }
+
 
   .select__value-container {
     @apply p-2;
@@ -109,8 +131,12 @@ body {
   @apply w-full;
 
   input {
-    @apply w-full text-xl text-center outline-none bg-tg-theme-bg;
+    @apply w-full text-xl rounded-xl text-center outline-none bg-tg-theme-bg;
   }
+}
+
+label {
+  position: relative;
 }
 
 // .padding-keyboard {

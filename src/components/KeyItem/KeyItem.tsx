@@ -18,7 +18,7 @@ const KeyItem = ({ data }: { data: Key }) => {
       className={`key-item ${data.isOpen ? 'bg-unlock' : 'bg-lock'}`}
     >
       {isAdmin ? (
-        <p>{`${data.name} (${
+        <p className='text-md mb-2'>{`${data.name} (${
           data.user?.username
             ? '@' + data.user?.username
             : data.user?.telegramId

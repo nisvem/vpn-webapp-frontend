@@ -1,13 +1,13 @@
 .key-place {
   @apply flex flex-row items-center justify-between gap-5 mb-5;
-  @apply p-4 bg-gray-light bg-opacity-20 rounded-md;
+  @apply p-4 bg-gray-light bg-opacity-20 rounded-xl bg-tg-theme-section-bg;
 
   .key-place__text {
     @apply break-all text-xs font-light text-tg-theme-text;
   }
 
   .key-place__btn-copy {
-    @apply break-all text-xs font-light;
+    @apply break-all text-base font-light;
 
     width: 40px;
 

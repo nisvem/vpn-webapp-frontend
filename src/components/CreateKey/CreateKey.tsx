@@ -15,7 +15,6 @@ import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
 import { CreateKeyForm, Server, Store, User, Option } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { onFocusInput } from '../../util/util';
 
 const CreateSchema = Yup.object()
   .shape({

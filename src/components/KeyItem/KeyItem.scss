@@ -1,5 +1,5 @@
 .key-item {
-  @apply py-3 pl-4 border-accent-light border-tg-theme-hint border rounded-md relative;
+  @apply py-3 pl-4 border-accent-light border border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl relative;
   padding-right: 70px;
 
   &::before {

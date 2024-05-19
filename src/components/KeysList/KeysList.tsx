@@ -14,11 +14,11 @@ const KeysList = ({ keys }: { keys: Key[] }) => {
   });
 
   return (
-    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 relative'>
       {newKeys.length > 0 ? (
         <>
           {isAdmin && (
-            <p className='text-right text-xs'>Keys: {`${newKeys.length}`}</p>
+            <p className='text-center text-xs'>Keys: {`${newKeys.length}`}</p>
           )}
           {newKeys.map((item, i) => (
             <KeyItem key={i} data={item} />
