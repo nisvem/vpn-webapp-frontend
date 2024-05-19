@@ -11,11 +11,11 @@ body {
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
+  min-height         : 100vh;
 }
 
 #root {
-  display   : flex;
-  min-height: 100vh;
+  display: flex;
 }
 
 .btn {
