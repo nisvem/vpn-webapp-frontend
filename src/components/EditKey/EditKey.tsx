@@ -83,7 +83,6 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   <Field
                     name='name'
                     type='text'
-                    onFocus={onFocusInput}
                     className={`input ${errors.name ? 'error' : ''}`}
                   />
                 </label>
@@ -133,7 +132,6 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                     name='currentPrice'
                     type='number'
                     step='50'
-                    onFocus={onFocusInput}
                     className={`input !p-0 text-right  ${
                       errors.currentPrice ? 'error' : ''
                     }`}
@@ -154,7 +152,6 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   {({ field, form }: FieldProps<string>) => (
                     <DatePicker
                       {...field}
-                      onFocus={onFocusInput}
                       dateFormat='dd/MM/yyyy'
                       selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}
@@ -175,7 +172,6 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                   {({ field, form }: FieldProps<string>) => (
                     <DatePicker
                       {...field}
-                      onFocus={onFocusInput}
                       dateFormat='dd/MM/yyyy'
                       selected={field.value ? new Date(field.value) : null}
                       onChange={(val) => form.setFieldValue(field.name, val)}

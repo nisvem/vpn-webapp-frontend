@@ -114,7 +114,6 @@ const EditUser = ({ user }: { user: User }) => {
                 <Field
                   name='maxKeyAvalible'
                   type='number'
-                  onFocus={onFocusInput}
                   className={`input p-1 ${
                     errors.maxKeyAvalible ? 'error' : ''
                   }`}

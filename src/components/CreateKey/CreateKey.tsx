@@ -130,7 +130,6 @@ const CreateKey = () => {
             <Field
               name='name'
               placeholder='Name'
-              onFocus={onFocusInput}
               className={`input ${
                 errors.name && touched.name
                   ? 'error'
