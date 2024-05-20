@@ -4,6 +4,7 @@ import WebApp from '@twa-dev/sdk';
 
 const Layout = () => {
   WebApp.setHeaderColor(WebApp.themeParams.header_bg_color);
+  WebApp.setBackgroundColor(WebApp.themeParams.header_bg_color);
 
   return (
     <div className='w-full flex flex-col items-start flex-1'>
