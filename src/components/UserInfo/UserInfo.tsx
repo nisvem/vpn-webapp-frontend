@@ -27,6 +27,9 @@ const UserInfo = ({ user }: { user: User }) => {
   const deleteUser = async () => {
     if (isAdmin && window.confirm('Do you really want to delete user?')) {
       // navigate(`/editUser/${user.telegramId}`);
+      WebApp.showScanQrPopup({ text: 'asd' }, (text) => {
+        console.log(text);
+      });
     }
   };
 
