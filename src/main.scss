@@ -138,10 +138,10 @@ body,
 }
 
 .react-datepicker-wrapper {
-  @apply w-full;
+  @apply w-full bg-tg-theme-section-bg;
 
   input {
-    @apply w-full text-xl rounded-xl text-center outline-none bg-tg-theme-bg;
+    @apply w-full text-xl rounded-xl text-center outline-none bg-tg-theme-section-bg;
   }
 }
 
