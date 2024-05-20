@@ -11,27 +11,29 @@ body {
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
-  overflow           : auto;
+  overflow           : scroll;
   height             : var(--tg-viewport-height);
   min-height         : var(--tg-viewport-height);
   max-height         : var(--tg-viewport-height);
 }
 
 body::-webkit-scrollbar,
+#root::-webkit-scrollbar,
 .select .select__menu-list::-webkit-scrollbar {
   display: none;
 }
 
 body,
+#root,
 .select .select__menu-list {
   -ms-overflow-style: none;
   scrollbar-width   : none;
 }
 
 #root {
-  position: relative;
-  display : flex;
-
+  position  : relative;
+  display   : flex;
+  overflow  : visible;
   height    : var(--tg-viewport-height);
   min-height: var(--tg-viewport-height);
   max-height: var(--tg-viewport-height);
