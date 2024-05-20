@@ -29,13 +29,12 @@ body,
 }
 
 #root {
-  position  : relative;
-  display   : flex;
-  min-height: 100%;
+  position: relative;
+  display : flex;
 
-  // height    : var(--tg-viewport-height);
-  // min-height: var(--tg-viewport-height);
-  // max-height: var(--tg-viewport-height);
+  height    : var(--tg-viewport-height);
+  min-height: var(--tg-viewport-height);
+  max-height: var(--tg-viewport-height);
 }
 
 .btn {
@@ -85,7 +84,7 @@ body,
 
 .input,
 .select {
-  @apply w-full mb-1 border border-solid border-gray border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl p-2 text-xl outline-none border-opacity-40 text-black bg-white;
+  @apply w-full mb-1 border border-solid border-gray border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl p-2 text-xl outline-none border-opacity-40 text-tg-theme-text;
 
   &::placeholder {
     @apply text-xl;
@@ -93,37 +92,48 @@ body,
 
   &.error,
   &.error .select__control {
-    @apply border-red border-tg-theme-destructive-text border-opacity-60 text-black;
+    @apply border-red border-tg-theme-destructive-text border-opacity-60;
   }
 
   &.valid,
   &.valid .select__control {
-    @apply border-green border-tg-theme-section-bg border-opacity-60 text-black;
+    @apply border-green border-tg-theme-section-bg border-opacity-60;
   }
 }
 
 .select {
-  @apply p-0 border-0 outline-none shadow-none;
+  @apply p-0 border-0 outline-none shadow-none text-tg-theme-text;
 
   .select__control {
-    @apply border-gray border border-opacity-40 border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl outline-none shadow-none;
+    @apply border-gray border border-opacity-40 border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl outline-none shadow-none text-tg-theme-text;
   }
 
   .select__menu {
-    @apply rounded-xl overflow-hidden;
+    @apply rounded-xl overflow-hidden text-tg-theme-text;
   }
 
   .select__option {
     @apply text-tg-theme-text;
   }
 
+  .select__option--is-focused {
+    @apply bg-tg-theme-hint text-tg-theme-section-bg;
+  }
+
   .select__option--is-selected {
     @apply bg-tg-theme-button text-tg-theme-button-text;
   }
 
-
   .select__value-container {
-    @apply p-2;
+    @apply p-2 text-tg-theme-text;
+  }
+
+  .select__menu-list {
+    @apply bg-tg-theme-section-bg;
+  }
+
+  .select__single-value {
+    @apply text-tg-theme-text;
   }
 }
 
