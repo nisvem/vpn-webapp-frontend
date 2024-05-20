@@ -43,6 +43,7 @@ export interface Key {
 
   user?: User;
   currentPrice?: number;
+  dateOfCreated?: Date;
   lastPayment?: Date;
   nextPayment?: Date;
 }

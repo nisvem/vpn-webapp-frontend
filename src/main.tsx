@@ -6,6 +6,10 @@ import TelegramWrapper from './components/TelegramWrapper/TelegramWrapper';
 import store from './store/index.ts';
 
 import './main.scss';
+import WebApp from '@twa-dev/sdk';
+
+WebApp.setHeaderColor(WebApp.themeParams.header_bg_color);
+WebApp.setBackgroundColor(WebApp.themeParams.header_bg_color);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>

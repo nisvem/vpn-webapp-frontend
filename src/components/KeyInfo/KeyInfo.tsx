@@ -165,8 +165,16 @@ const KeyInfo = ({ data }: { data: Key }) => {
           </InfoRow>
         ) : null}
 
+        {key.dateOfCreated ? (
+          <InfoRow name='Date of created' onlyAdmin={true}>
+            <span>
+              {date.format(new Date(key.dateOfCreated), 'D MMMM YYYY') || ''}
+            </span>
+          </InfoRow>
+        ) : null}
+
         {key.lastPayment ? (
-          <InfoRow name='Last Payment' onlyAdmin={false}>
+          <InfoRow name='Last payment' onlyAdmin={false}>
             <span>
               {date.format(new Date(key.lastPayment), 'D MMMM YYYY') || ''}
             </span>
@@ -174,7 +182,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
         ) : null}
 
         {key.nextPayment ? (
-          <InfoRow name='Next Payment' onlyAdmin={false}>
+          <InfoRow name='Next payment' onlyAdmin={false}>
             <span>
               {date.format(new Date(key.nextPayment), 'D MMMM YYYY') || ''}
             </span>
