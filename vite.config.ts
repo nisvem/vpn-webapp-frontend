@@ -11,8 +11,8 @@ export default defineConfig({
       key: fs.readFileSync('./key.pem'),
       cert: fs.readFileSync('./cert.pem'),
     }),
-    host: '127.0.0.1',
-    port: 8080,
+    host: 'localhost',
+    port: 8000,
   },
   plugins: [react()],
 });

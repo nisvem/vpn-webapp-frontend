@@ -26,7 +26,7 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className='max-w-xl mx-auto w-full h-full flex flex-col items-start flex-1 relative'>
+    <>
       <CSSTransition timeout={300} in={inShow} classNames='page'>
         {() => <Header />}
       </CSSTransition>
@@ -40,7 +40,7 @@ const Layout = () => {
         >
           {() => (
             <div
-              className=' p-3 w-full flex flex-col items-start flex-1 relative'
+              className='p-3 w-full h-full flex flex-col flex-1'
               ref={nodeRef}
             >
               <ScrollToTop />
@@ -49,7 +49,7 @@ const Layout = () => {
           )}
         </CSSTransition>
       </SwitchTransition>
-    </div>
+    </>
   );
 };
 

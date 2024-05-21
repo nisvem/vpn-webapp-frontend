@@ -15,7 +15,7 @@ const KeysList = ({ keys }: { keys: Key[] }) => {
           );
         })
       : [];
-  console.log(newKeys);
+
   return (
     <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 relative'>
       {newKeys.length > 0 ? (

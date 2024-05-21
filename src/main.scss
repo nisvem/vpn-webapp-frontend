@@ -5,20 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 body {
-  @apply text-black text-tg-theme-text bg-white bg-tg-theme-secondary-bg;
-  position           : relative;
-  font-family        : "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-style         : normal;
-  font-weight        : 400;
-
-  position  : relative;
-  left      : 0;
-  right     : 0;
-  overflow  : scroll;
-  height    : var(--tg-viewport-height);
-  min-height: var(--tg-viewport-height);
-  max-height: var(--tg-viewport-height);
+  @apply text-black text-tg-theme-text font-normal bg-white bg-tg-theme-secondary-bg;
+  font-family: "Oswald", sans-serif;
+  overflow   : scroll;
+  height     : var(--tg-viewport-height);
+  min-height : var(--tg-viewport-height);
+  max-height : var(--tg-viewport-height);
 }
 
 body::-webkit-scrollbar,
@@ -35,11 +27,16 @@ body,
 }
 
 #root {
-  height: 100%;
+  display       : flex;
+  flex-direction: column;
+
+  height    : 100%;
+  min-height: 100%;
+  max-height: 100%;
 }
 
 .btn {
-  @apply px-6 py-2 z-10;
+  @apply px-6 py-2;
   @apply font-normal text-xl text-accent-text text-tg-theme-button-text;
   @apply border-2 border-accent border-tg-theme-button rounded-2xl;
   // @apply shadow-xl shadow-accent-light;
@@ -49,7 +46,7 @@ body,
   @apply bg-accent bg-tg-theme-button;
 
   &:disabled {
-    @apply opacity-80;
+    @apply opacity-50;
     filter: grayscale(1);
   }
 
@@ -138,6 +135,10 @@ body,
   }
 }
 
+label {
+  position: relative;
+}
+
 .react-datepicker-wrapper {
   @apply w-full bg-tg-theme-section-bg;
 
@@ -146,10 +147,19 @@ body,
   }
 }
 
-label {
-  position: relative;
-  z-index : 12;
+.react-datepicker-popper {
+  z-index: 15;
 }
+
+// label {
+//   position: relative;
+//   z-index : 12;
+// }
+
+// label+* {
+//   position: relative;
+//   z-index : 11;
+// }
 
 .page-enter {
   opacity     : 0;
