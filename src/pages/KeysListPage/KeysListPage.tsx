@@ -17,9 +17,9 @@ import { Key, Store, User } from '../../types';
 import WebApp from '@twa-dev/sdk';
 
 export const KeysListPageLoader: LoaderFunction = async () => {
-  const data = await requestFunction(`/api/getKeys/`);
+  const keys = await requestFunction(`/api/getKeys/`);
 
-  return defer({ data });
+  return defer({ keys });
 };
 
 export const KeysListPageLoaderForAdmin: LoaderFunction = async () => {
@@ -58,8 +58,20 @@ const KeysListPage = () => {
                       ? 'text-red text-tg-theme-destructive-text'
                       : 'text-gray text-tg-theme-hint font-thin'
                   } mt-auto mb-4 text-sm text-center w-full`}
-                >{`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}</p>
+                >
+                  {`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}
+                  {keys.length >= maxKeyAvalible && (
+                    <>
+                      <br />
+                      <span>
+                        To change this parameter, contact me{' '}
+                        <a href='https://t.me/@nisvem'>@nisvem</a>.
+                      </span>
+                    </>
+                  )}
+                </p>
               ) : null}
+
               <button
                 onClick={() => {
                   navigate('/create-key');

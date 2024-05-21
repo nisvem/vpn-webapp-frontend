@@ -1,9 +1,9 @@
 .faq__subtitle {
-  @apply my-2 text-xl underline;
+  @apply mb-2 text-xl underline;
 }
 
 .faq__block-text {
-  @apply mb-5;
+  @apply mb-5 px-2;
 
   ol {
     @apply list-decimal;

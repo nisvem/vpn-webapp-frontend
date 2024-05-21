@@ -7,6 +7,7 @@ const FieldSelect: React.FC<{
   options: Option[];
   placeholder?: string;
   className?: string;
+  isSearchable?: boolean;
   defaultValue?: Option;
 }> = ({ name, className, ...props }) => {
   const [field, meta, helpers] = useField<Option>(name);
@@ -23,7 +24,7 @@ const FieldSelect: React.FC<{
       <ReactSelect
         {...props}
         {...field}
-        isSearchable={false}
+        isSearchable={props.isSearchable || false}
         classNamePrefix='select'
         className={`select 
           ${meta.error && meta.touched ? 'error' : meta.touched ? 'valid' : ''} 

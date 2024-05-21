@@ -149,6 +149,7 @@ const CreateKey = () => {
               <FieldSelect
                 name='user'
                 placeholder='Choose user'
+                isSearchable={true}
                 options={userOption}
               />
             </label>

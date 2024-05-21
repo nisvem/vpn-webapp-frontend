@@ -6,13 +6,16 @@ import { Key, Store, User } from '../../types';
 const KeysList = ({ keys }: { keys: Key[] }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
 
-  const newKeys = keys.sort((a: Key, b: Key) => {
-    return (
-      new Date(a.nextPayment || 0).getTime() -
-      new Date(b.nextPayment || 0).getTime()
-    );
-  });
-
+  const newKeys =
+    keys?.length > 0
+      ? keys.sort((a: Key, b: Key) => {
+          return (
+            new Date(a.nextPayment || 0).getTime() -
+            new Date(b.nextPayment || 0).getTime()
+          );
+        })
+      : [];
+  console.log(newKeys);
   return (
     <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 relative'>
       {newKeys.length > 0 ? (
