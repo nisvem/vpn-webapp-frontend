@@ -5,7 +5,7 @@ import { Store, User } from '../../types';
 const Header = () => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
   return (
-    <header className='sticky w-full left-0 right-0 top-0 z-10 px-2'>
+    <header className='sticky w-full left-0 right-0 top-0 z-50 px-2'>
       <div className='flex justify-between m-auto w-full max-w-xl px-3 py-2 bg-accent bg-tg-theme-button rounded-xl'>
         {isAdmin ? (
           <>

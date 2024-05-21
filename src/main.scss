@@ -37,7 +37,7 @@ body,
 }
 
 .btn {
-  @apply px-6 py-2 z-50;
+  @apply px-6 py-2 z-5;
   @apply font-normal text-xl text-accent-text text-tg-theme-button-text;
   @apply border-2 border-accent border-tg-theme-button rounded-2xl;
   // @apply shadow-xl shadow-accent-light;
@@ -146,6 +146,7 @@ body,
 
 label {
   position: relative;
+  z-index : 10;
 }
 
 .page-enter {
