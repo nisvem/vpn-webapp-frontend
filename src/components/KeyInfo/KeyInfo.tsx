@@ -214,7 +214,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
           <button
             onClick={() => switchStatus(key._id)}
             disabled={loading}
-            className='btn w-full mb-3'
+            className='btn w-full mb-3 mt-auto'
           >
             {key.isOpen ? 'Deactivate' : 'Activate'}
           </button>
@@ -250,7 +250,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
       <button
         onClick={() => deleteKey(key._id)}
         disabled={loading}
-        className='btn w-full'
+        className='btn w-full mt-auto'
       >
         Delete Key
       </button>

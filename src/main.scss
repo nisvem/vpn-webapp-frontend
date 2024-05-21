@@ -11,10 +11,14 @@ body {
   font-optical-sizing: auto;
   font-style         : normal;
   font-weight        : 400;
-  overflow           : visible;
-  height             : var(--tg-viewport-height);
-  min-height         : var(--tg-viewport-height);
-  max-height         : var(--tg-viewport-height);
+
+  position  : relative;
+  left      : 0;
+  right     : 0;
+  overflow  : scroll;
+  height    : var(--tg-viewport-height);
+  min-height: var(--tg-viewport-height);
+  max-height: var(--tg-viewport-height);
 }
 
 body::-webkit-scrollbar,
@@ -31,13 +35,7 @@ body,
 }
 
 #root {
-  position  : relative;
-  left      : 0;
-  right     : 0;
-  overflow  : scroll;
-  height    : var(--tg-viewport-height);
-  min-height: var(--tg-viewport-height);
-  max-height: var(--tg-viewport-height);
+  height: 100%;
 }
 
 .btn {
