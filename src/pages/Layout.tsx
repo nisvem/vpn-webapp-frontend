@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
@@ -16,13 +16,20 @@ function ScrollToTop() {
 }
 
 const Layout = () => {
+  const [inShow, setInShow] = useState(false);
   const location = useLocation();
   const currentOutlet = useOutlet();
   const nodeRef = useRef(null);
 
+  useEffect(() => {
+    setInShow(true);
+  }, []);
+
   return (
     <div className='max-w-xl mx-auto w-full flex flex-col items-start flex-1 relative'>
-      <Header />
+      <CSSTransition timeout={300} in={inShow} classNames='page'>
+        {() => <Header />}
+      </CSSTransition>
 
       <SwitchTransition>
         <CSSTransition

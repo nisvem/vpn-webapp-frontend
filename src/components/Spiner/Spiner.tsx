@@ -5,7 +5,7 @@ import './Spiner.scss';
 
 const Spiner = () => {
   return (
-    <div className='flex items-center justify-center flex-col'>
+    <div className='flex items-center justify-center flex-col h-full relative'>
       <Player className='spiner' autoplay loop src={spiner}></Player>
     </div>
   );
