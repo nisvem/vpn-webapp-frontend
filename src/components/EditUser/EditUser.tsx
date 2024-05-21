@@ -73,12 +73,24 @@ const EditUser = ({ user }: { user: User }) => {
                 {user.name} {user.surname || ''}
               </p>
             </InfoRow>
-            <InfoRow name='Nickname' onlyAdmin={true}>
-              <a
-                href={`https://t.me/${user?.username}`}
-                target='_blank'
-              >{`@${user?.username}`}</a>
-            </InfoRow>
+            {user?.username && (
+              <InfoRow name='Nickname' onlyAdmin={true}>
+                <a
+                  href={`https://t.me/${user?.username}`}
+                  target='_blank'
+                >{`@${user?.username}`}</a>
+              </InfoRow>
+            )}
+
+            {user?.phoneNumber && (
+              <InfoRow name='Phone' onlyAdmin={true}>
+                <a
+                  href={`https://t.me/+${user?.phoneNumber}`}
+                  target='_blank'
+                >{` +${user?.phoneNumber}`}</a>
+              </InfoRow>
+            )}
+
             <InfoRow name='TelegramId' onlyAdmin={true}>
               <p>{user.telegramId}</p>
             </InfoRow>

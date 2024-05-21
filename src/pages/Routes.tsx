@@ -1,4 +1,3 @@
-import { createRef } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import Layout from './Layout';
@@ -24,21 +23,18 @@ export const routes = [
     path: '/',
     name: 'Main',
     element: <Navigate to='/keys' replace />,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/users',
     name: 'Users list',
     element: <UsersListPage />,
     loader: UsersListPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/users/:id',
     name: 'User',
     element: <UserPage />,
     loader: UserPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/keys',
@@ -46,49 +42,42 @@ export const routes = [
     element: <KeysListPage />,
     loader: KeysListPageLoader,
     loaderForAdmin: KeysListPageLoaderForAdmin,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/keys/:id',
     name: 'Key',
     element: <KeyPage />,
     loader: KeyPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
 
-  { path: '/faq', name: 'FAQ', element: <FaqPage />, nodeRef: createRef() },
+  { path: '/faq', name: 'FAQ', element: <FaqPage /> },
   {
     path: '/create-key',
     name: 'Create key form',
     element: <CreateKeyPage />,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/edit-user/:id',
     name: 'Edit user form',
     element: <EditUserPage />,
     loader: EditUserPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/edit-key/:id',
     name: 'Edit key form',
     element: <EditKeyPage />,
     loader: EditKeyPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '/payment/:id',
     name: 'Payment form',
     element: <PaymentPage />,
     loader: PaymentPageLoader,
-    nodeRef: createRef<HTMLElement>(),
   },
   {
     path: '*',
     name: 'Unknown page 404',
     element: <Navigate to='/' replace />,
-    nodeRef: createRef<HTMLElement>(),
   },
 ];
 
