@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import TelegramWrapper from './components/TelegramWrapper/TelegramWrapper';
@@ -11,7 +11,10 @@ import WebApp from '@twa-dev/sdk';
 WebApp.setHeaderColor(WebApp.themeParams.header_bg_color);
 WebApp.setBackgroundColor(WebApp.themeParams.header_bg_color);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
   <Provider store={store}>
     <TelegramWrapper />
   </Provider>

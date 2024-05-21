@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import {
   Await,
   LoaderFunction,
@@ -20,7 +20,8 @@ export const EditKeyPageLoader: LoaderFunction = async ({ params }) => {
 };
 
 const EditKeyPage = () => {
-  const { key } = useLoaderData() as { key: Key };
+  const data = useLoaderData() as { key: Key };
+  const loaderData = useRef(data?.key);
 
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ const EditKeyPage = () => {
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={key}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return (
             <>

@@ -8,7 +8,7 @@ import {
 
 import Spiner from '../../components/Spiner/Spiner';
 import UserInfo from '../../components/UserInfo/UserInfo';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { User } from '../../types';
 import { requestFunction } from '../../util/util';
 import WebApp from '@twa-dev/sdk';
@@ -19,7 +19,9 @@ export const UserPageLoader: LoaderFunction = async ({ params }) => {
 };
 
 const UserPage = () => {
-  const { user } = useLoaderData() as { user: User };
+  const data = useLoaderData() as { user: User };
+  const loaderData = useRef(data?.user);
+
   const navigate = useNavigate();
 
   WebApp.BackButton.show();
@@ -30,7 +32,7 @@ const UserPage = () => {
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={user}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return <UserInfo user={resolvedValue} />;
         }}

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import {
   Await,
   LoaderFunction,
@@ -18,17 +18,20 @@ export const PaymentPageLoader: LoaderFunction = async ({ params }) => {
 };
 
 const PaymentPage = () => {
-  const { key } = useLoaderData() as { key: Key };
+  const data = useLoaderData() as { key: Key };
+  const loaderData = useRef(data?.key);
+
   const navigate = useNavigate();
 
   WebApp.BackButton.show();
   WebApp.BackButton.onClick(() => {
     navigate(-1);
   });
+
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={key}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return (
             <>

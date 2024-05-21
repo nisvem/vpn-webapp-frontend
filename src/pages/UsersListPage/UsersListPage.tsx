@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
 
 import { requestFunction } from '../../util/util';
@@ -10,20 +10,21 @@ import { User } from '../../types';
 import WebApp from '@twa-dev/sdk';
 
 export const UsersListPageLoader: LoaderFunction = async () => {
-  const data = await requestFunction(`/api/getUsers/`);
+  const users = await requestFunction(`/api/getUsers/`);
 
-  return defer({ data });
+  return defer({ users });
 };
 
 const UsersListPage = () => {
-  const { data } = useLoaderData() as { data: User[] };
+  const data = useLoaderData() as { users: User[] };
+  const loaderData = useRef(data?.users);
 
   WebApp.BackButton.hide();
 
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={data}
+        resolve={loaderData.current}
         children={(resolvedValue: User[]) => {
           return (
             <>

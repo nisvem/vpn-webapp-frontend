@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import {
   Await,
   LoaderFunction,
@@ -20,7 +20,9 @@ export const EditUserPageLoader: LoaderFunction = async ({ params }) => {
 };
 
 const EditUserPage = () => {
-  const { user } = useLoaderData() as { user: User };
+  const data = useLoaderData() as { user: User };
+  const loaderData = useRef(data?.user);
+
   const navigate = useNavigate();
 
   WebApp.BackButton.show();
@@ -30,7 +32,7 @@ const EditUserPage = () => {
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={user}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return (
             <>

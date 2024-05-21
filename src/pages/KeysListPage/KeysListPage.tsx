@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Await,
@@ -23,9 +23,9 @@ export const KeysListPageLoader: LoaderFunction = async () => {
 };
 
 export const KeysListPageLoaderForAdmin: LoaderFunction = async () => {
-  const data = await requestFunction(`/api/getAllKeys/`);
+  const keys = await requestFunction(`/api/getAllKeys/`);
 
-  return defer({ data });
+  return defer({ keys });
 };
 
 const KeysListPage = () => {
@@ -33,7 +33,9 @@ const KeysListPage = () => {
     Store,
     User
   >((state) => state.user);
-  const { data } = useLoaderData() as { data: Key[] };
+  const data = useLoaderData() as { keys: Key[] };
+  const loaderData = useRef(data?.keys);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const KeysListPage = () => {
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={data}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return (
             <>

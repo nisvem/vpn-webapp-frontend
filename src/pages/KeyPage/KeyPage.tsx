@@ -8,7 +8,7 @@ import {
 
 import Spiner from '../../components/Spiner/Spiner';
 import KeyInfo from '../../components/KeyInfo/KeyInfo';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { Key } from '../../types';
 import { requestFunction } from '../../util/util';
 import WebApp from '@twa-dev/sdk';
@@ -20,7 +20,8 @@ export const KeyPageLoader: LoaderFunction = async ({ params }) => {
 };
 
 const KeyPage = () => {
-  const { key } = useLoaderData() as { key: Key };
+  const data = useLoaderData() as { key: Key };
+  const loaderData = useRef(data?.key);
   const navigate = useNavigate();
 
   WebApp.BackButton.show();
@@ -31,7 +32,7 @@ const KeyPage = () => {
   return (
     <Suspense fallback={<Spiner />}>
       <Await
-        resolve={key}
+        resolve={loaderData.current}
         children={(resolvedValue) => {
           return <KeyInfo data={resolvedValue} />;
         }}
