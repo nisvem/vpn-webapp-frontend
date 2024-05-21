@@ -2,7 +2,7 @@
   @apply w-full border border-accent border-tg-theme-section-bg bg-tg-theme-section-bg rounded-xl;
 
   &__row {
-    @apply grid grid-cols-3 border-b border-accent border-tg-theme-header-bg;
+    @apply grid grid-cols-3 border-b border-accent border-tg-theme-secondary-bg;
 
     &:last-child {
       border: none
@@ -10,7 +10,7 @@
   }
 
   &__name {
-    @apply border-r border-accent border-tg-theme-header-bg py-2 px-3 flex items-center justify-start text-base;
+    @apply border-r border-accent border-tg-theme-secondary-bg py-2 px-3 flex items-center justify-start text-base;
   }
 
   &__description {
