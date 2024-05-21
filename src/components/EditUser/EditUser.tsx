@@ -66,7 +66,7 @@ const EditUser = ({ user }: { user: User }) => {
       validationSchema={EditUserSchema}
     >
       {({ errors, touched }) => (
-        <Form className='w-full flex flex-col flex-1 gap-4'>
+        <Form className='w-full h-full flex flex-col flex-1 gap-4'>
           <InfoTable>
             <InfoRow name='Name' onlyAdmin={true}>
               <p>

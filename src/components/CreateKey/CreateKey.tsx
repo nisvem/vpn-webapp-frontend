@@ -124,7 +124,7 @@ const CreateKey = () => {
       validationSchema={CreateSchema}
     >
       {({ errors, touched, values }) => (
-        <Form className='w-full flex flex-col flex-1 gap-4'>
+        <Form className='w-full h-full flex flex-col flex-1 gap-4'>
           <label>
             <Field
               name='name'

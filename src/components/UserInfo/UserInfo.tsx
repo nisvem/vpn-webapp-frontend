@@ -38,7 +38,7 @@ const UserInfo = ({ user }: { user: User }) => {
       <Error text={errorText}></Error>
     </>
   ) : (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full h-full'>
       <h1 className='title'>
         {' '}
         - {user.username ? '@' + user.username : user.telegramId} -{' '}

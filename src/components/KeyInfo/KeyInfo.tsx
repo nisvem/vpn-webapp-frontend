@@ -92,7 +92,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   return process === 'error' ? (
     <Error text={errorText}></Error>
   ) : (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full h-full'>
       {isAdmin ? (
         <h1 className='title'>
           {`${key.name} (${

@@ -13,7 +13,7 @@ const UsersList = ({ users }: { users: User[] }) => {
       : [];
 
   return (
-    <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
+    <div className='w-full h-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
       {newUsers.length > 0 ? (
         <>
           <p className='text-right text-xs'>Users: {`${newUsers.length}`}</p>
