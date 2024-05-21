@@ -26,7 +26,7 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className='max-w-xl mx-auto w-full flex flex-col items-start flex-1 relative'>
+    <div className='max-w-xl mx-auto w-full h-full flex flex-col items-start flex-1 relative'>
       <CSSTransition timeout={300} in={inShow} classNames='page'>
         {() => <Header />}
       </CSSTransition>
