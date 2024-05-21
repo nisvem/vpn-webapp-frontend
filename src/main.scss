@@ -12,6 +12,9 @@ body {
   font-style         : normal;
   font-weight        : 400;
   overflow           : visible;
+  height             : var(--tg-viewport-height);
+  min-height         : var(--tg-viewport-height);
+  max-height         : var(--tg-viewport-height);
 }
 
 body::-webkit-scrollbar,
