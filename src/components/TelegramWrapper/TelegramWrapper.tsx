@@ -26,7 +26,7 @@ function TelegramWrapper() {
       const response = await request(
         `/api/getUser/${WebApp.initDataUnsafe.user?.id}`
       );
-      console.log('response:', response);
+
       if (response?.username || response?.phoneNumber) {
         const updateResponse = await request('/api/updateUser', 'POST', {
           username: WebApp.initDataUnsafe.user?.username || '',
@@ -112,6 +112,7 @@ function TelegramWrapper() {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
+    console.log(WebApp.initData);
     console.log('WebApp', WebApp);
   }, []);
 

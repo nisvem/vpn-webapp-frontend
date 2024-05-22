@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Store, User } from '../../types';
 
-const Header = () => {
+const Header = ({ ...props }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
   return (
-    <header className='sticky w-full left-0 right-0 top-0 z-50 px-2'>
+    <header {...props} className='sticky w-full left-0 right-0 top-0 z-50 px-2'>
       <div className='flex justify-between m-auto w-full max-w-xl px-3 py-2 bg-accent bg-tg-theme-button rounded-xl'>
         {isAdmin ? (
           <>

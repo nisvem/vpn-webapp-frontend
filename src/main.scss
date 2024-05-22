@@ -7,10 +7,8 @@
 body {
   @apply text-black text-tg-theme-text font-normal bg-white bg-tg-theme-secondary-bg;
   font-family: "Oswald", sans-serif;
-  overflow   : scroll;
-  height     : var(--tg-viewport-height);
-  min-height : var(--tg-viewport-height);
-  max-height : var(--tg-viewport-height);
+  overflow   : hidden;
+  z-index    : -1;
 }
 
 body::-webkit-scrollbar,
@@ -30,9 +28,14 @@ body,
   display       : flex;
   flex-direction: column;
 
-  height    : 100%;
-  min-height: 100%;
-  max-height: 100%;
+  overflow  : auto;
+  height    : var(--tg-viewport-height);
+  min-height: var(--tg-viewport-height);
+  max-height: var(--tg-viewport-height);
+}
+
+.layout-page {
+  @apply relative z-10 p-3 pb-12 w-full flex flex-col flex-1;
 }
 
 .btn {

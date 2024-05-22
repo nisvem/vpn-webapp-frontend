@@ -27,7 +27,12 @@ const Layout = () => {
 
   return (
     <>
-      <CSSTransition timeout={300} in={inShow} classNames='page'>
+      <CSSTransition
+        timeout={300}
+        in={inShow}
+        nodeRef={nodeRef}
+        classNames='page'
+      >
         {() => <Header />}
       </CSSTransition>
 
@@ -39,10 +44,7 @@ const Layout = () => {
           nodeRef={nodeRef}
         >
           {() => (
-            <div
-              className='p-3 w-full h-full flex flex-col flex-1'
-              ref={nodeRef}
-            >
+            <div className='layout-page' ref={nodeRef}>
               <ScrollToTop />
               {currentOutlet}
             </div>

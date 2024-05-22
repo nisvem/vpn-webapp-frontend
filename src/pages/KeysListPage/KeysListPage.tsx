@@ -76,7 +76,7 @@ const KeysListPage = () => {
                 onClick={() => {
                   navigate('/create-key');
                 }}
-                className='btn w-full sticky bottom-5'
+                className='btn fixed bottom-5 left-3 right-3 z-10'
                 disabled={isLimitedToCreate ? true : false}
               >
                 Add
