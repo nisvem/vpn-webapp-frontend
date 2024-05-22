@@ -112,7 +112,6 @@ function TelegramWrapper() {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
-    console.log(WebApp.initData);
     console.log('WebApp', WebApp);
   }, []);
 
