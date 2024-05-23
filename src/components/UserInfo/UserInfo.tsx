@@ -13,6 +13,7 @@ import { Store, User } from '../../types';
 
 import KeyItem from '../KeyItem/KeyItem';
 import WebApp from '@twa-dev/sdk';
+import i18next from '../../lang';
 
 const UserInfo = ({ user }: { user: User }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
@@ -25,7 +26,7 @@ const UserInfo = ({ user }: { user: User }) => {
   }, []);
 
   const deleteUser = async () => {
-    if (isAdmin && window.confirm('Do you really want to delete user?')) {
+    if (isAdmin && window.confirm(i18next.t('confirm_delete_user'))) {
       // navigate(`/editUser/${user.telegramId}`);
       // WebApp.showScanQrPopup({ text: 'asd' }, (text) => {
       //   console.log(text);
@@ -45,13 +46,13 @@ const UserInfo = ({ user }: { user: User }) => {
       </h1>
 
       <InfoTable>
-        <InfoRow name='Name' onlyAdmin={true}>
+        <InfoRow name={i18next.t('name')} onlyAdmin={true}>
           <p>
             {user.name} {user.surname || ''}
           </p>
         </InfoRow>
         {user?.username && (
-          <InfoRow name='Nickname' onlyAdmin={true}>
+          <InfoRow name={i18next.t('nickname')} onlyAdmin={true}>
             <a
               href={`https://t.me/${user?.username}`}
               target='_blank'
@@ -59,7 +60,7 @@ const UserInfo = ({ user }: { user: User }) => {
           </InfoRow>
         )}
         {user?.phoneNumber && (
-          <InfoRow name='Phone' onlyAdmin={true}>
+          <InfoRow name={i18next.t('phone')} onlyAdmin={true}>
             <a
               href={`https://t.me/+${user?.phoneNumber}`}
               target='_blank'
@@ -75,33 +76,33 @@ const UserInfo = ({ user }: { user: User }) => {
             {user.telegramId}
           </p>
         </InfoRow>
-        <InfoRow name='Admin' onlyAdmin={true}>
-          <p>{user.isAdmin ? 'Yes' : 'No'}</p>
+        <InfoRow name={i18next.t('admin')} onlyAdmin={true}>
+          <p>{user.isAdmin ? i18next.t('yes') : i18next.t('no')}</p>
         </InfoRow>
-        <InfoRow name='Limited to create' onlyAdmin={true}>
-          <p>{user.isLimitedToCreate ? 'Yes' : 'No'}</p>
+        <InfoRow name={i18next.t('limited_create')} onlyAdmin={true}>
+          <p>{user.isLimitedToCreate ? i18next.t('yes') : i18next.t('no')}</p>
         </InfoRow>
-        <InfoRow name='Keys' onlyAdmin={true}>
+        <InfoRow name={i18next.t('keys')} onlyAdmin={true}>
           <p>
             {user.keys.length} / {user.maxKeyAvalible}
           </p>
         </InfoRow>
 
         {user.lastViewedApp && (
-          <InfoRow name='Last logged in the app' onlyAdmin={true}>
+          <InfoRow name={i18next.t('login_date')} onlyAdmin={true}>
             <>
-              {date.format(new Date(user.lastViewedApp), 'D/MMMM/YYYY HH:mm') ||
+              {date.format(new Date(user.lastViewedApp), 'D/MM/YYYY HH:mm') ||
                 ''}
             </>
           </InfoRow>
         )}
 
         {user.dateOfCreateUser && (
-          <InfoRow name='Created the user' onlyAdmin={true}>
+          <InfoRow name={i18next.t('created_user')} onlyAdmin={true}>
             <>
               {date.format(
                 new Date(user.dateOfCreateUser),
-                'D/MMMM/YYYY HH:mm'
+                'D/MM/YYYY HH:mm'
               ) || ''}
             </>
           </InfoRow>
@@ -109,11 +110,11 @@ const UserInfo = ({ user }: { user: User }) => {
       </InfoTable>
 
       <div className='w-full grid grid-cols-1 grid-flow-row gap-3 mb-7 mt-5'>
-        <h2>Keys:</h2>
+        <h2>{i18next.t('keys')}:</h2>
         {user.keys.length > 0 ? (
           user.keys.map((item, i) => <KeyItem key={i} data={item} />)
         ) : (
-          <p className='text-center'>There aren't keys</p>
+          <p className='text-center'>{i18next.t('keys_empty')}</p>
         )}
       </div>
       <button
@@ -121,14 +122,14 @@ const UserInfo = ({ user }: { user: User }) => {
         disabled={loading}
         className='btn w-full mb-3'
       >
-        Edit user
+        {i18next.t('edit_user_btn')}
       </button>
       <button
         onClick={() => deleteUser()}
         disabled={loading}
         className='btn w-full'
       >
-        Delete user
+        {i18next.t('delete_user_btn')}
       </button>
     </div>
   );

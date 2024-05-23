@@ -16,18 +16,19 @@ import { EditKeyForm, Key } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 import './EditKey.scss';
+import i18next from '../../lang';
 
 const EditKeySchema = Yup.object()
   .shape({
     name: Yup.string()
-      .required('Required')
+      .required(i18next.t('required'))
       .min(3, 'The minimum is 3 characters')
       .max(25, 'The maximum is 25 characters'),
     currentPrice: Yup.number().min(10).required("It's must be number"),
     lastPayment: Yup.date(),
-    nextPayment: Yup.date().required('Required'),
+    nextPayment: Yup.date().required(i18next.t('required')),
   })
-  .required('Required');
+  .required(i18next.t('required'));
 
 const EditKey = ({ dataKey }: { dataKey: Key }) => {
   const { request, process, loading, errorText } = useHttp();
@@ -76,7 +77,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
       {({ errors, touched }) => (
         <Form className='w-full h-full flex flex-col flex-1 gap-4'>
           <InfoTable>
-            <InfoRow name='Name' onlyAdmin={true}>
+            <InfoRow name={i18next.t('name_key')} onlyAdmin={true}>
               <>
                 <label className='flex items-center justify-center gap-1'>
                   <Field
@@ -92,13 +93,13 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                 ) : null}
               </>
             </InfoRow>
-            <InfoRow name='Owner' onlyAdmin={true}>
+            <InfoRow name={i18next.t('owner')} onlyAdmin={true}>
               <>
                 {dataKey.user?.name ? (
-                  <p>{`Name: ${dataKey.user?.name}`}</p>
+                  <p>{`${i18next.t('name')}: ${dataKey.user?.name}`}</p>
                 ) : null}
                 {dataKey.user?.surname ? (
-                  <p>{`Lastname: ${dataKey.user?.surname}`}</p>
+                  <p>{`${i18next.t('surname')}: ${dataKey.user?.surname}`}</p>
                 ) : null}
                 {dataKey.user?.telegramId ? (
                   <p>{`TelegramId: ${dataKey.user?.telegramId}`}</p>
@@ -115,7 +116,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
             </InfoRow>
 
             {dataKey.server ? (
-              <InfoRow name='Server' onlyAdmin={true}>
+              <InfoRow name={i18next.t('server')} onlyAdmin={true}>
                 <span>
                   {`${dataKey.server.name} (${
                     dataKey.server.country
@@ -124,7 +125,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
               </InfoRow>
             ) : null}
 
-            <InfoRow name='Price' onlyAdmin={true}>
+            <InfoRow name={i18next.t('price')} onlyAdmin={true}>
               <>
                 <label className='flex items-center justify-center gap-2 my-auto'>
                   <Field
@@ -135,7 +136,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                       errors.currentPrice ? 'error' : ''
                     }`}
                   />
-                  <p className='mr-auto'>rub/mes</p>
+                  <p className='mr-auto'>{i18next.t('rub-mes')}</p>
                 </label>
                 {errors.currentPrice && touched.currentPrice ? (
                   <p className='alert mt-2' role='alert'>
@@ -145,7 +146,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
               </>
             </InfoRow>
 
-            <InfoRow name='Last Payment' onlyAdmin={true}>
+            <InfoRow name={i18next.t('last_payment')} onlyAdmin={true}>
               <>
                 <Field name='lastPayment'>
                   {({ field, form }: FieldProps<string>) => (
@@ -165,7 +166,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
               </>
             </InfoRow>
 
-            <InfoRow name='Next Payment' onlyAdmin={true}>
+            <InfoRow name={i18next.t('next_payment')} onlyAdmin={true}>
               <>
                 <Field name='nextPayment'>
                   {({ field, form }: FieldProps<string>) => (
@@ -195,7 +196,7 @@ const EditKey = ({ dataKey }: { dataKey: Key }) => {
                 : false
             }
           >
-            Edit
+            {i18next.t('edit_key_btn')}
           </button>
         </Form>
       )}

@@ -11,6 +11,7 @@ import WebApp from '@twa-dev/sdk';
 import PaymentForm from '../../components/PaymentForm/PaymentForm';
 import { Key } from '../../types';
 import Spiner from '../../components/Spiner/Spiner';
+import i18next from '../../lang';
 
 export const PaymentPageLoader: LoaderFunction = async ({ params }) => {
   const key = await requestFunction(`/api/getKey/${params.id}`);
@@ -35,7 +36,7 @@ const PaymentPage = () => {
         children={(resolvedValue) => {
           return (
             <>
-              <h1 className='title'>Payment for Key</h1>
+              <h1 className='title'>{i18next.t('payment_for_key')}</h1>
               <PaymentForm dataKey={resolvedValue} />
             </>
           );

@@ -15,17 +15,18 @@ import { InfoTable, InfoRow } from '../InfoTable/InfoTable';
 
 import { CreateKeyForm, Server, Store, User, Option } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import i18next from '../../lang';
 
 const CreateSchema = Yup.object()
   .shape({
-    user: Yup.object().required('Required'),
+    user: Yup.object().required(i18next.t('required')),
     name: Yup.string()
-      .required('Required')
+      .required(i18next.t('required'))
       .min(3, 'The minimum is 3 characters')
       .max(25, 'The maximum is 25 characters'),
-    server: Yup.object().required('Required'),
+    server: Yup.object().required(i18next.t('required')),
   })
-  .required('Required');
+  .required(i18next.t('required'));
 
 const CreateKey = () => {
   const user = useSelector<Store, User>((state) => state.user);
@@ -128,7 +129,7 @@ const CreateKey = () => {
           <label>
             <Field
               name='name'
-              placeholder='Name'
+              placeholder={i18next.t('name')}
               className={`input ${
                 errors.name && touched.name
                   ? 'error'
@@ -148,7 +149,7 @@ const CreateKey = () => {
             <label>
               <FieldSelect
                 name='user'
-                placeholder='Choose user'
+                placeholder={i18next.t('choose_user')}
                 isSearchable={true}
                 options={userOption}
               />
@@ -157,7 +158,7 @@ const CreateKey = () => {
             <label className='hidden'>
               <FieldSelect
                 name='user'
-                placeholder='Choose user'
+                placeholder={i18next.t('choose_user')}
                 options={userOption}
               />
             </label>
@@ -166,20 +167,20 @@ const CreateKey = () => {
           <label>
             <FieldSelect
               name='server'
-              placeholder='Choose server'
+              placeholder={i18next.t('choose_server')}
               options={serversOption}
             />
           </label>
           {values.server?.value ? (
             <InfoTable>
-              <InfoRow name='Price' onlyAdmin={false}>
+              <InfoRow name={i18next.t('price')} onlyAdmin={false}>
                 <>{`${
                   serversOption.find(
                     (item) => values.server?.value === item.value
                   )?.price
-                } rub/mes`}</>
+                } ${i18next.t('rub-mes')}`}</>
               </InfoRow>
-              <InfoRow name='Country' onlyAdmin={false}>
+              <InfoRow name={i18next.t('country')} onlyAdmin={false}>
                 <>
                   {`${
                     serversOption.find(
@@ -204,7 +205,7 @@ const CreateKey = () => {
                 : false
             }
           >
-            Create
+            {i18next.t('create_btn')}
           </button>
         </Form>
       )}

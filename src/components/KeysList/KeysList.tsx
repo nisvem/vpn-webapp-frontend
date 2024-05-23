@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import KeyItem from '../KeyItem/KeyItem';
 
 import { Key, Store, User } from '../../types';
+import i18next from '../../lang';
 
 const KeysList = ({ keys }: { keys: Key[] }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
@@ -21,14 +22,16 @@ const KeysList = ({ keys }: { keys: Key[] }) => {
       {newKeys.length > 0 ? (
         <>
           {isAdmin && (
-            <p className='text-center text-xs'>Keys: {`${newKeys.length}`}</p>
+            <p className='text-center text-xs'>
+              {i18next.t('keys')}: {`${newKeys.length}`}
+            </p>
           )}
           {newKeys.map((item, i) => (
             <KeyItem key={i} data={item} />
           ))}
         </>
       ) : (
-        <p className='text-center'>There aren't keys</p>
+        <p className='text-center'>{i18next.t('keys_empty')}</p>
       )}
     </div>
   );

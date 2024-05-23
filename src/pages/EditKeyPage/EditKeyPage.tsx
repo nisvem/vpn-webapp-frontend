@@ -13,6 +13,7 @@ import WebApp from '@twa-dev/sdk';
 
 import Spiner from '../../components/Spiner/Spiner';
 import { Key } from '../../types';
+import i18next from '../../lang';
 
 export const EditKeyPageLoader: LoaderFunction = async ({ params }) => {
   const key = await requestFunction(`/api/getKey/${params.id}`);
@@ -37,7 +38,7 @@ const EditKeyPage = () => {
         children={(resolvedValue) => {
           return (
             <>
-              <h1 className='title'>Edit key</h1>
+              <h1 className='title'>{i18next.t('edit_key')}</h1>
               <EditKey dataKey={resolvedValue} />
             </>
           );

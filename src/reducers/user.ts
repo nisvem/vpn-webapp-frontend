@@ -7,6 +7,7 @@ const initialState: User = {
   username: '',
   name: '',
   surname: '',
+  lang: 'en',
   isAdmin: false,
   isLimitedToCreate: false,
   maxKeyAvalible: 0,

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { User } from '../../types';
 
 import './UserItem.scss';
+import i18next from '../../lang';
 
 const UserItem = ({ data }: { data: User }) => {
   console.log();
@@ -13,7 +14,9 @@ const UserItem = ({ data }: { data: User }) => {
       <p className='text-sm'>{`${
         data.username ? '@' + data.username + ' / ' : ''
       } ${data.telegramId}`}</p>
-      <p className='text-sm'>Keys: {`${data.keys.length}`}</p>
+      <p className='text-sm'>
+        {i18next.t('keys')}: {`${data.keys.length}`}
+      </p>
     </Link>
   );
 };

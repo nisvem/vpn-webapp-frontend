@@ -9,6 +9,7 @@ import Error from '../Error/Error';
 
 import { useHttp } from '../../hooks/http.hook';
 import App from '../App/App';
+import i18next from '../../lang';
 
 type CallbackParams = {
   status: 'sent' | 'cancelled';
@@ -51,57 +52,54 @@ function TelegramWrapper() {
           dispatch(setUser(createResponse));
           setIsReady(true);
         } else {
-          WebApp.showConfirm(
-            'For working with this bot, you need to have a username or share your contact. Do you want to share your contact information?',
-            (confirm) => {
-              if (confirm) {
-                WebApp.requestContact((access) => !access && WebApp.close());
+          WebApp.showConfirm(i18next.t('share_phone'), (confirm) => {
+            if (confirm) {
+              WebApp.requestContact((access) => !access && WebApp.close());
 
-                WebApp.onEvent(
-                  'contactRequested',
-                  async (params: CallbackParams) => {
-                    if (response) {
-                      const updateResponse = await request(
-                        '/api/updateUser',
-                        'POST',
-                        {
-                          username: WebApp.initDataUnsafe.user?.username || '',
-                          telegramId: WebApp.initDataUnsafe.user?.id || '',
-                          phoneNumber:
-                            params.responseUnsafe.contact.phone_number || '',
-                          name: WebApp.initDataUnsafe.user?.first_name || '',
-                          surname: WebApp.initDataUnsafe.user?.last_name || '',
-                          lastViewedApp: new Date(),
-                        }
-                      );
+              WebApp.onEvent(
+                'contactRequested',
+                async (params: CallbackParams) => {
+                  if (response) {
+                    const updateResponse = await request(
+                      '/api/updateUser',
+                      'POST',
+                      {
+                        username: WebApp.initDataUnsafe.user?.username || '',
+                        telegramId: WebApp.initDataUnsafe.user?.id || '',
+                        phoneNumber:
+                          params.responseUnsafe.contact.phone_number || '',
+                        name: WebApp.initDataUnsafe.user?.first_name || '',
+                        surname: WebApp.initDataUnsafe.user?.last_name || '',
+                        lastViewedApp: new Date(),
+                      }
+                    );
 
-                      dispatch(setUser(updateResponse));
-                      setIsReady(true);
-                    } else {
-                      const createResponse = await request(
-                        '/api/createUser',
-                        'POST',
-                        {
-                          username: WebApp.initDataUnsafe.user?.username || '',
-                          telegramId: WebApp.initDataUnsafe.user?.id || '',
-                          phoneNumber:
-                            params?.responseUnsafe.contact.phone_number || '',
-                          name: WebApp.initDataUnsafe.user?.first_name || '',
-                          surname: WebApp.initDataUnsafe.user?.last_name || '',
-                          lastViewedApp: new Date(),
-                          dateOfCreateUser: new Date(),
-                        }
-                      );
-                      dispatch(setUser(createResponse));
-                      setIsReady(true);
-                    }
+                    dispatch(setUser(updateResponse));
+                    setIsReady(true);
+                  } else {
+                    const createResponse = await request(
+                      '/api/createUser',
+                      'POST',
+                      {
+                        username: WebApp.initDataUnsafe.user?.username || '',
+                        telegramId: WebApp.initDataUnsafe.user?.id || '',
+                        phoneNumber:
+                          params?.responseUnsafe.contact.phone_number || '',
+                        name: WebApp.initDataUnsafe.user?.first_name || '',
+                        surname: WebApp.initDataUnsafe.user?.last_name || '',
+                        lastViewedApp: new Date(),
+                        dateOfCreateUser: new Date(),
+                      }
+                    );
+                    dispatch(setUser(createResponse));
+                    setIsReady(true);
                   }
-                );
-              } else {
-                WebApp.close();
-              }
+                }
+              );
+            } else {
+              WebApp.close();
             }
-          );
+          });
         }
       }
     } catch (e) {

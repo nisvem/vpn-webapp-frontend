@@ -15,12 +15,13 @@ import date from 'date-and-time';
 import { PaymentKeyForm, Key, Option, Tariff, Store, User } from '../../types';
 import FieldSelect from '../FieldSelect/FieldSelect';
 import WebApp from '@twa-dev/sdk';
+import i18next from '../../lang';
 
 const PaymentKeySchema = Yup.object()
   .shape({
-    tariff: Yup.object().required('Required'),
+    tariff: Yup.object().required(i18next.t('required')),
   })
-  .required('Required');
+  .required(i18next.t('required'));
 
 const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
   const { request, process, loading, errorText } = useHttp();

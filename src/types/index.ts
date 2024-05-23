@@ -22,6 +22,7 @@ export interface User {
   maxKeyAvalible: number;
   keys: Key[];
   tgApp?: TelegramWebAppModel['app'];
+  lang?: string;
 
   name?: string;
   phoneNumber?: string;

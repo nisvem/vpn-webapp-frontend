@@ -13,14 +13,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../reducers/user';
 
 import './EditUser.scss';
+import i18next from '../../lang';
 
 const EditUserSchema = Yup.object()
   .shape({
-    isAdmin: Yup.boolean().required('Required'),
-    isLimitedToCreate: Yup.boolean().required('Required'),
+    isAdmin: Yup.boolean().required(i18next.t('required')),
+    isLimitedToCreate: Yup.boolean().required(i18next.t('required')),
     maxKeyAvalible: Yup.number().min(0).required("It's must be number"),
   })
-  .required('Required');
+  .required(i18next.t('required'));
 
 const EditUser = ({ user }: { user: User }) => {
   const { telegramId } = useSelector<Store, User>((state) => state.user);
@@ -68,13 +69,13 @@ const EditUser = ({ user }: { user: User }) => {
       {({ errors, touched }) => (
         <Form className='w-full h-full flex flex-col flex-1 gap-4'>
           <InfoTable>
-            <InfoRow name='Name' onlyAdmin={true}>
+            <InfoRow name={i18next.t('name')} onlyAdmin={true}>
               <p>
                 {user.name} {user.surname || ''}
               </p>
             </InfoRow>
             {user?.username && (
-              <InfoRow name='Nickname' onlyAdmin={true}>
+              <InfoRow name={i18next.t('nickname')} onlyAdmin={true}>
                 <a
                   href={`https://t.me/${user?.username}`}
                   target='_blank'
@@ -83,7 +84,7 @@ const EditUser = ({ user }: { user: User }) => {
             )}
 
             {user?.phoneNumber && (
-              <InfoRow name='Phone' onlyAdmin={true}>
+              <InfoRow name={i18next.t('phone')} onlyAdmin={true}>
                 <a
                   href={`https://t.me/+${user?.phoneNumber}`}
                   target='_blank'
@@ -94,7 +95,7 @@ const EditUser = ({ user }: { user: User }) => {
             <InfoRow name='TelegramId' onlyAdmin={true}>
               <p>{user.telegramId}</p>
             </InfoRow>
-            <InfoRow name='Admin' onlyAdmin={true}>
+            <InfoRow name={i18next.t('admin')} onlyAdmin={true}>
               <label className='checkbox-label'>
                 <Field name='isAdmin' type='checkbox' className='hidden' />
                 <span className='checkbox'></span>
@@ -105,7 +106,7 @@ const EditUser = ({ user }: { user: User }) => {
                 ) : null}
               </label>
             </InfoRow>
-            <InfoRow name='Limited to create' onlyAdmin={true}>
+            <InfoRow name={i18next.t('limited_create')} onlyAdmin={true}>
               <label className='checkbox-label'>
                 <Field
                   name='isLimitedToCreate'
@@ -120,7 +121,7 @@ const EditUser = ({ user }: { user: User }) => {
                 ) : null}
               </label>
             </InfoRow>
-            <InfoRow name='Keys avalible' onlyAdmin={true}>
+            <InfoRow name={i18next.t('keys_avalible')} onlyAdmin={true}>
               <label className=''>
                 <Field
                   name='maxKeyAvalible'
@@ -143,7 +144,7 @@ const EditUser = ({ user }: { user: User }) => {
             type='submit'
             disabled={Object.entries(errors).length ? true : false}
           >
-            Edit
+            {i18next.t('edit_user_btn')}
           </button>
         </Form>
       )}

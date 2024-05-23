@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import WebApp from '@twa-dev/sdk';
 
 import './FaqPage.scss';
+import i18next from '../../lang';
 
 const FaqPage = () => {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const FaqPage = () => {
         }}
         className='btn w-full my-5 mt-auto'
       >
-        Keys List
+        {i18next.t('keys_list')}
       </button>
       <button
         onClick={() => {
@@ -111,7 +112,7 @@ const FaqPage = () => {
         }}
         className='btn w-full'
       >
-        Create Key
+        {i18next.t('add_key')}
       </button>
     </>
   );

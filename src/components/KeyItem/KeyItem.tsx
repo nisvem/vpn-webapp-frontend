@@ -8,6 +8,7 @@ import SpanActive from '../SpanActive/SpanActive';
 import { Key, Store, User } from '../../types';
 
 import './KeyItem.scss';
+import i18next from '../../lang';
 
 const KeyItem = ({ data }: { data: Key }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
@@ -29,7 +30,8 @@ const KeyItem = ({ data }: { data: Key }) => {
 
       {data.nextPayment && (
         <p className='text-xs mb-1 text-color-text text-tg-theme-hint'>
-          Next payment: {date.format(new Date(data.nextPayment), 'D MMMM YYYY')}
+          {i18next.t('next_payment')}:{' '}
+          {date.format(new Date(data.nextPayment), 'D/MM/YYYY')}
         </p>
       )}
       {data.server ? (

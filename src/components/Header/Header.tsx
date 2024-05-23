@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Store, User } from '../../types';
 
+import i18next from '../../lang';
+
 const Header = ({ ...props }) => {
   const { isAdmin } = useSelector<Store, User>((state) => state.user);
   return (
@@ -13,13 +15,13 @@ const Header = ({ ...props }) => {
               to='/keys'
               className='text-center text-xl font-normal text-accent-text text-tg-theme-button-text'
             >
-              Keys List
+              {i18next.t('keys_list')}
             </Link>
             <Link
               to='/users'
               className='text-center text-xl font-normal text-accent-text text-tg-theme-button-text'
             >
-              Users List
+              {i18next.t('users_list')}
             </Link>
           </>
         ) : (
@@ -28,7 +30,7 @@ const Header = ({ ...props }) => {
               to='/keys'
               className='text-center text-xl font-normal text-accent-text text-tg-theme-button-text'
             >
-              Keys List
+              {i18next.t('keys_list')}
             </Link>
 
             <Link

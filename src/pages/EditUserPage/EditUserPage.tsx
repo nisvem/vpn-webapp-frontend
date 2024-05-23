@@ -13,6 +13,7 @@ import WebApp from '@twa-dev/sdk';
 
 import Spiner from '../../components/Spiner/Spiner';
 import { User } from '../../types';
+import i18next from '../../lang';
 
 export const EditUserPageLoader: LoaderFunction = async ({ params }) => {
   const user = await requestFunction(`/api/getUser/${params.id}`);
@@ -36,7 +37,7 @@ const EditUserPage = () => {
         children={(resolvedValue) => {
           return (
             <>
-              <h1 className='title'>Edit user</h1>
+              <h1 className='title'>{i18next.t('edit_user')}</h1>
               <EditUser user={resolvedValue} />
             </>
           );

@@ -15,6 +15,7 @@ import KeysList from '../../components/KeysList/KeysList';
 
 import { Key, Store, User } from '../../types';
 import WebApp from '@twa-dev/sdk';
+import i18next from '../../lang';
 
 export const KeysListPageLoader: LoaderFunction = async () => {
   const keys = await requestFunction(`/api/getKeys/`);
@@ -49,7 +50,7 @@ const KeysListPage = () => {
         children={(resolvedValue) => {
           return (
             <>
-              <h1 className='title'>Keys List</h1>
+              <h1 className='title'>{i18next.t('keys_list')}</h1>
               <KeysList keys={resolvedValue} />
               {!isAdmin ? (
                 <p
@@ -59,12 +60,15 @@ const KeysListPage = () => {
                       : 'text-gray text-tg-theme-hint font-thin'
                   } mt-auto mb-4 text-sm text-center w-full`}
                 >
-                  {`You have ${keys.length} of ${maxKeyAvalible} avalible keys.`}
+                  {i18next.t('avalible_keys', {
+                    keys: keys.length,
+                    max: maxKeyAvalible,
+                  })}
                   {keys.length >= maxKeyAvalible && (
                     <>
                       <br />
                       <span>
-                        To change this parameter, contact me{' '}
+                        {i18next.t('change_parametr')}{' '}
                         <a href='https://t.me/@nisvem'>@nisvem</a>.
                       </span>
                     </>
@@ -79,7 +83,7 @@ const KeysListPage = () => {
                 className='btn fixed bottom-5 left-3 right-3 z-10'
                 disabled={isLimitedToCreate ? true : false}
               >
-                Add
+                {i18next.t('add_key')}
               </button>
             </>
           );

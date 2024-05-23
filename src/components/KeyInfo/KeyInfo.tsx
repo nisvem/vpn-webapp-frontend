@@ -18,6 +18,7 @@ import copyAnimation from '../../data/copyAnimation.json';
 
 import './KeyInfo.scss';
 import { setUser } from '../../reducers/user';
+import i18next from '../../lang';
 
 const KeyInfo = ({ data }: { data: Key }) => {
   const [key, setKey] = useState<Key>(data);
@@ -66,7 +67,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
   };
 
   const deleteKey = async (id: string) => {
-    if (window.confirm('Do you really want to delete Key?')) {
+    if (window.confirm(i18next.t('confirm_delete_key'))) {
       try {
         const response = await request('/api/deleteKey', 'POST', { id });
 
@@ -104,11 +105,11 @@ const KeyInfo = ({ data }: { data: Key }) => {
       )}
 
       <InfoTable className='mb-5'>
-        <InfoRow name='Status' onlyAdmin={false}>
+        <InfoRow name={i18next.t('status')} onlyAdmin={false}>
           <SpanActive isOpen={key.isOpen} />
         </InfoRow>
 
-        <InfoRow name='Owner' onlyAdmin={true}>
+        <InfoRow name={i18next.t('owner')} onlyAdmin={true}>
           <>
             {key.user?.name && <p>{`Name: ${key.user?.name}`}</p>}
             {key.user?.surname && <p>{`Lastname: ${key.user?.surname}`}</p>}
@@ -117,7 +118,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
             )}
             {key.user?.phoneNumber && (
               <p>
-                {`Phone: `}
+                {`${i18next.t('phone')}: `}
                 <a
                   href={`https://t.me/+${key.user?.phoneNumber}`}
                   target='_blank'
@@ -136,7 +137,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
         </InfoRow>
 
         {key.server ? (
-          <InfoRow name='Server' onlyAdmin={false}>
+          <InfoRow name={i18next.t('server')} onlyAdmin={false}>
             <span>
               {`${key.server.name} (${key.server.country}) ${getUnicodeFlagIcon(
                 key.server.abbreviatedCountry
@@ -155,36 +156,38 @@ const KeyInfo = ({ data }: { data: Key }) => {
           </InfoRow>
         )}
 
-        <InfoRow name='Usage trafic (last 30 days)' onlyAdmin={false}>
+        <InfoRow name={i18next.t('usage_trafic')} onlyAdmin={false}>
           <span>{usageData}</span>
         </InfoRow>
 
         {key.currentPrice ? (
-          <InfoRow name='Price' onlyAdmin={false}>
-            <>{key.currentPrice} rub / 30 days</>
+          <InfoRow name={i18next.t('price')} onlyAdmin={false}>
+            <>
+              {key.currentPrice} {i18next.t('rub-30-days')}
+            </>
           </InfoRow>
         ) : null}
 
         {key.dateOfCreated ? (
-          <InfoRow name='Date of created' onlyAdmin={true}>
+          <InfoRow name={i18next.t('created_key')} onlyAdmin={true}>
             <span>
-              {date.format(new Date(key.dateOfCreated), 'D MMMM YYYY') || ''}
+              {date.format(new Date(key.dateOfCreated), 'D/MM/YYYY') || ''}
             </span>
           </InfoRow>
         ) : null}
 
         {key.lastPayment ? (
-          <InfoRow name='Last payment' onlyAdmin={false}>
+          <InfoRow name={i18next.t('last_payment')} onlyAdmin={false}>
             <span>
-              {date.format(new Date(key.lastPayment), 'D MMMM YYYY') || ''}
+              {date.format(new Date(key.lastPayment), 'D/MM/YYYY') || ''}
             </span>
           </InfoRow>
         ) : null}
 
         {key.nextPayment ? (
-          <InfoRow name='Next payment' onlyAdmin={false}>
+          <InfoRow name={i18next.t('next_payment')} onlyAdmin={false}>
             <span>
-              {date.format(new Date(key.nextPayment), 'D MMMM YYYY') || ''}
+              {date.format(new Date(key.nextPayment), 'D/MM/YYYY') || ''}
             </span>
           </InfoRow>
         ) : null}
@@ -193,7 +196,9 @@ const KeyInfo = ({ data }: { data: Key }) => {
       {key.isOpen ? (
         <div className='key-place'>
           <p className='key-place__text'>
-            <span className='text-md font-bold'>Access key: </span>
+            <span className='text-md font-bold'>
+              {i18next.t('access_key')}:{' '}
+            </span>
             {key.accessUrl}
           </p>
           <button className='key-place__btn-copy' onClick={onClickCopy}>
@@ -203,8 +208,10 @@ const KeyInfo = ({ data }: { data: Key }) => {
       ) : (
         <div className='key-place'>
           <p className='key-place__text'>
-            <span className='text-md font-bold'>Access key: </span>
-            <span>To view the Access key, please pay for Кey.</span>
+            <span className='text-md font-bold'>
+              {i18next.t('access_key')}:{' '}
+            </span>
+            <span>{i18next.t('view_access_key')}</span>
           </p>
         </div>
       )}
@@ -216,7 +223,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
             disabled={loading}
             className='btn w-full mb-3 mt-auto'
           >
-            {key.isOpen ? 'Deactivate' : 'Activate'}
+            {key.isOpen ? i18next.t('deactivate') : i18next.t('activate')}
           </button>
           {key.user?.telegramId && (
             <button
@@ -224,7 +231,7 @@ const KeyInfo = ({ data }: { data: Key }) => {
               disabled={loading}
               className='btn w-full mb-3'
             >
-              Go to the user
+              {i18next.t('go_user_btn')}
             </button>
           )}
           <button
@@ -232,27 +239,25 @@ const KeyInfo = ({ data }: { data: Key }) => {
             disabled={loading}
             className='btn w-full mb-3'
           >
-            Edit key
+            {i18next.t('edit_key_btn')}
           </button>
         </>
       ) : null}
 
-      {!key.isOpen && (
-        <button
-          onClick={() => navigate(`/payment/${key._id}`)}
-          disabled={loading}
-          className='btn w-full mb-3'
-        >
-          Pay for Key
-        </button>
-      )}
+      <button
+        onClick={() => navigate(`/payment/${key._id}`)}
+        disabled={loading}
+        className='btn w-full mb-3'
+      >
+        {i18next.t('pay_key_btn')}
+      </button>
 
       <button
         onClick={() => deleteKey(key._id)}
         disabled={loading}
         className='btn w-full mt-auto'
       >
-        Delete Key
+        {i18next.t('delete_key_btn')}
       </button>
     </div>
   );
