@@ -27,9 +27,10 @@ const Layout = () => {
   const currentOutlet = useOutlet();
   const nodeRef = useRef(null);
 
+  i18next.changeLanguage(lang || 'en');
+
   useEffect(() => {
     setInShow(true);
-    i18next.changeLanguage(lang || 'en');
   }, []);
 
   return (
