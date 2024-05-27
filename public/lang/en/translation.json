@@ -18,6 +18,7 @@
   "confirm_delete_user": "Are you sure you want to delete the user?",
   "confirm_delete_key": "Are you sure you want to delete the key?",
   "name": "Name",
+  "name_of_key": "Name of key",
   "surname": "Surname",
   "name_key": "Name",
   "nickname": "Nickname",

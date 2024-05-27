@@ -129,7 +129,7 @@ const CreateKey = () => {
           <label>
             <Field
               name='name'
-              placeholder={i18next.t('name')}
+              placeholder={i18next.t('name_of_key')}
               className={`input ${
                 errors.name && touched.name
                   ? 'error'
