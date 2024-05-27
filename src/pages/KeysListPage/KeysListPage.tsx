@@ -58,7 +58,7 @@ const KeysListPage = () => {
                     keys.length >= maxKeyAvalible
                       ? 'text-red text-tg-theme-destructive-text'
                       : 'text-gray text-tg-theme-hint font-thin'
-                  } mt-auto mb-4 text-sm text-center w-full`}
+                  } mt-auto mb-16 text-sm text-center w-full`}
                 >
                   {i18next.t('avalible_keys', {
                     keys: keys.length,

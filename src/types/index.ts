@@ -24,7 +24,7 @@ export interface User {
   tgApp?: TelegramWebAppModel['app'];
   lang?: string;
 
-  name?: string;
+  name: string;
   phoneNumber?: string;
 
   lastViewedApp?: Date;

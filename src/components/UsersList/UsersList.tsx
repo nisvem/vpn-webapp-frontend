@@ -5,11 +5,17 @@ import UserItem from '../UserItem/UserItem';
 const UsersList = ({ users }: { users: User[] }) => {
   const newUsers =
     users.length > 0
-      ? users.sort((a: User, b: User) => {
-          return (
-            new Date(b.lastViewedApp || 0).getTime() -
-            new Date(a.lastViewedApp || 0).getTime()
-          );
+      ? users.sort((a, b) => {
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          return 0;
         })
       : [];
 
