@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useOutlet } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { useSelector } from 'react-redux';
-
-import i18next from '../lang';
 
 import Header from '../components/Header/Header';
-
-import { Store, User } from '../types';
 
 function ScrollToTop() {
   useEffect(() => {
@@ -21,13 +16,10 @@ function ScrollToTop() {
 }
 
 const Layout = () => {
-  const { lang } = useSelector<Store, User>((state) => state.user);
   const [inShow, setInShow] = useState(false);
   const location = useLocation();
   const currentOutlet = useOutlet();
   const nodeRef = useRef(null);
-
-  i18next.changeLanguage(lang || 'en');
 
   useEffect(() => {
     setInShow(true);

@@ -7,7 +7,7 @@ i18next.use(HttpBackend).init({
   ns: ['translation'],
   defaultNS: 'translation',
   backend: {
-    loadPath: './lang/{{lng}}/{{ns}}.json', // Путь к файлам переводов
+    loadPath: '/lang/{{lng}}/{{ns}}.json', // Путь к файлам переводов
   },
   interpolation: {
     escapeValue: false, // Не экранировать переменные
