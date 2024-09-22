@@ -68,13 +68,7 @@ const UserInfo = ({ user }: { user: User }) => {
           </InfoRow>
         )}
         <InfoRow name='TelegramId' onlyAdmin={true}>
-          <p
-            onClick={() => {
-              WebApp.requestContact();
-            }}
-          >
-            {user.telegramId}
-          </p>
+          <p>{user.telegramId}</p>
         </InfoRow>
         <InfoRow name={i18next.t('admin')} onlyAdmin={true}>
           <p>{user.isAdmin ? i18next.t('yes') : i18next.t('no')}</p>
