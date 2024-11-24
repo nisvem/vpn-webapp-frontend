@@ -12,7 +12,6 @@ import Error from '../Error/Error';
 import { Store, User } from '../../types';
 
 import KeyItem from '../KeyItem/KeyItem';
-import WebApp from '@twa-dev/sdk';
 import i18next from '../../lang';
 
 const UserInfo = ({ user }: { user: User }) => {
