@@ -30,8 +30,15 @@ body,
 
   overflow  : auto;
   height    : var(--tg-viewport-height);
-  min-height: var(--tg-viewport-height);
+  // min-height: var(--tg-viewport-height);
   max-height: var(--tg-viewport-height);
+
+  width: 100%;
+  position: absolute;
+  top: calc(var(--tg-safe-area-inset-top) + 50px);
+  bottom: var(--tg-safe-area-inset-bottom);
+  left: var(--tg-safe-area-inset-left);
+  right: var(--tg-safe-area-inset-right);
 }
 
 .layout-page {

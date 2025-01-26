@@ -13,6 +13,7 @@ import i18next from '../../lang';
 
 type CallbackParams = {
   status: 'sent' | 'cancelled';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 
@@ -110,6 +111,7 @@ function TelegramWrapper() {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
+    if(WebApp.platform === 'ios' || WebApp.platform === 'android' || WebApp.platform === 'android_x') WebApp.requestFullscreen();
     console.log('WebApp', WebApp);
   }, []);
 
