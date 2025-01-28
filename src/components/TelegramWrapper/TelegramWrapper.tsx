@@ -111,14 +111,21 @@ function TelegramWrapper() {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
-    if(WebApp.platform === 'ios' || WebApp.platform === 'android' || WebApp.platform === 'android_x') WebApp.requestFullscreen();
-    console.log('WebApp', WebApp);
+    if (
+      WebApp.platform === 'ios' ||
+      WebApp.platform === 'android' ||
+      WebApp.platform === 'android_x'
+    )
+      WebApp.requestFullscreen();
+    // console.log('WebApp', WebApp);
   }, []);
 
   return process !== 'error' ? (
     <>
       {!loading && isReady ? (
-        <App />
+        <div className={`${WebApp.isFullscreen ? 'fullscreen': ''}`} id="wrapper">
+          <App />
+        </div>
       ) : (
         <div className='min-h-screen w-screen flex items-center justify-center'>
           <Spiner />

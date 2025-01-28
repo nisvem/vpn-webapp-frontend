@@ -20,6 +20,7 @@ const Layout = () => {
   const location = useLocation();
   const currentOutlet = useOutlet();
   const nodeRef = useRef(null);
+  
 
   useEffect(() => {
     setInShow(true);
