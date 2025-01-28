@@ -19,7 +19,7 @@ type CallbackParams = {
 
 function TelegramWrapper() {
   const [isReady, setIsReady] = useState(false);
-
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const dispatch = useDispatch();
   const { request, process, errorText, loading } = useHttp();
 
@@ -111,19 +111,37 @@ function TelegramWrapper() {
   useEffect(() => {
     WebApp?.initDataUnsafe?.user ? initFunction() : null;
     WebApp.expand();
+
     if (
       WebApp.platform === 'ios' ||
       WebApp.platform === 'android' ||
       WebApp.platform === 'android_x'
-    )
-      WebApp.requestFullscreen();
+    ) {
+      setIsFullscreen(true);
+    } else {
+      setIsFullscreen(false);
+    }
+
     // console.log('WebApp', WebApp);
   }, []);
+
+  useEffect(() => {
+    if (
+      isFullscreen &&
+      (WebApp.platform === 'ios' ||
+        WebApp.platform === 'android' ||
+        WebApp.platform === 'android_x')
+    ) {
+      WebApp.requestFullscreen();
+    } else {
+      WebApp.exitFullscreen();
+    }
+  }, [isFullscreen]);
 
   return process !== 'error' ? (
     <>
       {!loading && isReady ? (
-        <div className={`${WebApp.isFullscreen ? 'fullscreen': ''}`} id="wrapper">
+        <div className={`${isFullscreen && 'fullscreen'}`} id='wrapper'>
           <App />
         </div>
       ) : (
