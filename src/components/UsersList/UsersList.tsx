@@ -1,32 +1,74 @@
+import { useEffect, useState } from 'react';
 import i18next from '../../lang';
 import { User } from '../../types';
 import UserItem from '../UserItem/UserItem';
 
 const UsersList = ({ users }: { users: User[] }) => {
-  const newUsers =
-    users.length > 0
-      ? users.sort((a, b) => {
-          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
+  const [sortedUsers, setSortedUsers] = useState(users);
+  const [, setDirectionOfSort] = useState(false);
+  const [currentSort, setCurrentSort] = useState('');
 
-          return 0;
-        })
-      : [];
+  const sortByName = () => {
+    const nameOfSort = 'name';
+
+    setDirectionOfSort((prevDirection) => {
+      const newDirection = currentSort === nameOfSort ? !prevDirection : true;
+      setCurrentSort(nameOfSort);
+
+      const sorted = [...users].sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        return nameB.localeCompare(nameA) * (newDirection ? -1 : 1);
+      });
+
+      setSortedUsers(sorted);
+      return newDirection;
+    });
+  };
+
+  const sortByKeys = () => {
+    const nameOfSort = 'keys';
+
+    setDirectionOfSort((prevDirection) => {
+      const newDirection = currentSort === nameOfSort ? !prevDirection : true;
+      setCurrentSort(nameOfSort);
+
+      const sorted = [...users].sort((a, b) => {
+        return (a.keys.length - b.keys.length) * (newDirection ? -1 : 1);
+      });
+
+      setSortedUsers(sorted);
+      return newDirection;
+    });
+  };
+
+  useEffect(() => {
+    sortByName();
+  }, []);
 
   return (
     <div className='w-full h-full grid grid-cols-1 grid-flow-row gap-3 mb-7 '>
-      {newUsers.length > 0 ? (
+      <div className='w-full flex flex-row items-center gap-3'>
+        <button
+          onClick={sortByName}
+          className={`${currentSort === 'name' ? 'underline' : ''}`}
+        >
+          By name
+        </button>
+        <button
+          onClick={sortByKeys}
+          className={`${currentSort === 'keys' ? 'underline' : ''}`}
+        >
+          By keys
+        </button>
+      </div>
+
+      {sortedUsers.length > 0 ? (
         <>
           <p className='text-right text-xs'>
-            {i18next.t('users')}: {`${newUsers.length}`}
+            {i18next.t('users')}: {`${sortedUsers.length}`}
           </p>
-          {newUsers.map((item, i) => (
+          {sortedUsers.map((item, i) => (
             <UserItem key={i} data={item} />
           ))}
         </>

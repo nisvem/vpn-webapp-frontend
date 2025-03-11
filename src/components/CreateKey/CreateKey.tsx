@@ -120,7 +120,7 @@ const CreateKey = () => {
       initialValues={{
         name: '',
         user: userOption[0],
-      }}
+      } as CreateKeyForm}
       onSubmit={onSubmit}
       validationSchema={CreateSchema}
     >

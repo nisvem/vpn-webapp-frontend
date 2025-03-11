@@ -26,7 +26,7 @@ const PaymentKeySchema = Yup.object()
 const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
   const { request, process, loading, errorText } = useHttp();
   const { telegramId } = useSelector<Store, User>((state) => state.user);
-  const [tariffOption, setTariffOption] = useState<Option[]>([]);
+  const [ tariffOption, setTariffOption ] = useState<Option[]>([]);
 
   useEffect(() => {
     request('/api/getTariffs').then((response) => {
@@ -68,11 +68,11 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
     <Spiner />
   ) : (
     <Formik
-      initialValues={{}}
+      initialValues={{} as PaymentKeyForm}
       onSubmit={onSubmit}
       validationSchema={PaymentKeySchema}
     >
-      {({ errors, touched, values }) => (
+      {({ errors, touched, values}) => (
         <Form className='w-full flex flex-col flex-1 gap-4'>
           <InfoTable>
             <InfoRow name='Name' onlyAdmin={false}>
@@ -111,7 +111,7 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
             ) : null}
 
             <InfoRow name='Price' onlyAdmin={false}>
-              <p className='mr-auto'>{dataKey.currentPrice} rub / 30 days</p>
+              <p className='mr-auto'>{dataKey.currentPrice} ⭐️ Stars / 30 days</p>
             </InfoRow>
           </InfoTable>
           <label>
@@ -125,7 +125,7 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
             <div>
               <p className='text-base font-thin'>
                 {`Next payment: ${date.format(
-                  date.addDays(new Date(), Number(values.tariff.days)),
+                  date.addDays(getFutureDate(dataKey.nextPayment, new Date()), Number(values.tariff.days)),
                   'D MMMM YYYY'
                 )}`}
               </p>
@@ -151,8 +151,8 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
                         30) *
                         Number(values.tariff.discountPercentage)) /
                         100
-                    ).toFixed(2)}
-                    {` rub`}
+                    ).toFixed(0)}
+                    {` ⭐️ Stars`}
                   </span>
                 </p>
               ) : (
@@ -163,8 +163,8 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
                       (Number(dataKey.currentPrice) *
                         Number(values.tariff.days)) /
                       30
-                    ).toFixed(2)}
-                    {` rub`}
+                    ).toFixed(0)}
+                    {` ⭐️ Stars`}
                   </span>
                 </p>
               )}
@@ -187,5 +187,15 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
     </Formik>
   );
 };
+
+function getFutureDate (...date : (Date|undefined)[]): Date {
+  let arrDate = date.filter((el) => !!el);
+
+  arrDate.sort((a, b) => {
+    return new Date(a) > new Date(b) ? -1 : 1;
+  });
+
+  return new Date(arrDate[0]);
+}
 
 export default PaymentForm;
