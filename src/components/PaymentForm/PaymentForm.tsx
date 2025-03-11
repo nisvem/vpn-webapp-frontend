@@ -188,14 +188,12 @@ const PaymentForm = ({ dataKey }: { dataKey: Key }) => {
   );
 };
 
-function getFutureDate (...date : (Date|undefined)[]): Date {
-  let arrDate = date.filter((el) => !!el);
+function getFutureDate(...date: (Date | undefined)[]): Date {
+  let arrDate = date.filter((el): el is Date => el !== undefined);
 
-  arrDate.sort((a, b) => {
-    return new Date(a) > new Date(b) ? -1 : 1;
-  });
+  arrDate.sort((a, b) => (a.getTime() > b.getTime() ? -1 : 1));
 
-  return new Date(arrDate[0]);
+  return arrDate.length > 0 ? new Date(arrDate[0]) : new Date();
 }
 
 export default PaymentForm;
